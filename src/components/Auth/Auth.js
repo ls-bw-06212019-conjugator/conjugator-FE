@@ -26,7 +26,7 @@ export const Auth = connect(
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
-  if (props.authError !== error) {
+  if (props.authError && props.authError !== error) {
     setError(props.authError);
   }
 
@@ -34,14 +34,12 @@ export const Auth = connect(
     props.history.push('/');
   }
 
-  console.log('render called');
-
   const submit = e => {
     e.preventDefault();
+
     // If signing up, check if passwords match
     if (isSignup) {
       if (password !== confirmPassword) {
-        console.log('mismatch!');
         setError("Passwords do not match!");
       } else props.signup(username, password);
     } else {
@@ -83,8 +81,8 @@ export const Auth = connect(
           />
         </div>
       )}
-
-      {error && <Alert color="danger">{error}</Alert>}
+      {console.log(error)}
+      {error.length > 0 && <Alert color="danger">{error}</Alert>}
 
       <Button action="submit" color="primary" disabled={props.loggingIn}>
         {isSignup ? "SIGN UP" : "LOG IN"}

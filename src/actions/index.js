@@ -19,10 +19,12 @@ export const login = (username, password) => dispatch => {
     username, password
   })
   .then ( res => {
-    console.log(res.data);
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: res.data
+      payload: {
+        token: res.data.token,
+        username: username
+      }
     })
   })
   .catch ( err => {
@@ -42,14 +44,15 @@ export const signup = (username, password) => dispatch => {
     password
   })
   .then (res => {
-    console.log(res.data);
     dispatch({
       type: SIGNUP_SUCCESS,
-      payload: res.data
+      payload: {
+        token: res.data.token,
+        username: username
+      }
     })
   })
   .catch(err => {
-    console.log(err.response);
     dispatch({
       type: SIGNUP_FAILURE,
       payload: err.response.data.message
