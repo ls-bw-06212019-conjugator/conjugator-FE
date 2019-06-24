@@ -4,12 +4,15 @@ import { Navbar } from './components/Navbar/Navbar';
 
 import { Route } from 'react-router-dom';
 
-import { Auth } from './components';
+import { Auth, Conjugator, Dashboard, Settings } from './components';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
+      <Route exact path='/' component={Conjugator} />
+      <Route path='/dashboard' component={Dashboard} />
+      <Route path='/settings' component={Settings} />
       <Route path='/auth' component={Auth} />
       //More routes to come
     </div>
