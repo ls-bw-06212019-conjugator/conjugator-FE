@@ -1,0 +1,34 @@
+.auth {
+  width: 420px;
+  padding: 16px;
+  border: 1px solid #2D2D2D;
+  border-radius: 8px;
+  box-shadow: 0 0 6px -2px gray;
+  margin: auto;
+  transform: translateY(50%);
+  display: flex;
+  flex-direction: column;
+
+  align-content: flex-start;
+
+  .field {
+    display: flex;
+    flex-direction: column;
+
+    margin: 5px 0;
+
+    label {
+      padding: 0 10px;
+      user-select: none;
+      width: 100%;
+    }
+    input {
+      border-radius: 5px;
+      border: 1px solid #2D2D2D;
+      width: 100%;
+
+      padding: 6px;
+      outline: none;
+    }
+  }
+}

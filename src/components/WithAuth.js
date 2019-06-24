@@ -7,7 +7,7 @@ export const withAuth = component => props => {
     if(localStorage.getItem('token')) {
       return props.component;
     } else {
-      props.history.push('/login');
+      props.history.push('/auth');
     }
   }
 }
