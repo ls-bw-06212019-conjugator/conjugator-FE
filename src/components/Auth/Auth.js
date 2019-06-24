@@ -2,9 +2,18 @@ import React, { useState } from "react";
 
 import { Button, Alert } from "reactstrap";
 
+import { connect } from 'react-redux';
+
 import './Auth.scss';
 
-export const Auth = props => {
+import { login } from '../../actions';
+
+const mapAuth = state => ({
+  loggingIn: state.loggingIn,
+  authError: state.authError
+});
+
+export const Auth = connect(mapAuth, { login })(props => {
   // Call setIsSignup(bool) to set whether or not
   // we are signing up or logging in in state
   const [isSignup, setIsSignup] = useState(false);
@@ -13,12 +22,19 @@ export const Auth = props => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
-  const submit = () => {
+  if(props.authError !== error){
+    setError(props.authError);
+  }
+
+  const submit = e => {
+    e.preventDefault();
     // If signing up, check if passwords match
     if (isSignup && password !== confirmPassword) {
       setError("Passwords do not match!");
       return;
     }
+
+    props.login(username, password);
   };
 
   return (
@@ -58,7 +74,7 @@ export const Auth = props => {
 
       {error && <Alert color="danger">{error}</Alert>}
 
-      <Button action="submit" color="primary">
+      <Button action="submit" color='primary' disabled={props.loggingIn}>
         {isSignup ? "SIGN UP" : "LOG IN"}
       </Button>
       { isSignup ? (
@@ -69,4 +85,4 @@ export const Auth = props => {
       }
     </form>
   );
-};
+});
