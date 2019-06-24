@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Conjugator.scss';
+import './Stats.scss';
 
 export const Stats = props => {
   return (

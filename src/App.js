@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
 
+import { Route } from 'react-router-dom';
+
+import { Auth } from './components';
+
 function App() {
   return (
     <div className="App">
-      Test Text
+      <Route path='/auth' component={Auth} />
     </div>
   );
 }
