@@ -13,7 +13,15 @@ const mapConjugator = state => {
 export const Conjugator = connect(mapConjugator, { /** Import actions involving getting new words */ })(props => {
   return (
     <div className='conjugator'>
-      Actual conjugator part goes here
+      <h4>Tense</h4>
+      <h2>Pronoun _______ (verb)</h2><p>verb in english</p>
+      <form>
+          <span><b>Pronoun</b></span>
+          <input type="text" placeholder="type answer here" />
+          <button>Submit</button>
+      </form>
+      <div>scores</div>
+      <div>Instructions/keyboard shortcuts/help</div>
     </div>
   )
 })
