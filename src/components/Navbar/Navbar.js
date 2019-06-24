@@ -8,11 +8,12 @@ export const Navbar = props => {
     <div className='navbar'>
       <h1>Conjugator</h1>
       <nav>
-        <NavLink class="navlink" exact to="/">Practice</NavLink>
-        <NavLink class="navlink" to="/dashboard">Dashboard</NavLink>
-        <NavLink class="navlink" to="/settings">Settings</NavLink>
-        <NavLink class="navlink" to="/auth">Login/Sign Up</NavLink>
+        <NavLink className="navlink" exact to="/">Practice</NavLink>
+        <NavLink className="navlink" to="/dashboard">Dashboard</NavLink>
+        <NavLink className="navlink" to="/settings">Settings</NavLink>
+        <NavLink className="navlink" to="/auth">Login/Sign Up</NavLink>
       </nav>
+      <div className="menu">Hamburger Menu</div>
     </div>
   )
 }
