@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Stats } from '../Stats/Stats';
 
 import './Dashboard.scss';
 
@@ -11,6 +12,7 @@ export const Dashboard = connect()(props => {
   return (
     <div className='dashboard'>
       This is the dashboard!
+      <Stats />
     </div>
   )
 });
