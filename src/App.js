@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <Navbar />
       <Route path='/auth' component={Auth} />
-      //More routes to come
+      {/* More routes to come */}
     </div>
   );
 }
