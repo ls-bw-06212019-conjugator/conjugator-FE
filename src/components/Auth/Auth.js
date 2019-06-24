@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 import "./Auth.scss";
 
-import { login, signup } from "../../actions";
+import { login, signup, setAuthError } from "../../actions";
 
 const mapAuth = state => ({
   token: state.token,
@@ -16,7 +16,7 @@ const mapAuth = state => ({
 
 export const Auth = connect(
   mapAuth,
-  { login, signup }
+  { login, signup, setAuthError }
 )(props => {
   // Call setIsSignup(bool) to set whether or not
   // we are signing up or logging in in state
@@ -24,11 +24,6 @@ export const Auth = connect(
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
-
-  if (props.authError && props.authError !== error) {
-    setError(props.authError);
-  }
 
   if(props.token){
     props.history.push('/');
@@ -40,7 +35,7 @@ export const Auth = connect(
     // If signing up, check if passwords match
     if (isSignup) {
       if (password !== confirmPassword) {
-        setError("Passwords do not match!");
+        props.setAuthError("Passwords do not match!");
       } else props.signup(username, password);
     } else {
       props.login(username, password);
@@ -81,8 +76,7 @@ export const Auth = connect(
           />
         </div>
       )}
-      {console.log(error)}
-      {error.length > 0 && <Alert color="danger">{error}</Alert>}
+      {props.authError.length > 0 && <Alert color="danger">{props.authError}</Alert>}
 
       <Button action="submit" color="primary" disabled={props.loggingIn}>
         {isSignup ? "SIGN UP" : "LOG IN"}

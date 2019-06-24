@@ -10,6 +10,7 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const SIGNUP_START = 'SIGNUP_START';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
+export const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
 
 export const login = (username, password) => dispatch => {
   dispatch({
@@ -58,4 +59,12 @@ export const signup = (username, password) => dispatch => {
       payload: err.response.data.message
     })
   });
+}
+
+export const setAuthError = error => dispatch => {
+  dispatch({
+    type: SET_AUTH_ERROR,
+    payload: error
+  })
+  return true;
 }
