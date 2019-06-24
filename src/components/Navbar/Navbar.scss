@@ -1,10 +1,25 @@
 .navbar {
-    // color: #63BAFF
     color: #63BAFF;
+    // color: $blue;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    .navlink {
+    a {
         margin: 0 1rem;
+        text-decoration: none;
+        // &:hover {
+        //     transform: scale(1.15);
+        // }
+    }
+    .menu {
+        display: none;
+    }
+    @media (max-width: 500px) {
+        .menu {
+            display: block;
+        }
+        a {
+            display: none;
+        }
     }
 }
