@@ -26,7 +26,7 @@ export const Auth = connect(
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
-  if (props.authError) {
+  if (props.authError && props.authError !== error) {
     setError(props.authError);
   }
 
