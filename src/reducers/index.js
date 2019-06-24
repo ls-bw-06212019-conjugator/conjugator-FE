@@ -10,25 +10,26 @@ const reducer = (state = initialState, action) => {
   switch(action.type){
     case actions.LOGIN_START:
       return {
-        ... state,
+        ...state,
         loggingIn: true,
         authError: ''
       }
     case actions.LOGIN_SUCCESS:
       return {
-        ... state,
+        ...state,
         loggingIn: false,
-        token: action.payload
+        token: action.payload.token,
+        username: action.payload.username
       }
     case actions.LOGIN_FAILURE:
       return {
-        ... state,
+        ...state,
         loggingIn: false,
         authError: action.payload
       }
     case actions.SIGNUP_START:
       return {
-        ... state,
+        ...state,
         loggingIn: true,
         authError: ''
       }
@@ -37,7 +38,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loggingIn: false,
-        token: action.payload
+        token: action.payload.token,
+        username: action.payload.username
       }
     case actions.SIGNUP_FAILURE:
       return {

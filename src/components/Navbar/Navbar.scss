@@ -9,7 +9,30 @@
         text-decoration: none;
         cursor: pointer;
         user-select: none;
+        border-radius: 6px;
+
+        color: #63BAFF;
+
+        transition: background 0.2s;
+        padding: 10px;
     }
+
+    a:hover {
+        text-decoration: none;
+        color: #63BAFF;
+    }
+
+    .navlink:hover {
+        text-decoration: none;
+        background: rgb(181, 199, 214);
+        color: white;
+    }
+
+    .navlink.active {
+        background: #63BAFF;
+        color: white;
+    }
+
     .menu {
         display: none;
     }
@@ -17,7 +40,7 @@
         .menu {
             display: block;
         }
-        .navlink {
+        .a {
             display: none;
         }
     }
