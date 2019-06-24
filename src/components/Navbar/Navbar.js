@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 
 import './Navbar.scss';
 
-export const Navbar = props => {
+export const Navbar = () => {
   return (
     <div className='navbar'>
-      <h1>Conjugator</h1>
+      <NavLink to="/"><h1>Conjugator</h1></NavLink>
       <nav>
         <NavLink className="navlink" exact to="/">Practice</NavLink>
         <NavLink className="navlink" to="/dashboard">Dashboard</NavLink>
