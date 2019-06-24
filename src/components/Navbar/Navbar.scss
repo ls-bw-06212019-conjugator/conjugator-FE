@@ -1,5 +1,5 @@
 .navbar {
-    color: #63BAFF;
+    color: #63BAFF!important;
     // color: $blue;
     display: flex;
     justify-content: space-evenly;
@@ -7,18 +7,17 @@
     a {
         margin: 0 1rem;
         text-decoration: none;
-        // &:hover {
-        //     transform: scale(1.15);
-        // }
+        cursor: pointer;
+        user-select: none;
     }
     .menu {
         display: none;
     }
-    @media (max-width: 500px) {
+    @media (max-width: 670px) {
         .menu {
             display: block;
         }
-        a {
+        .navlink {
             display: none;
         }
     }
