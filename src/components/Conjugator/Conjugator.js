@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { Stats } from '../Stats/Stats';
 import './Conjugator.scss';
 
 const mapConjugator = state => {
@@ -20,8 +20,8 @@ export const Conjugator = connect(mapConjugator, { /** Import actions involving 
           <input type="text" placeholder="type answer here" />
           <button>Submit</button>
       </form>
-      <div>scores</div>
-      <div>Instructions/keyboard shortcuts/help</div>
+      <Stats />
+      <div className="help">Instructions/keyboard shortcuts/help</div>
     </div>
   )
 })
