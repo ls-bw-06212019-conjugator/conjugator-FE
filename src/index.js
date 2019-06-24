@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import "./index.scss";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { createStore } from "redux";
 import { Provider } from "react-redux";
@@ -17,6 +17,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <App />
+      <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet" />
     </Router>
   </Provider>,
   document.getElementById("root")
