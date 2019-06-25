@@ -4,7 +4,11 @@ const initialState = {
   token: localStorage.getItem("token"),
   username: localStorage.getItem("username"),
   loggingIn: false,
-  authError: ""
+  authError: "",
+  getWordError: "",
+  gettingWord: false,
+  word: "",
+  tense: ""
 };
 
 const reducer = (state = initialState, action) => {
@@ -66,6 +70,20 @@ const reducer = (state = initialState, action) => {
         ...state,
         authError: action.payload
       };
+    case actions.GETWORD_START:
+      return {
+        ...state,
+        getWordError: "",
+        gettingWord: true,
+      }
+    case actions.GETWORD_SUCCESS:
+      return {
+        ...state,
+        gettingWord: false,
+        word: action.payload.word,
+        tense: action.payload.tense
+      }
+    case actions.GETWORD_FAILURE:
     default:
       return state;
   }

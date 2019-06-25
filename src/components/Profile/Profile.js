@@ -20,6 +20,9 @@ export const Profile = withAuth(connect(mapProfile, { logout })(props => {
   }
 
   return (
-    <Button color='danger' onClick={logout}>Log Out</Button>
+    <div>
+      <Button color='danger' onClick={logout}>Log Out</Button>
+      Profile here!
+    </div>
   )
 }));

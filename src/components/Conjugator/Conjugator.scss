@@ -100,7 +100,9 @@
 
         img {
             width: 100%;
-            max-width: 640px;
+            max-width: 800px;
+            height: auto;
+            max-height: 450px;
             margin: 3rem;
         }
     }
