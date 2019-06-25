@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button , Spinner } from "reactstrap";
+import { Alert, Button , Spinner } from "reactstrap";
 import { desktopHelp } from "../../img/desktop-accent-instructions.jpg";
 import { mobileHelp } from "../../img/mobile-accent-instructions.png";
 import { getWord } from '../../actions';
@@ -146,7 +146,9 @@ export const Conjugator = connect(
             />
             <button action="submit">Submit</button>
           </form>
+
           <Button color="link" className="skip" onClick={this.props.getWord}>Skip this Word</Button>
+          <Alert color="danger" className={this.state.isWrong ? "alert-wrong" : "alert-hidden"}>Incorrect Answer!</Alert>
 
           <div className="bottom-sections">
             {/* <Stats /> */}

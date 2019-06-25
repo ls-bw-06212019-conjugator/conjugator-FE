@@ -90,6 +90,9 @@
             }
         }
     }
+    .alert-hidden {
+        visibility: hidden;
+    }
     .skip {
         color: #686868;
         text-decoration: underline;
@@ -102,7 +105,7 @@
     .bottom-sections {
         width: 100%;
         border-top: 1px solid black;
-        margin-top: 1.5rem;
+        margin-top: 1rem;
         padding-top: 1rem;
         text-align: center;
 
