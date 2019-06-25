@@ -6,3 +6,4 @@ export { Auth } from './Auth/Auth';
 export { Dashboard } from './Dashboard/Dashboard';
 export { Settings } from './Settings/Settings';
 export { Form } from './Form/Form';
+export { Profile } from './Profile/Profile';
