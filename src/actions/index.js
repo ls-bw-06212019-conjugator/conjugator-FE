@@ -17,6 +17,9 @@ export const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
 export const GETWORD_START = 'GETWORD_START';
 export const GETWORD_SUCCESS = 'GETWORD_SUCCESS';
 export const GETWORD_FAILURE = 'GETWORD_FAILURE';
+export const CHECKWORD_START = 'CHECKWORD_START';
+export const CHECKWORD_SUCCESS = 'CHECKWORD_SUCCESS';
+export const CHECKWORD_FAILURE = 'CHECKWORD_FAILURE';
 
 export const login = (username, password) => dispatch => {
   dispatch({
@@ -103,4 +106,16 @@ export const getWord = () => dispatch => {
         type: GETWORD_FAILURE,
       })
     })
+}
+
+export const checkWord = correct => dispatch => {
+  dispatch({
+    type: CHECKWORD_START
+  })
+  return axios
+    .post(WORD_ENDPOINT, {
+
+    })
+    .then()
+    .catch()
 }
