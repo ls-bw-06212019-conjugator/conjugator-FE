@@ -65,6 +65,9 @@
         input:focus {
             border: 1px solid #05FFB8;
         }
+        input.wrong {
+            border: 1px solid crimson;
+        }
 
         button {
             background-color: #05FFB8;
