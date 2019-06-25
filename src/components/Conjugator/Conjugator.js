@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Alert } from "reactstrap";
+import { Alert, Spinner } from "reactstrap";
 import { desktopHelp } from "../../img/desktop-accent-instructions.jpg";
 import { mobileHelp } from "../../img/mobile-accent-instructions.png";
 import { getWord } from '../../actions';
@@ -13,7 +13,9 @@ const mapConjugator = state => {
     word: state.word.infinitive,
     tense: state.word.tense,
     wordInEnglish: state.word.infinitive_english,
-    pronoun: state.word.form
+    pronoun: state.word.form,
+    gettingWord: state.gettingWord,
+    answer: state.word.answer
   };
 };
 
@@ -26,10 +28,16 @@ export const Conjugator = connect(
       super(props);
       this.state = {
         isDesktop: false,
-        wordInput: ""
+        wordInput: "",
+        isWrong: false
       };
 
       this.updatePredicate = this.updatePredicate.bind(this);
+    }
+
+    componentWillMount() {
+      
+      this.props.getWord();
     }
     componentDidMount() {
       this.updatePredicate();
@@ -45,10 +53,13 @@ export const Conjugator = connect(
     }
 
     handleUpdateWord = async event => {
+      this.state.isWrong && this.setState({
+        isWrong: false
+      })
       console.log(event.target.value);
       let value = Array.from(event.target.value);
       console.log(value);
-      const regex = /^$|[a-zñáéíóúü]+$/i;
+      const regex = /^$|[ a-zñáéíóúü]+$/i;
       console.log(value.findIndex(el => el === '`'));
       if (value.findIndex(el => el === '`') !== -1 || value.findIndex(el => el === `'`) !== -1 || value.findIndex(el => el === '~') !== -1) {
         console.log(value);
@@ -63,7 +74,6 @@ export const Conjugator = connect(
         value.splice(index, 1);
 
         const character = value[index - 1];
-        const allowedChars = ["a", "e", "i", "o", "u"];
 
         switch (character) {
           case 'a':
@@ -101,19 +111,17 @@ export const Conjugator = connect(
       
     };
 
-    testWord = () => {
-        if(this.state.wordInput === this.props.word.answer) {
-          // return success alert
-          // clear fields
-          // get new word/tense
-        }
-        // else if(word matches but without accents) {
-          // return warning alert
-          // clear fields
-          // get new word/tense
-        // }
-        else {
-          // return danger alert
+    testWord = e => {
+      e.preventDefault(); 
+      if(this.state.wordInput === this.props.answer) {
+          this.props.getWord()
+          this.setState({
+            wordInput: ""
+          })
+        } else {
+          this.setState({
+            isWrong: true
+          })
         }
     }
 
@@ -121,15 +129,19 @@ export const Conjugator = connect(
       return (
         <div className="conjugator">
           <h4 className="tense">{this.props.tense}</h4>
-          <div className="verb-container">
-            <h2>{`${this.props.pronoun} _______ ${this.props.word}`}</h2>
-            <p>{this.props.wordInEnglish}</p>
-          </div>
+          {this.props.gettingWord ? 
+            <Spinner color="info" /> :
+            <div className="verb-container">
+              <h2>{`${this.props.pronoun} _______ (${this.props.word})`}</h2>
+              <p>{this.props.wordInEnglish}</p>
+            </div> 
+          }
           <form onSubmit={this.testWord}>
             <span>
               <b>{this.props.pronoun} </b>
             </span>
             <input
+              className={this.state.isWrong ? "wrong" : null}
               value={this.state.wordInput}
               onChange={this.handleUpdateWord}
               maxLength={20}
@@ -138,15 +150,6 @@ export const Conjugator = connect(
             />
             <button action="submit">Submit</button>
           </form>
-          <button onClick={e =>this.props.getWord(e)}>getWord test</button>
-
-          {/* if success */}
-          <Alert color="success">Nice Job!</Alert>
-          {/* if correct with accent missing */}
-          {/* <Alert color="warning">Don't forget the accent! (answer with accent)</Alert> */}
-          {/* if wrong */}
-          {/* <Alert color="danger">Try again!</Alert> */}
-
 
           <div className="bottom-sections">
             {/* <Stats /> */}
