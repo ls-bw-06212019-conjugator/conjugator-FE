@@ -38,6 +38,12 @@ export const login = (username, password) => dispatch => {
     })
   })
   .catch ( err => {
+    let error = '';
+    if(err.response.status >= 500) {
+      error = err.response.statusText;
+    } else {
+      error = err.response.data.message;
+    }
     dispatch ({
       type: LOGIN_FAILURE,
       payload: err.response.data.message
@@ -63,6 +69,12 @@ export const signup = (username, password) => dispatch => {
     })
   })
   .catch(err => {
+    let error = '';
+    if(err.response.status >= 500) {
+      error = err.response.statusText;
+    } else {
+      error = err.response.data.message;
+    }
     dispatch({
       type: SIGNUP_FAILURE,
       payload: err.response.data.message
