@@ -4,7 +4,7 @@ import { Navbar } from './components/Navbar/Navbar';
 
 import { Route } from 'react-router-dom';
 
-import { Auth, Conjugator, Dashboard, Settings } from './components';
+import { Auth, Conjugator, Dashboard, Settings, Profile } from './components';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       <Route path='/dashboard' component={Dashboard} />
       <Route path='/settings' component={Settings} />
       <Route path='/auth' component={Auth} />
-      {/* More routes to come */}
+      <Route path='/profile' component={Profile} />
     </div>
   );
 }

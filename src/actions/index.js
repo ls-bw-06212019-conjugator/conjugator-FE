@@ -7,6 +7,7 @@ const REGISTRATION_ENDPOINT = 'http://localhost:3000/api/register';
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT = 'LOGOUT';
 export const SIGNUP_START = 'SIGNUP_START';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
@@ -67,4 +68,10 @@ export const setAuthError = error => dispatch => {
     payload: error
   })
   return true;
+}
+
+export const logout = () => dispatch => {
+  dispatch({
+    type: LOGOUT
+  })
 }

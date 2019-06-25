@@ -30,6 +30,16 @@ const reducer = (state = initialState, action) => {
         loggingIn: false,
         authError: action.payload
       };
+    case actions.LOGOUT:
+      localStorage.setItem('token', '');
+      localStorage.setItem('username', '');
+      return {
+        ...state,
+        loggingIn: false,
+        authError: '',
+        token: '',
+        username: ''
+      }
     case actions.SIGNUP_START:
       return {
         ...state,
