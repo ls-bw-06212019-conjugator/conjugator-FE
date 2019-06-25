@@ -90,6 +90,15 @@
             }
         }
     }
+    .skip {
+        color: #686868;
+        text-decoration: underline;
+        transition: transform 0.15s;
+        &:hover {
+            transform: scale(1.15);
+            color: #63BAFF;
+        }
+    }
     .bottom-sections {
         width: 100%;
         border-top: 1px solid black;
@@ -104,7 +113,6 @@
         img {
             width: 100%;
             max-width: 800px;
-            height: auto;
             max-height: 450px;
             margin: 3rem;
         }

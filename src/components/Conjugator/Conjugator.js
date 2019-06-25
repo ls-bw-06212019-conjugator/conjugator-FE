@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Alert, Spinner } from "reactstrap";
+import { Button , Spinner } from "reactstrap";
 import { desktopHelp } from "../../img/desktop-accent-instructions.jpg";
 import { mobileHelp } from "../../img/mobile-accent-instructions.png";
 import { getWord } from '../../actions';
@@ -56,13 +56,9 @@ export const Conjugator = connect(
       this.state.isWrong && this.setState({
         isWrong: false
       })
-      console.log(event.target.value);
       let value = Array.from(event.target.value);
-      console.log(value);
       const regex = /^$|[ a-zñáéíóúü]+$/i;
-      console.log(value.findIndex(el => el === '`'));
       if (value.findIndex(el => el === '`') !== -1 || value.findIndex(el => el === `'`) !== -1 || value.findIndex(el => el === '~') !== -1) {
-        console.log(value);
         let index = value.findIndex(el => el === '`');
         if (index === -1){
           index = value.findIndex(el => el === `'`);
@@ -150,10 +146,12 @@ export const Conjugator = connect(
             />
             <button action="submit">Submit</button>
           </form>
+          <Button color="link" className="skip" onClick={this.props.getWord}>Skip this Word</Button>
 
           <div className="bottom-sections">
             {/* <Stats /> */}
-            {console.log(desktopHelp)}
+            <p>Temporary pronoun instructions:</p> 
+            <p>number is which person, i.e. 1 = 1st person, 2 = second person, 3 = 3rd person. S = singular, P = plural</p>
             <img
               src={
                 this.state.isDesktop
