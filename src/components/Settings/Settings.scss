@@ -1,0 +1,14 @@
+.settings-container {
+    margin: auto;
+    max-width: 50%;
+    border: 1px dashed red;
+    display: flex;
+    flex-direction: column;
+    .tenses {
+        display: grid;
+        grid-template-columns: repeat(3, 33%);
+        @media (max-width: 790px) {
+            grid-template-columns: repeat(2, 50%);
+        }
+    }
+}
