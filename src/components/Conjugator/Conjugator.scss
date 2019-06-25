@@ -1,3 +1,40 @@
 .conjugator {
-    margin: 0 auto;
+    max-width: 50%;
+    margin: 2rem auto;
+    padding: 1rem;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .verb-container {
+        display: flex;
+        align-items: baseline;
+        position: relative;
+        left: 2rem;
+        // border: 1px solid red;
+        p {
+            margin-left: 0.75rem;
+        }
+    }
+    form {
+        input {
+            padding: 0 0.25rem;
+            margin: 0.5rem;
+        }
+        button {
+            background-color: #05FFB8;
+            border-radius: 5px;
+            &:hover {
+                background-color: #03FF76;
+            }
+        }
+    }
+    .bottom-sections {
+        width: 100%;
+        border-top: 1px solid black;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        text-align: center;
+    }
+
 }

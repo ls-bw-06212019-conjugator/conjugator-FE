@@ -14,14 +14,19 @@ export const Conjugator = connect(mapConjugator, { /** Import actions involving 
   return (
     <div className='conjugator'>
       <h4>Tense</h4>
-      <h2>Pronoun _______ (verb)</h2><p>verb in english</p>
+      <div className="verb-container">
+        <h2>Pronoun _______ (verb)</h2>
+        <p>verb in english</p>
+      </div>
       <form>
-          <span><b>Pronoun</b></span>
-          <input type="text" placeholder="type answer here" />
+          <span><b>Pronoun </b></span>
+          <input type="text" placeholder=" type answer here" />
           <button>Submit</button>
       </form>
-      <Stats />
-      <div className="help">Instructions/keyboard shortcuts/help</div>
+      <div className="bottom-sections">
+        <Stats />
+        <div className="bottom-sections">Instructions/keyboard shortcuts/help</div>
+      </div>
     </div>
   )
 })
