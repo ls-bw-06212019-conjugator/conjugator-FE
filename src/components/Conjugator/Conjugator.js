@@ -11,7 +11,7 @@ import "./Conjugator.scss";
 const mapConjugator = state => {
   return {
     word: state.word,
-    tense: state.tense
+    tense: state.word.tense
   };
 };
 
@@ -136,6 +136,7 @@ export const Conjugator = connect(
             />
             <button>Submit</button>
           </form>
+          <button onClick={e =>this.props.getWord(e)}>getWord test</button>
 
           {/* if success */}
           <Alert color="success">Nice Job!</Alert>

@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const LOGIN_ENDPOINT = 'http://localhost:3000/api/login';
-const REGISTRATION_ENDPOINT = 'http://localhost:3000/api/register';
-const WORD_ENDPOINT = 'http://localhost:3000/api/words';
+const LOGIN_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/login';
+const REGISTRATION_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/register';
+const WORD_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/words';
 
 
 // ACTIONS WILL GO HERE
@@ -108,7 +108,7 @@ export const getWord = () => dispatch => {
     })
 }
 
-export const checkWord = correct => dispatch => {
+export const updateStats = correct => dispatch => {
   dispatch({
     type: CHECKWORD_START
   })
