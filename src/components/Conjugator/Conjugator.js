@@ -1,5 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
+import { desktopHelp } from '../../img/desktop-accent-instructions.jpg';
+import { mobileHelp } from '../../img/mobile-accent-instructions.png';
+
 import { Stats } from '../Stats/Stats';
 import './Conjugator.scss';
 
@@ -10,10 +14,33 @@ const mapConjugator = state => {
   });
 }
 
-export const Conjugator = connect(mapConjugator, { /** Import actions involving getting new words */ })(props => {
+export const Conjugator = connect(mapConjugator, { desktopHelp, mobileHelp })(class extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isDesktop: false
+    };
+
+    this.updatePredicate = this.updatePredicate.bind(this);
+  }
+  componentDidMount() {
+    this.updatePredicate();
+    window.addEventListener("resize", this.updatePredicate);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updatePredicate);
+  }
+
+  updatePredicate() {
+    this.setState({ isDesktop: window.innerWidth > 700 });
+  }
+
+  render (){
   return (
     <div className='conjugator'>
-      <h4>Tense</h4>
+      <h4 className='tense'>Tense</h4>
       <div className="verb-container">
         <h2>Pronoun _______ (verb)</h2>
         <p>verb in english</p>
@@ -25,8 +52,10 @@ export const Conjugator = connect(mapConjugator, { /** Import actions involving 
       </form>
       <div className="bottom-sections">
         <Stats />
-        <div className="bottom-sections">Instructions/keyboard shortcuts/help</div>
+        {console.log(desktopHelp)}
+        <img src={this.state.isDesktop ? require('../../img/desktop-accent-instructions.jpg') : require('../../img/mobile-accent-instructions.png')} alt='Accented character input help' className='help-img' />
       </div>
     </div>
   )
+  }
 })
