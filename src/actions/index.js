@@ -4,7 +4,6 @@ const LOGIN_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/login';
 const REGISTRATION_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/register';
 const WORD_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/words';
 
-
 // ACTIONS WILL GO HERE
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -46,7 +45,7 @@ export const login = (username, password) => dispatch => {
     }
     dispatch ({
       type: LOGIN_FAILURE,
-      payload: err.response.data.message
+      payload: error
     }) 
   })
 }
@@ -77,7 +76,7 @@ export const signup = (username, password) => dispatch => {
     }
     dispatch({
       type: SIGNUP_FAILURE,
-      payload: err.response.data.message
+      payload: error
     })
   });
 }
