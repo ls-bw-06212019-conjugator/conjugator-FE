@@ -7,8 +7,7 @@ const initialState = {
   authError: "",
   getWordError: "",
   gettingWord: false,
-  word: "",
-  tense: ""
+  word: {}
 };
 
 const reducer = (state = initialState, action) => {
@@ -80,10 +79,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         gettingWord: false,
-        word: action.payload.word,
-        tense: action.payload.tense
+        word: action.payload
       }
     case actions.GETWORD_FAILURE:
+      return {
+        ...state,
+        gettingWord: false,
+        getWordError: action.payload
+      }
     default:
       return state;
   }

@@ -10,8 +10,10 @@ import "./Conjugator.scss";
 
 const mapConjugator = state => {
   return {
-    word: state.word,
-    tense: state.word.tense
+    word: state.word.infinitive,
+    tense: state.word.tense,
+    wordInEnglish: state.word.infinitive_english,
+    pronoun: state.word.form
   };
 };
 
@@ -99,8 +101,8 @@ export const Conjugator = connect(
       
     };
 
-    testWord = (wordInput) => {
-        if(wordInput === this.props.word) {
+    testWord = () => {
+        if(this.state.wordInput === this.props.word.answer) {
           // return success alert
           // clear fields
           // get new word/tense
@@ -118,14 +120,14 @@ export const Conjugator = connect(
     render() {
       return (
         <div className="conjugator">
-          <h4 className="tense">Tense</h4>
+          <h4 className="tense">{this.props.tense}</h4>
           <div className="verb-container">
-            <h2>Pronoun _______ (verb)</h2>
-            <p>verb in english</p>
+            <h2>{`${this.props.pronoun} _______ ${this.props.word}`}</h2>
+            <p>{this.props.wordInEnglish}</p>
           </div>
-          <form>
+          <form onSubmit={this.testWord}>
             <span>
-              <b>Pronoun </b>
+              <b>{this.props.pronoun} </b>
             </span>
             <input
               value={this.state.wordInput}
@@ -134,7 +136,7 @@ export const Conjugator = connect(
               type="text"
               placeholder=" type answer here"
             />
-            <button>Submit</button>
+            <button action="submit">Submit</button>
           </form>
           <button onClick={e =>this.props.getWord(e)}>getWord test</button>
 

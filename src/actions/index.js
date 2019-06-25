@@ -94,10 +94,7 @@ export const getWord = () => dispatch => {
       console.log(res)
       dispatch({
         type: GETWORD_SUCCESS,
-        // payload: {
-        //   word: ,
-        //   tense: 
-        // }      
+        payload: res.data     
       })
     })
     .catch(err => {
