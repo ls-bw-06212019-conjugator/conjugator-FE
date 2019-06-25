@@ -1,22 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import "./index.scss";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import { BrowserRouter } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.css';
 
-import { createStore } from "redux";
+import { BrowserRouter as Router } from "react-router-dom";
+
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
+import thunk from 'redux-thunk';
 
 import reducer from "./reducers";
 
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
       <App />
+      <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet" />
     </Router>
   </Provider>,
   document.getElementById("root")

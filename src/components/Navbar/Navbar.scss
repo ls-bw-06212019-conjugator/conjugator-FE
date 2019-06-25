@@ -1,0 +1,48 @@
+.navbar {
+    color: #63BAFF!important;
+    // color: $blue;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-bottom: 1px solid #63BAFF;
+    a {
+        margin: 0 1rem;
+        text-decoration: none;
+        cursor: pointer;
+        user-select: none;
+        border-radius: 6px;
+
+        color: #63BAFF;
+
+        transition: background 0.2s;
+        padding: 10px;
+    }
+
+    a:hover {
+        text-decoration: none;
+        color: #63BAFF;
+    }
+
+    .navlink:hover {
+        text-decoration: none;
+        background: rgb(181, 199, 214);
+        color: white;
+    }
+
+    .navlink.active {
+        background: #63BAFF;
+        color: white;
+    }
+
+    .menu {
+        display: none;
+    }
+    @media (max-width: 790px) {
+        .menu {
+            display: block;
+        }
+        .navlink {
+            display: none;
+        }
+    }
+}

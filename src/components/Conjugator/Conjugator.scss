@@ -1,0 +1,110 @@
+.conjugator {
+    width: 80%;
+    max-width: 1600px;
+    min-width: 400px;
+    margin: 2rem auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+
+    transition: width 0.3s;
+
+    @media (max-width: 1024px) {
+        width: 90%;
+    }
+
+    .tense {
+        color: #686868;
+    }
+
+    .verb-container {
+        display: flex;
+        align-items: baseline;
+        position: relative;
+        flex-wrap: nowrap;
+        word-wrap: 0;
+        margin: 20px 0;
+        font-size: 26px;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+
+        transition: font-size 0.3s;
+
+        @media (max-width: 740px) {
+            flex-direction: column;
+        }
+        // border: 1px solid red;
+        p {
+            margin-left: 0.75rem;
+            color: #686868;
+        }
+    }
+    form {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+
+        input {
+            padding: 6px;
+            font-size: 24px;
+            outline: none;
+            font-weight: bold;
+            margin: 0.5rem;
+            border: 1px solid #686868;
+            border-radius: 4px;
+
+            width: 360px;
+
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            border: 1px solid #05FFB8;
+        }
+
+        button {
+            background-color: #05FFB8;
+            border-radius: 5px;
+            border: none;
+            padding: 4px 8px;
+            color: white;
+            font-weight: bold;
+            position: absolute;
+            transform: translateX(168px);
+
+            transition: transform 0.3s;
+
+            &:hover {
+                background-color: #03FF76;
+            }
+
+            @media (max-width: 505px) {
+                transform: translateX(154px);
+            }
+        }
+    }
+    .bottom-sections {
+        width: 100%;
+        border-top: 1px solid black;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        text-align: center;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            max-height: 450px;
+            margin: 3rem;
+        }
+    }
+
+}
