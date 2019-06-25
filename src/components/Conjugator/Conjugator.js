@@ -42,46 +42,60 @@ export const Conjugator = connect(
     }
 
     handleUpdateWord = async event => {
-      let value = event.target.value;
+      console.log(event.target.value);
+      let value = Array.from(event.target.value);
+      console.log(value);
+      const regex = /^$|[a-zñáéíóúü]+$/i;
+      console.log(value.findIndex(el => el === '`'));
+      if (value.findIndex(el => el === '`') !== -1 || value.findIndex(el => el === `'`) !== -1 || value.findIndex(el => el === '~') !== -1) {
+        console.log(value);
+        let index = value.findIndex(el => el === '`');
+        if (index === -1){
+          index = value.findIndex(el => el === `'`);
+        }
+        if(index === -1){
+          index = value.findIndex(el => el === '~');
+        }
 
-      const regex = /[^a-zñáéíóúü]/i;
+        value.splice(index, 1);
 
-      if (value.includes("`") || value.includes(`'`) || value.includes('~')) {
-        value = Array.from(value);
-
-        value.pop();
-
-        const character = value[value.length - 1];
+        const character = value[index - 1];
         const allowedChars = ["a", "e", "i", "o", "u"];
 
         switch (character) {
           case 'a':
-            value[value.length - 1] = 'á';
+            value[index - 1] = 'á';
             break;
           case 'e':
-            value[value.length - 1] = 'é';
+            value[index - 1] = 'é';
             break;
           case 'i':
-            value[value.length - 1] = 'í';
+            value[index - 1] = 'í';
             break;
           case 'o':
-            value[value.length - 1] = 'ó';
+            value[index - 1] = 'ó';
             break;
           case 'u':
-            value[value.length - 1] = 'ú';
+            value[index - 1] = 'ú';
             break;
           case 'n':
-            value[value.length - 1] = 'ñ';
+            value[index - 1] = 'ñ';
           default:
             break;
         }
 
-        value = value.join('');
+        
+      }
+      value = value.join('');
+      if (regex.test(value)) {
+        await this.setState({ wordInput: value });
+        
+      } else {
+        console.log('invalid char!');
+        return;
       }
 
-      if (regex.test(value)) return;
-
-      await this.setState({ wordInput: value });
+      
     };
 
     render() {
@@ -106,7 +120,7 @@ export const Conjugator = connect(
             <button>Submit</button>
           </form>
           <div className="bottom-sections">
-            <Stats />
+            {/* <Stats /> */}
             {console.log(desktopHelp)}
             <img
               src={
