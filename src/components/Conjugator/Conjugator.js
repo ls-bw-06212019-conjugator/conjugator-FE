@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-
+import { Alert } from "reactstrap";
 import { desktopHelp } from "../../img/desktop-accent-instructions.jpg";
 import { mobileHelp } from "../../img/mobile-accent-instructions.png";
+import { getWord } from '../../actions';
 
 import { Stats } from "../Stats/Stats";
 import "./Conjugator.scss";
@@ -10,13 +11,13 @@ import "./Conjugator.scss";
 const mapConjugator = state => {
   return {
     word: state.word,
-    tense: state.tense
+    tense: state.word.tense
   };
 };
 
 export const Conjugator = connect(
   mapConjugator,
-  { desktopHelp, mobileHelp }
+  { desktopHelp, mobileHelp, getWord }
 )(
   class extends React.Component {
     constructor(props) {
@@ -98,6 +99,22 @@ export const Conjugator = connect(
       
     };
 
+    testWord = (wordInput) => {
+        if(wordInput === this.props.word) {
+          // return success alert
+          // clear fields
+          // get new word/tense
+        }
+        // else if(word matches but without accents) {
+          // return warning alert
+          // clear fields
+          // get new word/tense
+        // }
+        else {
+          // return danger alert
+        }
+    }
+
     render() {
       return (
         <div className="conjugator">
@@ -119,6 +136,16 @@ export const Conjugator = connect(
             />
             <button>Submit</button>
           </form>
+          <button onClick={e =>this.props.getWord(e)}>getWord test</button>
+
+          {/* if success */}
+          <Alert color="success">Nice Job!</Alert>
+          {/* if correct with accent missing */}
+          {/* <Alert color="warning">Don't forget the accent! (answer with accent)</Alert> */}
+          {/* if wrong */}
+          {/* <Alert color="danger">Try again!</Alert> */}
+
+
           <div className="bottom-sections">
             {/* <Stats /> */}
             {console.log(desktopHelp)}
