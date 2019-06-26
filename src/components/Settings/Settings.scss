@@ -12,4 +12,10 @@
             grid-template-columns: repeat(2, 50%);
         }
     }
+    input {
+        margin-right: 0.25rem;
+    }
+    label, Button {
+        margin-right: 0.75rem;
+    }
 }
