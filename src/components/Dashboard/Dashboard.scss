@@ -6,10 +6,14 @@
     align-items: center;
     div {
         margin: 1rem;
+        // border: 1px dashed red;
+        border-radius: 8px;
     }
-    // .welcome {
-    //     margin: 1rem;
-    // }
+    .welcome {
+        margin-top: 2rem;
+        // border: 1px dashed blue;
+
+    }
     .graph {
         height: 25rem;
         width: 50rem;
