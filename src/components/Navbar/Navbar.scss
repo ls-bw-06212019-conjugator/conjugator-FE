@@ -5,6 +5,15 @@
     justify-content: space-evenly;
     align-items: center;
     border-bottom: 1px solid #63BAFF;
+    
+    h1{
+        transition: font-size 0.2s;
+
+        @media (max-width: 480px){
+            font-size: 30px;
+        }
+    }
+
     a {
         margin: 0 1rem;
         text-decoration: none;

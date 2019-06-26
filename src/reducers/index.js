@@ -7,7 +7,9 @@ const initialState = {
   authError: "",
   getWordError: "",
   gettingWord: false,
-  word: {}
+  word: {},
+  globalStats: localStorage.getItem('globalStats'),
+  personalStats: localStorage.getItem('personalStats')
 };
 
 const reducer = (state = initialState, action) => {
@@ -86,6 +88,25 @@ const reducer = (state = initialState, action) => {
         ...state,
         gettingWord: false,
         getWordError: action.payload
+      }
+    case actions.GETSTATS_START:
+      return {
+        ...state,
+        gettingStats: true,
+        globalStats: {},
+        personalStats: {}
+      }
+    case actions.GETSTATS_SUCCESS:
+      return {
+        ...state,
+        gettingStats: false,
+        globalStats: action.payload.global,
+        personalStats: action.payload.personal
+      }
+    case actions.GETSTATS_FAILURE:
+      return {
+        ...state,
+        gettingStats: false
       }
     default:
       return state;

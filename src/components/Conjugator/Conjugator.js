@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button , Spinner } from "reactstrap";
+import { Button, Spinner } from "reactstrap";
 import { desktopHelp } from "../../img/desktop-accent-instructions.jpg";
 import { mobileHelp } from "../../img/mobile-accent-instructions.png";
-import { getWord } from '../../actions';
+import { getWord } from "../../actions";
 
 import { Stats } from "../Stats/Stats";
 import "./Conjugator.scss";
@@ -36,7 +36,6 @@ export const Conjugator = connect(
     }
 
     componentWillMount() {
-      
       this.props.getWord();
     }
     componentDidMount() {
@@ -53,18 +52,23 @@ export const Conjugator = connect(
     }
 
     handleUpdateWord = async event => {
-      this.state.isWrong && this.setState({
-        isWrong: false
-      })
+      this.state.isWrong &&
+        this.setState({
+          isWrong: false
+        });
       let value = Array.from(event.target.value);
       const regex = /^$|[ a-zñáéíóúü]+$/i;
-      if (value.findIndex(el => el === '`') !== -1 || value.findIndex(el => el === `'`) !== -1 || value.findIndex(el => el === '~') !== -1) {
-        let index = value.findIndex(el => el === '`');
-        if (index === -1){
+      if (
+        value.findIndex(el => el === "`") !== -1 ||
+        value.findIndex(el => el === `'`) !== -1 ||
+        value.findIndex(el => el === "~") !== -1
+      ) {
+        let index = value.findIndex(el => el === "`");
+        if (index === -1) {
           index = value.findIndex(el => el === `'`);
         }
-        if(index === -1){
-          index = value.findIndex(el => el === '~');
+        if (index === -1) {
+          index = value.findIndex(el => el === "~");
         }
 
         value.splice(index, 1);
@@ -72,30 +76,30 @@ export const Conjugator = connect(
         const character = value[index - 1];
 
         switch (character) {
-          case 'a':
-            value[index - 1] = 'á';
+          case "a":
+            value[index - 1] = "á";
             break;
-          case 'e':
-            value[index - 1] = 'é';
+          case "e":
+            value[index - 1] = "é";
             break;
-          case 'i':
-            value[index - 1] = 'í';
+          case "i":
+            value[index - 1] = "í";
             break;
-          case 'o':
-            value[index - 1] = 'ó';
+          case "o":
+            value[index - 1] = "ó";
             break;
-          case 'u':
-            value[index - 1] = 'ú';
+          case "u":
+            value[index - 1] = "ú";
             break;
-          case 'n':
-            value[index - 1] = 'ñ';
+          case "n":
+            value[index - 1] = "ñ";
           default:
             break;
         }
       }
 
-      value = value.join('');
-      
+      value = value.join("");
+
       if (regex.test(value)) {
         await this.setState({ wordInput: value });
       } else {
@@ -104,30 +108,33 @@ export const Conjugator = connect(
     };
 
     testWord = e => {
-      e.preventDefault(); 
-      if(this.state.wordInput === this.props.answer) {
-          this.props.getWord()
-          this.setState({
-            wordInput: ""
-          })
-        } else {
-          this.setState({
-            isWrong: true
-          })
-        }
-    }
+      e.preventDefault();
+      if (this.state.wordInput === this.props.answer) {
+        this.props.getWord();
+        this.setState({
+          wordInput: ""
+        });
+      } else {
+        this.setState({
+          isWrong: true
+        });
+      }
+    };
 
     render() {
       return (
         <div className="conjugator">
-          <h4 className="tense">{this.props.tense}</h4>
-          {this.props.gettingWord ? 
-            <Spinner color="info" /> :
+          {this.props.gettingWord ? <div className='tense' /> : <h4 className="tense">{this.props.tense}</h4>}
+          {this.props.gettingWord ? (
+            <div className="verb-container">
+              <Spinner color="info" />
+            </div>
+          ) : (
             <div className="verb-container">
               <h2>{`${this.props.pronoun} _______ (${this.props.word})`}</h2>
               <p>{this.props.wordInEnglish}</p>
-            </div> 
-          }
+            </div>
+          )}
           <form onSubmit={this.testWord}>
             <span>
               <b>{this.props.pronoun} </b>
@@ -140,14 +147,19 @@ export const Conjugator = connect(
               type="text"
               placeholder=" type answer here"
             />
-            <button action="submit">Submit</button>
+            <button action="submit" className={this.state.isWrong ? 'wrong' : null}>Submit</button>
           </form>
-          <Button color="link" className="skip" onClick={this.props.getWord}>Skip this Word</Button>
+           <Button color="link" className="skip" onClick={this.props.getWord}>
+            Skip this Word
+          </Button>
 
           <div className="bottom-sections">
             <Stats />
-            <p>Temporary pronoun instructions:</p> 
-            <p>number is which person, i.e. 1 = 1st person, 2 = second person, 3 = 3rd person. S = singular, P = plural</p>
+            <p>Temporary pronoun instructions:</p>
+            <p>
+              number is which person, i.e. 1 = 1st person, 2 = second person, 3
+              = 3rd person. S = singular, P = plural
+            </p>
             <img
               src={
                 this.state.isDesktop
