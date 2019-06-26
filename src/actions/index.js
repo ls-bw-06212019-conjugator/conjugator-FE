@@ -20,6 +20,11 @@ export const GETWORD_FAILURE = 'GETWORD_FAILURE';
 export const GETSTATS_START = 'GETSTATS_START';
 export const GETSTATS_SUCCESS = 'GETSTATS_SUCCESS';
 export const GETSTATS_FAILURE = 'GETSTATS_FAILURE';
+export const RECORD_CORRECT = 'RECORD_CORRECT';
+export const RECORD_INCORRECT = 'RECORD_INCORRECT';
+export const QUEUE_RECORD_CORRECT = 'QUEUE_RECORD_CORRECT';
+export const QUEUE_RECORD_INCORRECT = 'QUEUE_RECORD_INCORRECT';
+export const CLEAR_QUEUE = 'CLEAR_QUEUE';
 
 export const login = (username, password) => dispatch => {
   dispatch({
@@ -117,12 +122,13 @@ export const getWord = () => dispatch => {
     })
 }
 
-export const getStats = () => dispatch => {
+export const getStats = token => dispatch => {
   dispatch({
     type: GETSTATS_START
   })
-  return axios
-    .get(STATS_ENDPOINT)
+  console.log(token);
+  return axios.create({ headers: {
+    token } }).get(STATS_ENDPOINT, { token: token })
     .then(res => {
       console.log(res.data);
       dispatch({
@@ -133,4 +139,59 @@ export const getStats = () => dispatch => {
     .catch(err => {
       console.log(err.response);
     })
+}
+
+export const recordCorrect = (word, token) => dispatch => {
+  dispatch({
+    type: RECORD_CORRECT
+  });
+
+  return axios.create({ headers: {
+    token } }).post(WORD_ENDPOINT, {
+    ...word,
+    correct: 1
+  })
+  .catch(err => {
+    console.log(err.message);
+  })
+}
+
+export const recordIncorrect = (word, token) => dispatch => {
+  dispatch({
+    type: RECORD_INCORRECT
+  });
+  console.log({
+    ...word,
+    correct: 0
+  })
+  return axios.create({ headers: {
+    token } }).post(WORD_ENDPOINT, {
+    ...word,
+    correct: 0
+  })
+  .catch(err => {
+    console.log(err.message);
+  })
+}
+
+export const queueRecordCorrect = (word) => dispatch => {
+  dispatch({
+    type: QUEUE_RECORD_CORRECT,
+    payload: word
+  })
+}
+
+export const queueRecordIncorrect = (word) => dispatch => {
+  dispatch({
+    type: QUEUE_RECORD_INCORRECT,
+    payload: word
+  })
+}
+
+export const clearQueue = () => dispatch => {
+  console.log('clearing queue');
+  dispatch({
+    type: CLEAR_QUEUE
+  })
+  return true;
 }

@@ -74,7 +74,7 @@ export const Auth = connect(
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
           />
-        <p><em>Password must contain 8 characters and have one upper, one lower, and one number</em></p>
+        <p><em>Password must contain at least 8 characters and have at least one uppercase letter, one lowercase, and one number</em></p>
         </div>
         
       )}

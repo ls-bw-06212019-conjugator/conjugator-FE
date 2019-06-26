@@ -3,25 +3,27 @@ import { connect } from "react-redux";
 import { Button, Collapse, Spinner } from "reactstrap";
 import { desktopHelp } from "../../img/desktop-accent-instructions.jpg";
 import { mobileHelp } from "../../img/mobile-accent-instructions.png";
-import { getWord } from "../../actions";
+import { getWord, queueRecordCorrect, queueRecordIncorrect, recordCorrect, recordIncorrect } from "../../actions";
 
 import { Stats } from "../Stats/Stats";
 import "./Conjugator.scss";
 
 const mapConjugator = state => {
   return {
-    word: state.word.infinitive,
+    word: state.word,
+    infinitive: state.word.infinitive,
     tense: state.word.tense,
     wordInEnglish: state.word.infinitive_english,
     pronoun: state.word.form,
     gettingWord: state.gettingWord,
-    answer: state.word.answer
+    answer: state.word.answer,
+    token: state.token
   };
 };
 
 export const Conjugator = connect(
   mapConjugator,
-  { desktopHelp, mobileHelp, getWord }
+  { desktopHelp, mobileHelp, getWord, queueRecordCorrect, queueRecordIncorrect, recordCorrect, recordIncorrect }
 )(
   class extends React.Component {
     constructor(props) {
@@ -30,7 +32,8 @@ export const Conjugator = connect(
         isDesktop: false,
         wordInput: "",
         isWrong: false,
-        collapse: false
+        collapse: false,
+        invalid: false
       };
 
       this.updatePredicate = this.updatePredicate.bind(this);
@@ -111,12 +114,18 @@ export const Conjugator = connect(
     testWord = e => {
       e.preventDefault();
       if (this.state.wordInput === this.props.answer) {
-        this.props.getWord();
+        if(!this.state.invalid)
+          this.props.queueRecordCorrect(this.props.word);
+        this.props.getWord(this.props.word);
+        this.setState({invalid: false});
         this.setState({
           wordInput: "",
           collapse: false
         });
       } else {
+        if(!this.state.invalid)
+          this.props.queueRecordIncorrect(this.props.word);
+        this.setState({invalid: false});
         this.setState({
           isWrong: true
         });
@@ -124,6 +133,7 @@ export const Conjugator = connect(
     };
 
     toggleCollapse = e => {
+      this.setState({invalid: true});
       // e.preventDefault();
       this.setState({
         collapse: !this.state.collapse
@@ -138,6 +148,14 @@ export const Conjugator = connect(
       })
     }
 
+    recordCorrect = (word, token) => {
+      this.props.recordCorrect(word, token);
+    }
+
+    recordIncorrect = (word, token) => {
+      this.props.recordIncorrect(word, token);
+    }
+
     render() {
       return (
         <div className="conjugator">
@@ -148,7 +166,7 @@ export const Conjugator = connect(
             </div>
           ) : (
             <div className="verb-container">
-              <h2>{`${this.props.pronoun} _______ (${this.props.word})`}</h2>
+              <h2>{`${this.props.pronoun} _______ (${this.props.infinitive})`}</h2>
               <p>{this.props.wordInEnglish}</p>
             </div>
           )}
@@ -167,19 +185,14 @@ export const Conjugator = connect(
             <button action="submit" className={this.state.isWrong ? 'wrong' : null}>Submit</button>
           </form>
           <Button color="link" className="skip small-bot-marg" onClick={this.skipWord}>Skip this Word</Button>
-          <Button color="danger" className={this.state.isWrong ? "small-bot-marg" : "small-bot-marg hidden"} onClick={this.toggleCollapse}>
+          <Button color="danger" className={this.state.isWrong || this.state.collapse ? "small-bot-marg" : "small-bot-marg hidden"} onClick={this.toggleCollapse}>
             Incorrect Answer! Click to Show Answer
           </Button>          
-          <Collapse className={this.state.isWrong ? "small-bot-marg" : "small-bot-marg hidden"} isOpen={this.state.collapse}>
+          <Collapse className={this.state.isWrong || this.state.collapse ? "small-bot-marg" : "small-bot-marg hidden"} isOpen={this.state.collapse}>
             {this.props.answer}
           </Collapse>
           <div className="bottom-sections">
-            <Stats />
-            <p>Temporary pronoun instructions:</p>
-            <p>
-              number is which person, i.e. 1 = 1st person, 2 = second person, 3
-              = 3rd person. S = singular, P = plural
-            </p>
+            <Stats localized summarized row recordCorrectWord={this.recordCorrect} recordIncorrectWord={this.recordIncorrect} />
             <img
               src={
                 this.state.isDesktop
