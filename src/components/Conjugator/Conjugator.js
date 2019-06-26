@@ -56,13 +56,9 @@ export const Conjugator = connect(
       this.state.isWrong && this.setState({
         isWrong: false
       })
-      console.log(event.target.value);
       let value = Array.from(event.target.value);
-      console.log(value);
       const regex = /^$|[ a-zñáéíóúü]+$/i;
-      console.log(value.findIndex(el => el === '`'));
       if (value.findIndex(el => el === '`') !== -1 || value.findIndex(el => el === `'`) !== -1 || value.findIndex(el => el === '~') !== -1) {
-        console.log(value);
         let index = value.findIndex(el => el === '`');
         if (index === -1){
           index = value.findIndex(el => el === `'`);
@@ -96,19 +92,15 @@ export const Conjugator = connect(
           default:
             break;
         }
-
-        
       }
+
       value = value.join('');
+      
       if (regex.test(value)) {
         await this.setState({ wordInput: value });
-        
       } else {
-        console.log('invalid char!');
         return;
       }
-
-      
     };
 
     testWord = e => {
@@ -152,8 +144,7 @@ export const Conjugator = connect(
           </form>
 
           <div className="bottom-sections">
-            {/* <Stats /> */}
-            {console.log(desktopHelp)}
+            <Stats />
             <img
               src={
                 this.state.isDesktop

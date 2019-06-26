@@ -4,6 +4,7 @@
     // border: 1px dashed red;
     display: flex;
     flex-direction: column;
+    margin-top: 3rem;
     .tenses {
         display: grid;
         grid-template-columns: repeat(3, 33%);
