@@ -159,7 +159,7 @@ export const Conjugator = connect(
               className={this.state.isWrong ? "wrong" : null}
               value={this.state.wordInput}
               onChange={this.handleUpdateWord}
-              maxLength={20}
+              maxLength={25}
               type="text"
               placeholder=" type answer here"
             />
