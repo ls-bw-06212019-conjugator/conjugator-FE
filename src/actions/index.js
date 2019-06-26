@@ -3,6 +3,7 @@ import axios from 'axios';
 const LOGIN_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/login';
 const REGISTRATION_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/register';
 const WORD_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/words';
+const STATS_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/stats';
 
 // ACTIONS WILL GO HERE
 export const LOGIN_START = 'LOGIN_START';
@@ -16,9 +17,9 @@ export const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
 export const GETWORD_START = 'GETWORD_START';
 export const GETWORD_SUCCESS = 'GETWORD_SUCCESS';
 export const GETWORD_FAILURE = 'GETWORD_FAILURE';
-export const CHECKWORD_START = 'CHECKWORD_START';
-export const CHECKWORD_SUCCESS = 'CHECKWORD_SUCCESS';
-export const CHECKWORD_FAILURE = 'CHECKWORD_FAILURE';
+export const GETSTATS_START = 'GETSTATS_START';
+export const GETSTATS_SUCCESS = 'GETSTATS_SUCCESS';
+export const GETSTATS_FAILURE = 'GETSTATS_FAILURE';
 
 export const login = (username, password) => dispatch => {
   dispatch({
@@ -116,14 +117,20 @@ export const getWord = () => dispatch => {
     })
 }
 
-export const updateStats = correct => dispatch => {
+export const getStats = () => dispatch => {
   dispatch({
-    type: CHECKWORD_START
+    type: GETSTATS_START
   })
   return axios
-    .post(WORD_ENDPOINT, {
-
+    .get(STATS_ENDPOINT)
+    .then(res => {
+      console.log(res.data);
+      dispatch({
+        type: GETSTATS_SUCCESS,
+        payload: res.data
+      })
     })
-    .then()
-    .catch()
+    .catch(err => {
+      console.log(err.response);
+    })
 }
