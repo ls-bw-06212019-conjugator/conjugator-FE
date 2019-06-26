@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Alert, Button, Collapse, Spinner } from "reactstrap";
+import { Button, Collapse, Spinner } from "reactstrap";
 import { desktopHelp } from "../../img/desktop-accent-instructions.jpg";
 import { mobileHelp } from "../../img/mobile-accent-instructions.png";
 import { getWord, queueRecordCorrect, queueRecordIncorrect, recordCorrect, recordIncorrect } from "../../actions";
@@ -41,9 +41,6 @@ export const Conjugator = connect(
 
     componentWillMount() {
       this.props.getWord();
-      // this.setState({
-      //   wordInput: ""
-      // })
     }
     componentDidMount() {
       this.updatePredicate();
@@ -181,7 +178,7 @@ export const Conjugator = connect(
               className={this.state.isWrong ? "wrong" : null}
               value={this.state.wordInput}
               onChange={this.handleUpdateWord}
-              maxLength={20}
+              maxLength={25}
               type="text"
               placeholder=" type answer here"
             />
