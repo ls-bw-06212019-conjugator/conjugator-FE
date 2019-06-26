@@ -46,10 +46,66 @@ export const Settings = connect(
             )
           : defaultFilter;
 
+<<<<<<< HEAD
         props.clearFilter(newFilter);
       }
       props.getFilter(props.token);
     };
+=======
+  return (
+    <div className="settings-container">
+      <h3>Select your settings</h3>
+      {/* <form onSubmit={updateSettings}> */}
+      <form>
+        <h5>Difficulty</h5>
+        <div className="difficulty">
+          <label for="indicative"><input type="checkbox" id="indicative" checked />Indicative</label>
+          <label for="imperative"><input type="checkbox" id="imperative" />Imperative</label>
+          <label for="subjunctive"><input type="checkbox" id="subjunctive" />Subjunctive</label>
+        </div>
+        <h5>Tenses</h5>
+        <div className="tenses">
+          <label for="present">
+            <input type="checkbox" id="present" checked />
+            Present
+          </label>
+          <label for="preterite">
+            <input type="checkbox" id="preterite" />
+            Preterite
+          </label>
+          <label for="imperfect">
+            <input type="checkbox" id="imperfect" />
+            Imperfect
+          </label>
+          <label for="future">
+            <input type="checkbox" id="future" />
+            Future
+          </label>
+          <label for="conditional">
+            <input type="checkbox" id="conditional" />
+            Conditional
+          </label>
+          <label for="present-perfect">
+            <input type="checkbox" id="present_perfect" />
+            Present Perfect
+          </label>
+          <label for="future-perfect">
+            <input type="checkbox" id="future_perfect" />
+            Future Perfect
+          </label>
+          <label for="past-perfect">
+            <input type="checkbox" id="past_perfect" />
+            Past Perfect
+          </label>
+          <label for="conditional-perfect">
+            <input type="checkbox" id="conditional_perfect" />
+            Conditional Perfect
+          </label>
+        </div>
+        <Button color="primary" type="submit">Update Settings</Button>
+        <Button>Cancel</Button>
+        <Button>Default</Button>
+>>>>>>> 6004bf44fea85585d8021d3e9679b45e22f29183
 
     return (
       <div className="settings-container">
