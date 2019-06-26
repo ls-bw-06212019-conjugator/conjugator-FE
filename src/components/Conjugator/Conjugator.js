@@ -113,7 +113,8 @@ export const Conjugator = connect(
       if (this.state.wordInput === this.props.answer) {
         this.props.getWord();
         this.setState({
-          wordInput: ""
+          wordInput: "",
+          collapse: false
         });
       } else {
         this.setState({
