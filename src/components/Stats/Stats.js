@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { connect } from "react-redux";
 
-import { getStats, clearQueue } from "../../actions";
+import { getStats, clearQueue, logout } from "../../actions";
 
 import "./Stats.scss";
 
@@ -22,7 +22,7 @@ const mapStateToStats = state => ({
 
 export const Stats = connect(
   mapStateToStats,
-  { getStats, clearQueue }
+  { getStats, clearQueue, logout }
 )(
   class extends Component {
     // Localized & Personalized Stats
@@ -41,7 +41,7 @@ export const Stats = connect(
         correct: this.state.correct + 1,
         streak: this.state.streak + 1,
         bestStreak:
-          this.state.streak > this.state.bestStreak
+          this.state.streak + 1 >= this.state.bestStreak
             ? this.state.streak + 1
             : this.state.bestStreak
       };
@@ -99,6 +99,8 @@ export const Stats = connect(
       ) {
         console.log('fetching stats...');
         this.props.getStats(this.props.token);
+      } else if (this.props.attemptsToGetStats >= 50){
+        this.props.logout();
       }
     }
 
@@ -107,7 +109,7 @@ export const Stats = connect(
       return this.props.gettingStats ? (
         <Spinner color="info" />
       ) : this.props.attemptsToGetStats >= 50 ? (
-        <Alert color="danger">Timed out, unable to get stats!</Alert>
+        <Alert color="danger">Timed out, unable to get stats! Signing out...</Alert>
       ) : this.props.summarized ? (
         <div className="stats">
           <div className="stat">

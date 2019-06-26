@@ -7,9 +7,12 @@
     }
     .settings-box {
         margin: auto;
-        max-width: 50%;
+        margin-top: 1rem;
+        max-width: 880px;
+        width: 65%;
+        min-width: 380px;
         box-shadow: 0 0 12px -4px gray;
-        padding: 1.5rem;
+        padding: 2rem;
         display: flex;
         flex-direction: column;
         border-radius: 8px;
@@ -26,6 +29,7 @@
         }
         label, Button {
             margin-right: 0.75rem;
+            align-self: flex-end;
         }
     }
 }
