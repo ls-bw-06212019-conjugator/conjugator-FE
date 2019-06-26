@@ -74,7 +74,7 @@ export const Settings = connect(mapSettings, {  })(withAuth(props => {
             Subjunctive Present Perfect
           </label>
         </div>
-        <Button color="primary">Update Settings</Button>
+        <Button color="primary" type="submit">Update Settings</Button>
         <Button>Cancel</Button>
         <Button>Default</Button>
 
