@@ -13,7 +13,6 @@ const mapDashboard = state => ({
 export const Dashboard = connect(mapDashboard)(withAuth(props => {
   return (
     <div className='dashboard'>
-      This is the dashboard!
       <Stats />
     </div>
   )
