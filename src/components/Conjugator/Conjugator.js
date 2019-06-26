@@ -116,7 +116,8 @@ export const Conjugator = connect(
       if (this.state.wordInput === this.props.answer) {
         this.props.getWord();
         this.setState({
-          wordInput: ""
+          wordInput: "",
+          collapse: false
         });
       } else {
         this.setState({
@@ -169,11 +170,10 @@ export const Conjugator = connect(
             <button action="submit" className={this.state.isWrong ? 'wrong' : null}>Submit</button>
           </form>
           <Button color="link" className="skip small-bot-marg" onClick={this.skipWord}>Skip this Word</Button>
-          {/* <Alert color="danger" className={this.state.isWrong ? "alert" : "alert hidden"}>Incorrect Answer!</Alert> */}
-          <Button color="danger" className={this.state.isWrong ? "small-bot-marg" : "small-bot-marg hidden"} onClick={this.toggleCollapse}>
+          <Button color="danger" className={this.state.isWrong || this.state.collapse ? "small-bot-marg" : "small-bot-marg hidden"} onClick={this.toggleCollapse}>
             Incorrect Answer! Click to Show Answer
           </Button>          
-          <Collapse className={this.state.isWrong ? "small-bot-marg" : "small-bot-marg hidden"} isOpen={this.state.collapse}>
+          <Collapse className={this.state.isWrong || this.state.collapse ? "small-bot-marg" : "small-bot-marg hidden"} isOpen={this.state.collapse}>
             {this.props.answer}
           </Collapse>
           <div className="bottom-sections">

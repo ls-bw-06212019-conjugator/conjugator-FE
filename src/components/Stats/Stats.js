@@ -12,7 +12,14 @@ const mapStateToStats = state => ({
 });
 
 export const Stats = connect(mapStateToStats, { getStats })(props => {
-  
+
+  // Localized stats
+  const [currentAttemps, setCurrentAttempts] = useState(0);
+  const [correct, setCorrect] = useState(0);
+  const [wrong, setWrong] = useState(0);
+
+  // Personalized stats
+
 
   return (
     <div className='stats'>
