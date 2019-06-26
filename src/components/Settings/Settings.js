@@ -19,9 +19,9 @@ export const Settings = connect(mapSettings, {  })(withAuth(props => {
         <label for="include-vosotros"><input type="checkbox" id="include-vosotros" />Include "Vosotros"</label>
         <h5>Difficulty</h5>
         <div className="difficulty">
-          <label for="common-regular"><input type="checkbox" id="common-regular" checked />Common regular verbs</label>
-          <label for="common-irregular"><input type="checkbox" id="common-irregular" />Common irregular verbs</label>
-          <label for="all"><input type="checkbox" id="all" />All Verbs</label>
+          <label for="common-regular"><input type="radio" id="common-regular" checked />Common regular verbs</label>
+          <label for="common-irregular"><input type="radio" id="common-irregular" />Common regular and irregular verbs</label>
+          <label for="all"><input type="radio" id="all" />All Verbs</label>
         </div>
         <h5>Tenses</h5>
         <div className="tenses">
