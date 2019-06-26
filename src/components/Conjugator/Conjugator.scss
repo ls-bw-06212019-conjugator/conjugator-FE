@@ -17,29 +17,42 @@
 
     .tense {
         color: #686868;
+        height: 25px;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 4px;
     }
 
     .verb-container {
         display: flex;
         align-items: baseline;
         position: relative;
-        flex-wrap: nowrap;
+        flex-flow: column nowrap;
         word-wrap: 0;
         margin: 20px 0;
         font-size: 26px;
         width: 100%;
+        height: 56px;
         justify-content: center;
         align-items: center;
 
         transition: font-size 0.3s;
 
-        @media (max-width: 740px) {
-            flex-direction: column;
+        @media (max-width: 520px) {
+            h2 {
+                font-size: 26px;
+            }
         }
         p {
+            display: flex;
+            flex-wrap: nowrap;
             margin-left: 0.75rem;
             color: #686868;
+<<<<<<< HEAD
             font-size: 1.5rem;
+=======
+            font-size: 12px;
+>>>>>>> 6e5b54c4eedd074160e7ace102fc1ab9737a5311
         }
     }
     form {
@@ -47,6 +60,10 @@
         width: 100%;
         justify-content: center;
         align-items: center;
+
+        span {
+            min-width: 64px;
+        }
 
         input {
             padding: 6px;
@@ -57,7 +74,7 @@
             border: 1px solid #686868;
             border-radius: 4px;
 
-            width: 360px;
+            width: 375px;
 
             transition: border 0.3s;
         }
@@ -79,15 +96,19 @@
             position: absolute;
             transform: translateX(168px);
 
-            transition: transform 0.3s;
+            transition: transform 0.3s, background-color 0.3s;
 
             &:hover {
                 background-color: #03FF76;
             }
 
-            @media (max-width: 505px) {
+            @media (max-width: 524px) {
                 transform: translateX(154px);
             }
+        }
+
+        button.wrong {
+            background-color: crimson;
         }
     }
     .small-bot-marg {
@@ -119,7 +140,6 @@
         img {
             width: 100%;
             max-width: 800px;
-            max-height: 450px;
             margin: 3rem;
         }
     }

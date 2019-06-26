@@ -22,7 +22,7 @@ export const Navbar = connect(mapNavbar, {  })(props => {
         <NavLink activeClassName='active' className="navlink" to="/auth">Log in</NavLink>
         }
       </nav>
-      <div className="menu">Hamburger Menu</div>
+      <div className="menu">Menu</div>
     </div>
   )
 });
