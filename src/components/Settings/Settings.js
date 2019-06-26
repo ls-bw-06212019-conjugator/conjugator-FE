@@ -8,20 +8,29 @@ import './Settings.scss';
 
 const mapSettings = state => ({
   // Get state here
+  filteredSettings: state.filteredSettings
 });
 
 export const Settings = connect(mapSettings, {  })(withAuth(props => {
+  
+  // updateSettings = e => {
+  //   // if not checked, add id to array
+  //   let filteredArray = e.target.querySelectorAll("input").filter(x=> !x.checked).map(x=> x.id);
+  //   // .sendUpdates()
+  // }
+
+  
+
   return (
     <div className="settings-container">
       <h3>Select your settings</h3>
+      {/* <form onSubmit={updateSettings}> */}
       <form>
-        <h5>Latin Spanish or Spain Spanish</h5>
-        <label for="include-vosotros"><input type="checkbox" id="include-vosotros" />Include "Vosotros"</label>
         <h5>Difficulty</h5>
         <div className="difficulty">
-          <label for="common-regular"><input type="radio" id="common-regular" checked />Common regular verbs</label>
-          <label for="common-irregular"><input type="radio" id="common-irregular" />Common regular and irregular verbs</label>
-          <label for="all"><input type="radio" id="all" />All Verbs</label>
+          <label for="indicative"><input type="checkbox" id="indicative" checked />Indicative</label>
+          <label for="imperative"><input type="checkbox" id="imperative" />Imperative</label>
+          <label for="subjunctive"><input type="checkbox" id="subjunctive" />Subjunctive</label>
         </div>
         <h5>Tenses</h5>
         <div className="tenses">
@@ -46,32 +55,20 @@ export const Settings = connect(mapSettings, {  })(withAuth(props => {
             Conditional
           </label>
           <label for="present-perfect">
-            <input type="checkbox" id="present-perfect" />
+            <input type="checkbox" id="present_perfect" />
             Present Perfect
           </label>
           <label for="future-perfect">
-            <input type="checkbox" id="future-perfect" />
+            <input type="checkbox" id="future_perfect" />
             Future Perfect
           </label>
           <label for="past-perfect">
-            <input type="checkbox" id="past-perfect" />
+            <input type="checkbox" id="past_perfect" />
             Past Perfect
           </label>
           <label for="conditional-perfect">
-            <input type="checkbox" id="conditional-perfect" />
+            <input type="checkbox" id="conditional_perfect" />
             Conditional Perfect
-          </label>
-          <label for="subjunctive-present">
-            <input type="checkbox" id="subjunctive-present" />
-            Subjunctive Present
-          </label>
-          <label for="subjunctive-imperfect">
-            <input type="checkbox" id="subjunctive-imperfect" />
-            Subjunctive Imperfect
-          </label>
-          <label for="subjunctive-present-perfect">
-            <input type="checkbox" id="subjunctive-present-perfect" />
-            Subjunctive Present Perfect
           </label>
         </div>
         <Button color="primary" type="submit">Update Settings</Button>

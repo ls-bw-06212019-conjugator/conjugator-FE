@@ -101,12 +101,14 @@ export const logout = () => dispatch => {
   })
 }
 
-export const getWord = () => dispatch => {
+export const getWord = token => dispatch => {
   dispatch({
     type: GETWORD_START
   })
   return axios
-    .get(WORD_ENDPOINT)
+  .create({ headers: {
+    token } })  
+  .get(WORD_ENDPOINT)
     .then(res => {
       console.log(res)
       dispatch({
@@ -130,7 +132,7 @@ export const getStats = token => dispatch => {
   return axios.create({ headers: {
     token } }).get(STATS_ENDPOINT, { token: token })
     .then(res => {
-      console.log(res.data);
+      console.log(res.data.message);
       dispatch({
         type: GETSTATS_SUCCESS,
         payload: res.data
