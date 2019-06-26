@@ -15,7 +15,7 @@ export const withAuth = Component => connect(mapAuth, { setAuthError })(props =>
     return <div className='error'>No component passed to withAuth!</div>
   } else {
     if(props.token) {
-      return <Component />;
+      return <Component {...props} />;
     } else {
       props.setAuthError('');
       props.history.push('/auth');

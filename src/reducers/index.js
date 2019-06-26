@@ -13,7 +13,9 @@ const initialState = {
   queueRecordCorrect: null,
   queueRecordIncorrect: null,
   attemptsToGetStats: 0,
-  filteredSettings: localStorage.getItem('filteredSettings')
+  filteredSettings: localStorage.getItem('filteredSettings'),
+  gettingSettings: false,
+  getSettingsError: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -138,23 +140,42 @@ const reducer = (state = initialState, action) => {
         queueRecordIncorrect: null,
         queueRecordCorrect: null
       }
-    case actions.SET_FILTER:
-      localStorage.setItem('filteredSettings', action.payload);
+    case actions.SET_FILTER_START:
       return {
         ...state,
+        gettingSettings: true
+      }
+    case actions.SET_FILTER_SUCCESS:
+      localStorage.setItem('filteredSettings', action.payload);  
+      return {
+        ...state,
+        gettingSettings: false,
         filteredSettings: action.payload
       }
-    case actions.CLEAR_FILTER:
+    case actions.SET_FILTER_FAILURE:
+      return {
+        ...state,
+        gettingSettings: false,
+        getSettingsError: action.payload
+      }
+    case actions.GET_SETTINGS_START:
+      return {
+        ...state,
+        gettingSettings: true,
+        getSettingsError: ''
+      }
+    case actions.GET_SETTINGS_SUCCESS:
       localStorage.setItem('filteredSettings', action.payload);
       return {
         ...state,
+        gettingSettings: false,
         filteredSettings: action.payload
       }
-    case actions.GET_FILTER:
-      localStorage.setItem('filteredSettings', action.payload);
+    case actions.GET_SETTINGS_FAILURE:
       return {
         ...state,
-        filteredSettings: action.payload
+        gettingSettings: false,
+        getSettingsError: action.payload
       }
     default:
       return state;
