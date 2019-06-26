@@ -36,10 +36,10 @@
         @media (max-width: 740px) {
             flex-direction: column;
         }
-        // border: 1px solid red;
         p {
             margin-left: 0.75rem;
             color: #686868;
+            font-size: 1.5rem;
         }
     }
     form {
@@ -123,5 +123,4 @@
             margin: 3rem;
         }
     }
-
 }
