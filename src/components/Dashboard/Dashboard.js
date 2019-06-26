@@ -18,6 +18,7 @@ export const Dashboard = connect(mapDashboard)(withAuth(props => {
         <p>Your statistics will be displayed below:</p>
       </div>
       <Stats />
+      <div className="graph">graph here</div>
     </div>
   )
 }));
