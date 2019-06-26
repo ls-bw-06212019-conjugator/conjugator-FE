@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Alert, Spinner } from "reactstrap";
+import { Alert, Button, Spinner } from "reactstrap";
 
 import { Link } from 'react-router-dom';
 
@@ -104,6 +104,36 @@ export const Stats = connect(
       }
     }
 
+    getTotalCorrect = () => {
+      let sum = 0;
+      sum += this.props.personalStats.present_c
+      sum += this.props.personalStats.future_c
+      sum += this.props.personalStats.imperfect_c
+      sum += this.props.personalStats.preterite_c
+      sum += this.props.personalStats.conditional_c
+      sum += this.props.personalStats.present_perfect_c
+      sum += this.props.personalStats.future_perfect_c
+      sum += this.props.personalStats.past_perfect_c
+      sum += this.props.personalStats.preterite_archaic_c
+      sum += this.props.personalStats.conditional_perfect_c
+      return sum;
+    }
+
+    getTotalIncorrect = () => {
+      let sum = 0;
+      sum += this.props.personalStats.present_i
+      sum += this.props.personalStats.future_i
+      sum += this.props.personalStats.imperfect_i
+      sum += this.props.personalStats.preterite_i
+      sum += this.props.personalStats.conditional_i
+      sum += this.props.personalStats.present_perfect_i
+      sum += this.props.personalStats.future_perfect_i
+      sum += this.props.personalStats.past_perfect_i
+      sum += this.props.personalStats.preterite_archaic_i
+      sum += this.props.personalStats.conditional_perfect_i
+      return sum;
+    }
+
     render() {
       const percentCorrect = Math.floor(this.state.correct / this.state.currentAttempts * 100);
       return this.props.gettingStats ? (
@@ -111,7 +141,7 @@ export const Stats = connect(
       ) : this.props.attemptsToGetStats >= 50 ? (
         <Alert color="danger">Timed out, unable to get stats! Signing out...</Alert>
       ) : this.props.summarized ? (
-        <div className="stats">
+        <div className={`stats ${this.props.summarized ? "summarized" : null }`}>
           <div className="stat">
             <h4>Total Attempts</h4>
             <p>{this.state.currentAttempts}</p>
@@ -143,7 +173,39 @@ export const Stats = connect(
         </div>
       ) : (
         <div className="stats">
-          
+          <div className="top">
+            <div className="stat-box">
+              <h3>Best Streak</h3>
+              <div className="box">
+                <h2>{this.state.bestStreak}</h2>
+                <p>better than</p>
+                <h4>82%</h4>
+                <p>of all other users</p>
+              </div>
+            </div>
+            <div className="stat-box">
+              <h3>Accuracy</h3>
+              <div className="box">
+                <h2>{Math.floor(100 * (this.getTotalCorrect() / (this.getTotalCorrect() + this.getTotalIncorrect())))}%</h2>
+                <p>better than</p>
+                <h4>82%</h4>
+                <p>of all other users</p>
+              </div>
+            </div>
+            <div className="stat-box">
+              <h3>Today's Goal</h3>
+              <div className="box">
+                <h2>10/50</h2>
+                <p>correct conjugations</p>
+                <Button color="link">Edit daily goal</Button>
+              </div>
+            </div>
+          </div>
+          <div className="bottom">
+            <div className="row"></div>
+            <div className="row"></div>
+            <div className="row"></div>
+          </div>
         </div>
       )
     }

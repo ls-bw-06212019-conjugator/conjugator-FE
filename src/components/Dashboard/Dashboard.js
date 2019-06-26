@@ -8,6 +8,7 @@ import './Dashboard.scss';
 
 const mapDashboard = state => ({
   // Figure out what state we need to pull
+  username: state.username
 });
 
 export const Dashboard = connect(mapDashboard)(withAuth(
@@ -19,20 +20,11 @@ export const Dashboard = connect(mapDashboard)(withAuth(
     render() {
       return (
         <div className='dashboard'>
-          <div className="welcome">
-            <h2>Welcome to your dashboard!</h2>
-            <p>Your statistics will be displayed below:</p>
-          </div>
-          <div className="goal-container">
-            <p><b>Set target # of conjugations today:</b></p>
-            <form>
-              <input type="number" maxLength={3} />
-            </form>
-          </div>
+          <header>
+            <h1>{this.props.username}</h1>
+            <h1 className="gray">Dashboard</h1>
+          </header>
           <Stats />
-          <div className="graph">
-            graph here
-          </div>
         </div>
       )
     }
