@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Alert, Button, Collapse, Spinner } from "reactstrap";
+import { Button, Collapse, Spinner } from "reactstrap";
 import { desktopHelp } from "../../img/desktop-accent-instructions.jpg";
 import { mobileHelp } from "../../img/mobile-accent-instructions.png";
 import { getWord } from "../../actions";
@@ -38,9 +38,6 @@ export const Conjugator = connect(
 
     componentWillMount() {
       this.props.getWord();
-      // this.setState({
-      //   wordInput: ""
-      // })
     }
     componentDidMount() {
       this.updatePredicate();
@@ -162,14 +159,13 @@ export const Conjugator = connect(
               className={this.state.isWrong ? "wrong" : null}
               value={this.state.wordInput}
               onChange={this.handleUpdateWord}
-              maxLength={20}
+              maxLength={25}
               type="text"
               placeholder=" type answer here"
             />
             <button action="submit" className={this.state.isWrong ? 'wrong' : null}>Submit</button>
           </form>
           <Button color="link" className="skip small-bot-marg" onClick={this.skipWord}>Skip this Word</Button>
-          {/* <Alert color="danger" className={this.state.isWrong ? "alert" : "alert hidden"}>Incorrect Answer!</Alert> */}
           <Button color="danger" className={this.state.isWrong ? "small-bot-marg" : "small-bot-marg hidden"} onClick={this.toggleCollapse}>
             Incorrect Answer! Click to Show Answer
           </Button>          
