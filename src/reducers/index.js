@@ -12,7 +12,8 @@ const initialState = {
   personalStats: localStorage.getItem('personalStats'),
   queueRecordCorrect: null,
   queueRecordIncorrect: null,
-  attemptsToGetStats: 0
+  attemptsToGetStats: 0,
+  filteredSettings: null
 };
 
 const reducer = (state = initialState, action) => {
