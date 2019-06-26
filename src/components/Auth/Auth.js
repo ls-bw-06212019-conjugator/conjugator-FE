@@ -74,7 +74,9 @@ export const Auth = connect(
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
           />
+        <p><em>Password must contain at least 8 characters and have at least one uppercase letter, one lowercase, and one number</em></p>
         </div>
+        
       )}
       {props.authError.length > 0 && <Alert color="danger">{props.authError}</Alert>}
 

@@ -7,8 +7,12 @@ const initialState = {
   authError: "",
   getWordError: "",
   gettingWord: false,
-  word: "",
-  tense: ""
+  word: {},
+  globalStats: localStorage.getItem('globalStats'),
+  personalStats: localStorage.getItem('personalStats'),
+  queueRecordCorrect: null,
+  queueRecordIncorrect: null,
+  attemptsToGetStats: 0
 };
 
 const reducer = (state = initialState, action) => {
@@ -37,6 +41,8 @@ const reducer = (state = initialState, action) => {
     case actions.LOGOUT:
       localStorage.setItem('token', '');
       localStorage.setItem('username', '');
+      localStorage.setItem('globalStats', null);
+      localStorage.setItem('personalStats', null);
       return {
         ...state,
         loggingIn: false,
@@ -75,15 +81,62 @@ const reducer = (state = initialState, action) => {
         ...state,
         getWordError: "",
         gettingWord: true,
+        attemptsToGetStats: 0
       }
     case actions.GETWORD_SUCCESS:
       return {
         ...state,
         gettingWord: false,
-        word: action.payload.word,
-        tense: action.payload.tense
+        word: action.payload
       }
     case actions.GETWORD_FAILURE:
+      return {
+        ...state,
+        gettingWord: false,
+        getWordError: action.payload
+      }
+    case actions.GETSTATS_START:
+      return {
+        ...state,
+        gettingStats: true,
+        globalStats: {},
+        personalStats: {},
+        attemptsToGetStats: state.attemptsToGetStats + 1
+      }
+    case actions.GETSTATS_SUCCESS:
+      console.log(action.payload);
+      localStorage.setItem('globalStats', action.payload.global);
+      localStorage.setItem('personalStats', action.payload.personal);
+      return {
+        ...state,
+        gettingStats: false,
+        globalStats: action.payload.global,
+        personalStats: action.payload.personal
+      }
+    case actions.GETSTATS_FAILURE:
+      return {
+        ...state,
+        gettingStats: false
+      }
+    case actions.QUEUE_RECORD_CORRECT:
+      return {
+        ...state,
+        queueRecordCorrect: action.payload,
+        attemptsToGetStats: 0
+      }
+    case actions.QUEUE_RECORD_INCORRECT:
+      return {
+        ...state,
+        queueRecordIncorrect: action.payload,
+        attemptsToGetStats: 0
+      }
+    case actions.CLEAR_QUEUE:
+      console.log('clearing...');
+      return {
+        ...state,
+        queueRecordIncorrect: null,
+        queueRecordCorrect: null
+      }
     default:
       return state;
   }

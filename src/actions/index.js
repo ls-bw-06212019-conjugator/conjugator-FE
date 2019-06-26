@@ -3,7 +3,7 @@ import axios from 'axios';
 const LOGIN_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/login';
 const REGISTRATION_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/register';
 const WORD_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/words';
-
+const STATS_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/stats';
 
 // ACTIONS WILL GO HERE
 export const LOGIN_START = 'LOGIN_START';
@@ -17,9 +17,14 @@ export const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
 export const GETWORD_START = 'GETWORD_START';
 export const GETWORD_SUCCESS = 'GETWORD_SUCCESS';
 export const GETWORD_FAILURE = 'GETWORD_FAILURE';
-export const CHECKWORD_START = 'CHECKWORD_START';
-export const CHECKWORD_SUCCESS = 'CHECKWORD_SUCCESS';
-export const CHECKWORD_FAILURE = 'CHECKWORD_FAILURE';
+export const GETSTATS_START = 'GETSTATS_START';
+export const GETSTATS_SUCCESS = 'GETSTATS_SUCCESS';
+export const GETSTATS_FAILURE = 'GETSTATS_FAILURE';
+export const RECORD_CORRECT = 'RECORD_CORRECT';
+export const RECORD_INCORRECT = 'RECORD_INCORRECT';
+export const QUEUE_RECORD_CORRECT = 'QUEUE_RECORD_CORRECT';
+export const QUEUE_RECORD_INCORRECT = 'QUEUE_RECORD_INCORRECT';
+export const CLEAR_QUEUE = 'CLEAR_QUEUE';
 
 export const login = (username, password) => dispatch => {
   dispatch({
@@ -38,9 +43,15 @@ export const login = (username, password) => dispatch => {
     })
   })
   .catch ( err => {
+    let error = '';
+    if(err.response.status >= 500) {
+      error = err.response.statusText;
+    } else {
+      error = err.response.data.message;
+    }
     dispatch ({
       type: LOGIN_FAILURE,
-      payload: err.response.data.message
+      payload: error
     }) 
   })
 }
@@ -63,9 +74,15 @@ export const signup = (username, password) => dispatch => {
     })
   })
   .catch(err => {
+    let error = '';
+    if(err.response.status >= 500) {
+      error = err.response.statusText;
+    } else {
+      error = err.response.data.message;
+    }
     dispatch({
       type: SIGNUP_FAILURE,
-      payload: err.response.data.message
+      payload: error
     })
   });
 }
@@ -94,10 +111,7 @@ export const getWord = () => dispatch => {
       console.log(res)
       dispatch({
         type: GETWORD_SUCCESS,
-        // payload: {
-        //   word: ,
-        //   tense: 
-        // }      
+        payload: res.data     
       })
     })
     .catch(err => {
@@ -108,14 +122,76 @@ export const getWord = () => dispatch => {
     })
 }
 
-export const updateStats = correct => dispatch => {
+export const getStats = token => dispatch => {
   dispatch({
-    type: CHECKWORD_START
+    type: GETSTATS_START
   })
-  return axios
-    .post(WORD_ENDPOINT, {
-
+  console.log(token);
+  return axios.create({ headers: {
+    token } }).get(STATS_ENDPOINT, { token: token })
+    .then(res => {
+      console.log(res.data);
+      dispatch({
+        type: GETSTATS_SUCCESS,
+        payload: res.data
+      })
     })
-    .then()
-    .catch()
+    .catch(err => {
+      console.log(err.response);
+    })
+}
+
+export const recordCorrect = (word, token) => dispatch => {
+  dispatch({
+    type: RECORD_CORRECT
+  });
+
+  return axios.create({ headers: {
+    token } }).post(WORD_ENDPOINT, {
+    ...word,
+    correct: 1
+  })
+  .catch(err => {
+    console.log(err.message);
+  })
+}
+
+export const recordIncorrect = (word, token) => dispatch => {
+  dispatch({
+    type: RECORD_INCORRECT
+  });
+  console.log({
+    ...word,
+    correct: 0
+  })
+  return axios.create({ headers: {
+    token } }).post(WORD_ENDPOINT, {
+    ...word,
+    correct: 0
+  })
+  .catch(err => {
+    console.log(err.message);
+  })
+}
+
+export const queueRecordCorrect = (word) => dispatch => {
+  dispatch({
+    type: QUEUE_RECORD_CORRECT,
+    payload: word
+  })
+}
+
+export const queueRecordIncorrect = (word) => dispatch => {
+  dispatch({
+    type: QUEUE_RECORD_INCORRECT,
+    payload: word
+  })
+}
+
+export const clearQueue = () => dispatch => {
+  console.log('clearing queue');
+  dispatch({
+    type: CLEAR_QUEUE
+  })
+  return true;
 }

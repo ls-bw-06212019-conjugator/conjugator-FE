@@ -1,0 +1,37 @@
+.stats {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  justify-content: space-evenly;
+  max-width: 1024px;
+  cursor: default;
+  user-select: none;
+  
+
+  .stat {
+    box-shadow: 0 0 12px -4px gray;
+    h4 {
+      font-size: 16px;
+    }
+
+    p {
+      font-weight: bolder;
+      font-size: 20px;
+    }
+
+    .sign-in {
+      font-size: 14px;
+    }
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 16px;
+
+    border-radius: 8px;
+    width: 128px;
+    height: 128px;
+    margin: 6px;
+  }
+}

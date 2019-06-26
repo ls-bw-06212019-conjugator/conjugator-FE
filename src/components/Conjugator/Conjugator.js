@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Alert } from "reactstrap";
+import { Button, Collapse, Spinner } from "reactstrap";
 import { desktopHelp } from "../../img/desktop-accent-instructions.jpg";
 import { mobileHelp } from "../../img/mobile-accent-instructions.png";
-import { getWord } from '../../actions';
+import { getWord, queueRecordCorrect, queueRecordIncorrect, recordCorrect, recordIncorrect } from "../../actions";
 
 import { Stats } from "../Stats/Stats";
 import "./Conjugator.scss";
@@ -11,23 +11,36 @@ import "./Conjugator.scss";
 const mapConjugator = state => {
   return {
     word: state.word,
-    tense: state.word.tense
+    infinitive: state.word.infinitive,
+    tense: state.word.tense,
+    wordInEnglish: state.word.infinitive_english,
+    pronoun: state.word.form,
+    gettingWord: state.gettingWord,
+    answer: state.word.answer,
+    token: state.token
   };
 };
 
 export const Conjugator = connect(
   mapConjugator,
-  { desktopHelp, mobileHelp, getWord }
+  { desktopHelp, mobileHelp, getWord, queueRecordCorrect, queueRecordIncorrect, recordCorrect, recordIncorrect }
 )(
   class extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
         isDesktop: false,
-        wordInput: ""
+        wordInput: "",
+        isWrong: false,
+        collapse: false,
+        invalid: false
       };
 
       this.updatePredicate = this.updatePredicate.bind(this);
+    }
+
+    componentWillMount() {
+      this.props.getWord();
     }
     componentDidMount() {
       this.updatePredicate();
@@ -43,112 +56,143 @@ export const Conjugator = connect(
     }
 
     handleUpdateWord = async event => {
-      console.log(event.target.value);
+      this.state.isWrong &&
+        this.setState({
+          isWrong: false
+        });
       let value = Array.from(event.target.value);
-      console.log(value);
-      const regex = /^$|[a-zñáéíóúü]+$/i;
-      console.log(value.findIndex(el => el === '`'));
-      if (value.findIndex(el => el === '`') !== -1 || value.findIndex(el => el === `'`) !== -1 || value.findIndex(el => el === '~') !== -1) {
-        console.log(value);
-        let index = value.findIndex(el => el === '`');
-        if (index === -1){
+      const regex = /^$|[ a-zñáéíóúü]+$/i;
+      if (
+        value.findIndex(el => el === "`") !== -1 ||
+        value.findIndex(el => el === `'`) !== -1 ||
+        value.findIndex(el => el === "~") !== -1
+      ) {
+        let index = value.findIndex(el => el === "`");
+        if (index === -1) {
           index = value.findIndex(el => el === `'`);
         }
-        if(index === -1){
-          index = value.findIndex(el => el === '~');
+        if (index === -1) {
+          index = value.findIndex(el => el === "~");
         }
 
         value.splice(index, 1);
 
         const character = value[index - 1];
-        const allowedChars = ["a", "e", "i", "o", "u"];
 
         switch (character) {
-          case 'a':
-            value[index - 1] = 'á';
+          case "a":
+            value[index - 1] = "á";
             break;
-          case 'e':
-            value[index - 1] = 'é';
+          case "e":
+            value[index - 1] = "é";
             break;
-          case 'i':
-            value[index - 1] = 'í';
+          case "i":
+            value[index - 1] = "í";
             break;
-          case 'o':
-            value[index - 1] = 'ó';
+          case "o":
+            value[index - 1] = "ó";
             break;
-          case 'u':
-            value[index - 1] = 'ú';
+          case "u":
+            value[index - 1] = "ú";
             break;
-          case 'n':
-            value[index - 1] = 'ñ';
+          case "n":
+            value[index - 1] = "ñ";
           default:
             break;
         }
-
-        
       }
-      value = value.join('');
+
+      value = value.join("");
+
       if (regex.test(value)) {
         await this.setState({ wordInput: value });
-        
       } else {
-        console.log('invalid char!');
         return;
       }
-
-      
     };
 
-    testWord = (wordInput) => {
-        if(wordInput === this.props.word) {
-          // return success alert
-          // clear fields
-          // get new word/tense
-        }
-        // else if(word matches but without accents) {
-          // return warning alert
-          // clear fields
-          // get new word/tense
-        // }
-        else {
-          // return danger alert
-        }
+    testWord = e => {
+      e.preventDefault();
+      if (this.state.wordInput === this.props.answer) {
+        if(!this.state.invalid)
+          this.props.queueRecordCorrect(this.props.word);
+        this.props.getWord(this.props.word);
+        this.setState({invalid: false});
+        this.setState({
+          wordInput: "",
+          collapse: false
+        });
+      } else {
+        if(!this.state.invalid)
+          this.props.queueRecordIncorrect(this.props.word);
+        this.setState({invalid: false});
+        this.setState({
+          isWrong: true
+        });
+      }
+    };
+
+    toggleCollapse = e => {
+      this.setState({invalid: true});
+      // e.preventDefault();
+      this.setState({
+        collapse: !this.state.collapse
+      })
+    }
+
+    skipWord = () => {
+      this.props.getWord();
+      this.setState({
+        wordInput: "",
+        collapse: false
+      })
+    }
+
+    recordCorrect = (word, token) => {
+      this.props.recordCorrect(word, token);
+    }
+
+    recordIncorrect = (word, token) => {
+      this.props.recordIncorrect(word, token);
     }
 
     render() {
       return (
         <div className="conjugator">
-          <h4 className="tense">Tense</h4>
-          <div className="verb-container">
-            <h2>Pronoun _______ (verb)</h2>
-            <p>verb in english</p>
-          </div>
-          <form>
+          {this.props.gettingWord ? <div className='tense' /> : <h4 className="tense">{this.props.tense}</h4>}
+          {this.props.gettingWord ? (
+            <div className="verb-container">
+              <Spinner color="info" />
+            </div>
+          ) : (
+            <div className="verb-container">
+              <h2>{`${this.props.pronoun} _______ (${this.props.infinitive})`}</h2>
+              <p>{this.props.wordInEnglish}</p>
+            </div>
+          )}
+          <form onSubmit={this.testWord}>
             <span>
-              <b>Pronoun </b>
+              <b>{this.props.pronoun} </b>
             </span>
             <input
+              className={this.state.isWrong ? "wrong" : null}
               value={this.state.wordInput}
               onChange={this.handleUpdateWord}
-              maxLength={20}
+              maxLength={25}
               type="text"
               placeholder=" type answer here"
             />
-            <button>Submit</button>
+            <button action="submit" className={this.state.isWrong ? 'wrong' : null}>Submit</button>
           </form>
-          <button onClick={e =>this.props.getWord(e)}>getWord test</button>
-
-          {/* if success */}
-          <Alert color="success">Nice Job!</Alert>
-          {/* if correct with accent missing */}
-          {/* <Alert color="warning">Don't forget the accent! (answer with accent)</Alert> */}
-          {/* if wrong */}
-          {/* <Alert color="danger">Try again!</Alert> */}
-
-
+          <Button color="link" className="skip small-bot-marg" onClick={this.skipWord}>Skip this Word</Button>
+          <Button color="danger" className={this.state.isWrong || this.state.collapse ? "small-bot-marg" : "small-bot-marg hidden"} onClick={this.toggleCollapse}>
+            Incorrect Answer! Click to Show Answer
+          </Button>          
+          <Collapse className={this.state.isWrong || this.state.collapse ? "small-bot-marg" : "small-bot-marg hidden"} isOpen={this.state.collapse}>
+            {this.props.answer}
+          </Collapse>
           <div className="bottom-sections">
-            {/* <Stats /> */}
-            {console.log(desktopHelp)}
+            <Stats localized summarized row recordCorrectWord={this.recordCorrect} recordIncorrectWord={this.recordIncorrect} />
             <img
               src={
                 this.state.isDesktop
