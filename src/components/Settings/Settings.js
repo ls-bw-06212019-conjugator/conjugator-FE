@@ -15,7 +15,7 @@ export const Settings = connect(mapSettings, {  })(withAuth(props => {
   
   // updateSettings = e => {
   //   // if not checked, add id to array
-  //   let filteredArray = e.target.queryAll("input").filter(x=> !x.checked).map(x=> x.id);
+  //   let filteredArray = e.target.querySelectorAll("input").filter(x=> !x.checked).map(x=> x.id);
   //   // .sendUpdates()
   // }
 
@@ -26,9 +26,6 @@ export const Settings = connect(mapSettings, {  })(withAuth(props => {
       <h3>Select your settings</h3>
       {/* <form onSubmit={updateSettings}> */}
       <form>
-
-        {/* <h5>Latin Spanish or Spain Spanish</h5>
-        <label for="include-vosotros"><input type="checkbox" id="includevosotros" />Include "Vosotros"</label> */}
         <h5>Difficulty</h5>
         <div className="difficulty">
           <label for="common-regular"><input type="checkbox" id="common-regular" checked />Indicative</label>

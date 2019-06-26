@@ -40,7 +40,7 @@ export const Conjugator = connect(
     }
 
     componentWillMount() {
-      this.props.getWord();
+      this.props.getWord(this.state.token);
     }
     componentDidMount() {
       this.updatePredicate();
