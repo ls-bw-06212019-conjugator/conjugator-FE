@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Alert, Spinner } from "reactstrap";
+import { Button , Spinner } from "reactstrap";
 import { desktopHelp } from "../../img/desktop-accent-instructions.jpg";
 import { mobileHelp } from "../../img/mobile-accent-instructions.png";
 import { getWord } from '../../actions';
@@ -142,9 +142,12 @@ export const Conjugator = connect(
             />
             <button action="submit">Submit</button>
           </form>
+          <Button color="link" className="skip" onClick={this.props.getWord}>Skip this Word</Button>
 
           <div className="bottom-sections">
             <Stats />
+            <p>Temporary pronoun instructions:</p> 
+            <p>number is which person, i.e. 1 = 1st person, 2 = second person, 3 = 3rd person. S = singular, P = plural</p>
             <img
               src={
                 this.state.isDesktop
