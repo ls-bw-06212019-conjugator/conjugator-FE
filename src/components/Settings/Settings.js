@@ -28,9 +28,9 @@ export const Settings = connect(mapSettings, {  })(withAuth(props => {
       <form>
         <h5>Difficulty</h5>
         <div className="difficulty">
-          <label for="common-regular"><input type="checkbox" id="common-regular" checked />Indicative</label>
-          <label for="common-irregular"><input type="checkbox" id="common-irregular" />Imperative</label>
-          <label for="all"><input type="checkbox" id="all" />Subjunctive</label>
+          <label for="indicative"><input type="checkbox" id="indicative" checked />Indicative</label>
+          <label for="imperative"><input type="checkbox" id="imperative" />Imperative</label>
+          <label for="subjunctive"><input type="checkbox" id="subjunctive" />Subjunctive</label>
         </div>
         <h5>Tenses</h5>
         <div className="tenses">
