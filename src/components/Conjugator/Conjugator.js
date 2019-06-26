@@ -192,7 +192,7 @@ export const Conjugator = connect(
             {this.props.answer}
           </Collapse>
           <div className="bottom-sections">
-            <Stats localized summarized row recordCorrectWord={this.recordCorrect} recordIncorrectWord={this.recordIncorrect} />
+            <Stats summarized recordCorrectWord={this.recordCorrect} recordIncorrectWord={this.recordIncorrect} />
             <img
               src={
                 this.state.isDesktop

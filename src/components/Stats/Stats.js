@@ -108,7 +108,7 @@ export const Stats = connect(
         <Spinner color="info" />
       ) : this.props.attemptsToGetStats >= 50 ? (
         <Alert color="danger">Timed out, unable to get stats!</Alert>
-      ) : (
+      ) : this.props.summarized ? (
         <div className="stats">
           <div className="stat">
             <h4>Total Attempts</h4>
@@ -139,7 +139,11 @@ export const Stats = connect(
             )}
           </div>
         </div>
-      );
+      ) : (
+        <div className="stats">
+          
+        </div>
+      )
     }
   }
 );
