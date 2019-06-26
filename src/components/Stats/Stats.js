@@ -41,7 +41,7 @@ export const Stats = connect(
         correct: this.state.correct + 1,
         streak: this.state.streak + 1,
         bestStreak:
-          this.state.streak > this.state.bestStreak
+          this.state.streak + 1 >= this.state.bestStreak
             ? this.state.streak + 1
             : this.state.bestStreak
       };
