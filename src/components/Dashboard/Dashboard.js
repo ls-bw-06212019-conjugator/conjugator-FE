@@ -15,6 +15,10 @@ export const Dashboard = connect(mapDashboard)(withAuth(props => {
     <div className='dashboard'>
       <div className="welcome">
         <h2>Welcome to your dashboard!</h2>
+        <p><b>Set target # of conjugations today:</b></p>
+        <form>
+          <input type="number" />
+        </form>
         <p>Your statistics will be displayed below:</p>
       </div>
       <Stats />
