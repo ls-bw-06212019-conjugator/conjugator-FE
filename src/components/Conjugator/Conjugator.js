@@ -40,7 +40,7 @@ export const Conjugator = connect(
     }
 
     componentWillMount() {
-      this.props.getWord();
+      this.props.getWord(this.state.token);
     }
     componentDidMount() {
       this.updatePredicate();
@@ -97,6 +97,7 @@ export const Conjugator = connect(
             break;
           case "n":
             value[index - 1] = "ñ";
+            break;
           default:
             break;
         }

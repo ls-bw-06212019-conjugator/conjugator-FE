@@ -4,6 +4,7 @@ const LOGIN_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/login';
 const REGISTRATION_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/register';
 const WORD_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/words';
 const STATS_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/stats';
+const SETTINGS_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/settings';
 
 // ACTIONS WILL GO HERE
 export const LOGIN_START = 'LOGIN_START';
@@ -25,6 +26,9 @@ export const RECORD_INCORRECT = 'RECORD_INCORRECT';
 export const QUEUE_RECORD_CORRECT = 'QUEUE_RECORD_CORRECT';
 export const QUEUE_RECORD_INCORRECT = 'QUEUE_RECORD_INCORRECT';
 export const CLEAR_QUEUE = 'CLEAR_QUEUE';
+export const SET_FILTER = 'SET_FILTER';
+export const CLEAR_FILTER = 'CLEAR_FILTER';
+export const GET_FILTER = 'GET_FILTER';
 
 export const login = (username, password) => dispatch => {
   dispatch({
@@ -101,12 +105,14 @@ export const logout = () => dispatch => {
   })
 }
 
-export const getWord = () => dispatch => {
+export const getWord = token => dispatch => {
   dispatch({
     type: GETWORD_START
   })
   return axios
-    .get(WORD_ENDPOINT)
+  .create({ headers: {
+    token } })  
+  .get(WORD_ENDPOINT)
     .then(res => {
       console.log(res)
       dispatch({
@@ -130,7 +136,7 @@ export const getStats = token => dispatch => {
   return axios.create({ headers: {
     token } }).get(STATS_ENDPOINT, { token: token })
     .then(res => {
-      console.log(res.data);
+      console.log(res.data.message);
       dispatch({
         type: GETSTATS_SUCCESS,
         payload: res.data
@@ -194,4 +200,47 @@ export const clearQueue = () => dispatch => {
     type: CLEAR_QUEUE
   })
   return true;
+}
+
+export const setFilter = (newFilter, token) => dispatch => {
+  dispatch({
+    type: SET_FILTER,
+    payload: newFilter
+  })
+  return axios.create({ headers: { token } })
+  .post(SETTINGS_ENDPOINT, {
+    filter: newFilter
+  })
+  .catch(err => {
+    console.log(err.message);
+  })
+}
+
+export const clearFilter = (newFilter, token) => dispatch => {
+  dispatch({
+    type: CLEAR_FILTER,
+    payload: newFilter
+  })
+  return axios.create({ headers: { token } })
+  .post(SETTINGS_ENDPOINT, {
+    filter: newFilter
+  })
+  .catch(err => {
+    console.log(err.message);
+  })
+}
+
+export const getFilter = token => dispatch => {
+  return axios.create({ headers: { token } })
+  .get(SETTINGS_ENDPOINT)
+  .then(res => {
+    console.log(res.data);
+    dispatch({
+      type: GET_FILTER,
+      payload: res.data
+    })
+  })
+  .catch(err => {
+    console.log(err.message);
+  })
 }

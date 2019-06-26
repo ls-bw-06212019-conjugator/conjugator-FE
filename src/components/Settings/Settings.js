@@ -2,82 +2,84 @@ import React from 'react';
 
 import { withAuth } from '../';
 
+import { setFilter, clearFilter, getFilter } from '../../actions';
+
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import './Settings.scss';
 
 const mapSettings = state => ({
   // Get state here
+  token: state.token,
+  filteredSettings: state.filteredSettings
 });
 
-export const Settings = connect(mapSettings, {  })(withAuth(props => {
+export const Settings = connect(mapSettings, { setFilter, clearFilter, getFilter })(withAuth(props => {
+
+  console.log(props.filteredSettings);
+
+  const updateFilter = e => {
+    if(e.target.checked) {
+      props.setFilter([...props.filteredSettings, e.target.id]);
+    } else {
+      const defaultFilter = ['imperative', 'subjunctive','future','imperfect','conditional','present_perfect','future_perfect','past_perfect','preterite_archaic','conditional_perfect' ];
+      const newFilter = e.target.id ? Array.from(props.filteredSettings).splice(props.filteredSettings.findIndex(filter => filter === e.target.id), 1) : defaultFilter;
+
+      props.clearFilter(newFilter);
+    }
+    props.getFilter(props.token);
+  }
+
   return (
     <div className="settings-container">
       <h3>Select your settings</h3>
       <form>
-        <h5>Latin Spanish or Spain Spanish</h5>
-        <label for="include-vosotros"><input type="checkbox" id="include-vosotros" />Include "Vosotros"</label>
         <h5>Difficulty</h5>
         <div className="difficulty">
-          <label for="common-regular"><input type="checkbox" id="common-regular" checked />Indicative</label>
-          <label for="common-irregular"><input type="checkbox" id="common-irregular" />Imperative</label>
-          <label for="all"><input type="checkbox" id="all" />Subjunctive</label>
+          <label htmlFor="indicative"><input onChange={updateFilter} type="checkbox" id="indicative" checked />Indicative</label>
+          <label htmlFor="imperative"><input onChange={updateFilter} type="checkbox" id="imperative" />Imperative</label>
+          <label htmlFor="subjunctive"><input onChange={updateFilter} type="checkbox" id="subjunctive" />Subjunctive</label>
         </div>
         <h5>Tenses</h5>
         <div className="tenses">
-          <label for="present">
-            <input type="checkbox" id="present" checked />
+          <label htmlFor="present">
+            <input onChange={updateFilter} type="checkbox" id="present" checked />
             Present
           </label>
-          <label for="preterite">
-            <input type="checkbox" id="preterite" />
+          <label htmlFor="preterite">
+            <input onChange={updateFilter} type="checkbox" id="preterite" />
             Preterite
           </label>
-          <label for="imperfect">
-            <input type="checkbox" id="imperfect" />
+          <label htmlFor="imperfect">
+            <input onChange={updateFilter} type="checkbox" id="imperfect" />
             Imperfect
           </label>
-          <label for="future">
-            <input type="checkbox" id="future" />
+          <label htmlFor="future">
+            <input onChange={updateFilter} type="checkbox" id="future" />
             Future
           </label>
-          <label for="conditional">
-            <input type="checkbox" id="conditional" />
+          <label htmlFor="conditional">
+            <input onChange={updateFilter} type="checkbox" id="conditional" />
             Conditional
           </label>
-          <label for="present-perfect">
-            <input type="checkbox" id="present-perfect" />
+          <label htmlFor="present-perfect">
+            <input onChange={updateFilter} type="checkbox" id="present_perfect" />
             Present Perfect
           </label>
-          <label for="future-perfect">
-            <input type="checkbox" id="future-perfect" />
+          <label htmlFor="future-perfect">
+            <input onChange={updateFilter} type="checkbox" id="future_perfect" />
             Future Perfect
           </label>
-          <label for="past-perfect">
-            <input type="checkbox" id="past-perfect" />
+          <label htmlFor="past-perfect">
+            <input onChange={updateFilter} type="checkbox" id="past_perfect" />
             Past Perfect
           </label>
-          <label for="conditional-perfect">
-            <input type="checkbox" id="conditional-perfect" />
+          <label htmlFor="conditional-perfect">
+            <input onChange={updateFilter} type="checkbox" id="conditional_perfect" />
             Conditional Perfect
           </label>
-          <label for="subjunctive-present">
-            <input type="checkbox" id="subjunctive-present" />
-            Subjunctive Present
-          </label>
-          <label for="subjunctive-imperfect">
-            <input type="checkbox" id="subjunctive-imperfect" />
-            Subjunctive Imperfect
-          </label>
-          <label for="subjunctive-present-perfect">
-            <input type="checkbox" id="subjunctive-present-perfect" />
-            Subjunctive Present Perfect
-          </label>
         </div>
-        <Button color="primary">Update Settings</Button>
-        <Button>Cancel</Button>
-        <Button>Default</Button>
-
+        <Button color='primary' onClick={updateFilter}>Set Default Settings</Button>
       </form>
     </div>
   );
