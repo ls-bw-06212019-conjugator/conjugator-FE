@@ -30,7 +30,7 @@ export const Conjugator = connect(
         isDesktop: false,
         wordInput: "",
         isWrong: false,
-        collapsed: false
+        collapse: false
       };
 
       this.updatePredicate = this.updatePredicate.bind(this);
@@ -123,9 +123,17 @@ export const Conjugator = connect(
     }
 
     toggleCollapse = e => {
-      e.preventDefault();
+      // e.preventDefault();
       this.setState({
-        collapsed: !this.state.collapsed
+        collapse: !this.state.collapse
+      })
+    }
+
+    skipWord = () => {
+      this.props.getWord();
+      this.setState({
+        wordInput: "",
+        collapse: false
       })
     }
 
@@ -155,12 +163,14 @@ export const Conjugator = connect(
             <button action="submit">Submit</button>
           </form>
 
-          <Button color="link" className="skip small-bot-marg" onClick={this.props.getWord}>Skip this Word</Button>
+          <Button color="link" className="skip small-bot-marg" onClick={this.skipWord}>Skip this Word</Button>
           {/* <Alert color="danger" className={this.state.isWrong ? "alert" : "alert hidden"}>Incorrect Answer!</Alert> */}
           <Button color="danger" className={this.state.isWrong ? "small-bot-marg" : "small-bot-marg hidden"} onClick={this.toggleCollapse}>
             Incorrect Answer! Click to Show Answer
           </Button>          
-          <Collapse className="small-bot-marg" isOpen={this.state.collapsed}>{this.props.answer}</Collapse>
+          <Collapse className={this.state.isWrong ? "small-bot-marg" : "small-bot-marg hidden"} isOpen={this.state.collapse}>
+            {this.props.answer}
+          </Collapse>
 
           <div className="bottom-sections">
             {/* <Stats /> */}
