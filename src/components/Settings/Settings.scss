@@ -1,7 +1,8 @@
 .settings-container {
     margin: auto;
     max-width: 50%;
-    // border: 1px dashed red;
+    box-shadow: 0 0 12px -4px gray;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     margin-top: 3rem;
