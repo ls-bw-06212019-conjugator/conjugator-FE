@@ -20,8 +20,8 @@ const initialState = {
   getGoalError: '',
   dailyGoal: 0,
   dailyProgress: 0,
-  settingGoal: false,
-  setGoalError: ''
+  postingGoal: false,
+  postGoalError: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -205,20 +205,20 @@ const reducer = (state = initialState, action) => {
     case actions.POST_GOAL_START:
       return {
         ...state,
-        settingGoal: true,
-        setGoalError: ''
+        postingGoal: true,
+        postGoalError: ''
       }
     case actions.POST_GOAL_SUCCESS:
       return {
         ...state,
-        settingGoal: false,
+        postingGoal: false,
         dailyGoal: action.payload
       }
     case actions.POST_GOAL_FAILURE:
       return {
         ...state,
-        settingGoal: false,
-        setGoalError: action.payload
+        postingGoal: false,
+        postGoalError: action.payload
       }  
     default:
       return state;
