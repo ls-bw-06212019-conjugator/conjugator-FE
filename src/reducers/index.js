@@ -113,13 +113,12 @@ const reducer = (state = initialState, action) => {
         attemptsToGetStats: state.attemptsToGetStats + 1
       }
     case actions.GETSTATS_SUCCESS:
-      console.log(action.payload);
-      localStorage.setItem('globalStats', action.payload.global);
+      localStorage.setItem('globalStats', action.payload.globals);
       localStorage.setItem('personalStats', action.payload.personal);
       return {
         ...state,
         gettingStats: false,
-        globalStats: action.payload.global,
+        globalStats: action.payload.globals,
         personalStats: action.payload.personal
       }
     case actions.GETSTATS_FAILURE:

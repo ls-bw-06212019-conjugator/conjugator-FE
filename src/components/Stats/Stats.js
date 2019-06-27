@@ -264,9 +264,10 @@ export const Stats = connect(
                 <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
                   <ModalHeader toggle={this.toggleModal}>Edit daily goal</ModalHeader>
                   <ModalBody>
-                    <form>
+                    <form className='set-daily-goal'>
                       <input 
                         type="number" 
+                        className='input'
                         placeholder=" daily goal" 
                         onChange={e => this.setState({
                           goal: e.target.value
