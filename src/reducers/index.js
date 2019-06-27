@@ -14,7 +14,7 @@ const initialState = {
   queueRecordIncorrect: null,
   attemptsToGetStats: 0,
   filteredSettings: localStorage.getItem('filteredSettings'),
-  gettingSettings: false,
+  gettingSettings: true,
   getSettingsError: ''
 };
 

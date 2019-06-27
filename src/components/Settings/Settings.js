@@ -22,7 +22,7 @@ export const Settings = connect(
 )(
   withAuth(
     class extends React.Component {
-      componentDidMount() {
+      componentWillMount() {
         this.props.getSettings(this.props.token);
       }
 
@@ -59,7 +59,7 @@ export const Settings = connect(
       };
 
       render() {
-        const disabled = this.props.gettingSettings ? true : false;
+        const disabled = this.props.gettingSettings;
 
         return (
           <div className="settings-container">
@@ -77,7 +77,7 @@ export const Settings = connect(
                     <label htmlFor="indicative">
                       <input
                         disabled={disabled}
-                        checked={
+                        checked={disabled ? false :
                           !this.props.filteredSettings.includes("indicative")
                         }
                         onChange={this.updateFilter}
@@ -89,7 +89,7 @@ export const Settings = connect(
                     <label htmlFor="imperative">
                       <input
                         disabled={disabled}
-                        checked={
+                        checked={disabled ? false :
                           !this.props.filteredSettings.includes("imperative")
                         }
                         onChange={this.updateFilter}
@@ -101,7 +101,7 @@ export const Settings = connect(
                     <label htmlFor="subjunctive">
                       <input
                         disabled={disabled}
-                        checked={
+                        checked={disabled ? false :
                           !this.props.filteredSettings.includes("subjunctive")
                         }
                         onChange={this.updateFilter}
@@ -116,7 +116,7 @@ export const Settings = connect(
                     <label htmlFor="present">
                       <input
                         disabled={disabled}
-                        checked={
+                        checked={disabled ? false :
                           !this.props.filteredSettings.includes("present")
                         }
                         onChange={this.updateFilter}
@@ -128,7 +128,7 @@ export const Settings = connect(
                     <label htmlFor="preterite">
                       <input
                         disabled={disabled}
-                        checked={
+                        checked={disabled ? false :
                           !this.props.filteredSettings.includes("preterite")
                         }
                         onChange={this.updateFilter}
@@ -140,7 +140,7 @@ export const Settings = connect(
                     <label htmlFor="imperfect">
                       <input
                         disabled={disabled}
-                        checked={
+                        checked={disabled ? false :
                           !this.props.filteredSettings.includes("imperfect")
                         }
                         onChange={this.updateFilter}
@@ -152,7 +152,7 @@ export const Settings = connect(
                     <label htmlFor="future">
                       <input
                         disabled={disabled}
-                        checked={
+                        checked={disabled ? false :
                           !this.props.filteredSettings.includes("future")
                         }
                         onChange={this.updateFilter}
@@ -164,7 +164,7 @@ export const Settings = connect(
                     <label htmlFor="conditional">
                       <input
                         disabled={disabled}
-                        checked={
+                        checked={disabled ? false :
                           !this.props.filteredSettings.includes("conditional")
                         }
                         onChange={this.updateFilter}
@@ -176,7 +176,7 @@ export const Settings = connect(
                     <label htmlFor="present-perfect">
                       <input
                         disabled={disabled}
-                        checked={
+                        checked={disabled ? false :
                           !this.props.filteredSettings.includes(
                             "present_perfect"
                           )
@@ -190,7 +190,7 @@ export const Settings = connect(
                     <label htmlFor="future-perfect">
                       <input
                         disabled={disabled}
-                        checked={
+                        checked={disabled ? false :
                           !this.props.filteredSettings.includes(
                             "future_perfect"
                           )
@@ -204,7 +204,7 @@ export const Settings = connect(
                     <label htmlFor="past-perfect">
                       <input
                         disabled={disabled}
-                        checked={
+                        checked={disabled ? false :
                           !this.props.filteredSettings.includes("past_perfect")
                         }
                         onChange={this.updateFilter}
@@ -216,7 +216,7 @@ export const Settings = connect(
                     <label htmlFor="conditional-perfect">
                       <input
                         disabled={disabled}
-                        checked={
+                        checked={disabled ? false :
                           !this.props.filteredSettings.includes(
                             "conditional_perfect"
                           )
