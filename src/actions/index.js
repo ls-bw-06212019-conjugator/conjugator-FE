@@ -133,7 +133,7 @@ export const getWord = token => dispatch => {
       })
     })
     .catch(err => {
-      console.log(err.message)
+      console.log(err.response)
       dispatch({
         type: GETWORD_FAILURE,
       })
@@ -153,6 +153,7 @@ export const getStats = token => dispatch => {
       })
     })
     .catch(err => {
+      console.log('error getting stats');
       console.log(err.response);
     })
 }

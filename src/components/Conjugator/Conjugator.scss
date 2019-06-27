@@ -152,10 +152,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-
+        max-width: 800px;
         img {
             width: 100%;
-            max-width: 800px;
             margin: 3rem;
         }
     }
