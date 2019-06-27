@@ -209,14 +209,9 @@ const reducer = (state = initialState, action) => {
     case actions.POST_GOAL_SUCCESS:
       return {
         ...state,
-<<<<<<< HEAD
-        settingGoal: false,
+        postingGoal: false,
         dailyGoal: action.payload.daily_goal,
         dailyProgress: action.payload.daily_progress
-=======
-        postingGoal: false,
-        dailyGoal: action.payload
->>>>>>> 3b391d81c7c27f2bdff5dc7291d254e55711f1bf
       }
     case actions.POST_GOAL_FAILURE:
       return {
