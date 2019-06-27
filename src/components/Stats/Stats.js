@@ -183,7 +183,7 @@ export const Stats = connect(
       let preterite_archaic_i = 0;
       let conditional_perfect_i = 0;
 
-      if(this.props.personalStats !== undefined) {
+      if(this.props.personalStats !== null) {
         present_c = this.props.personalStats.present_c ? this.props.personalStats.present_c.length : 0;
         future_c = this.props.personalStats.future_c ? this.props.personalStats.future_c.length : 0;
         imperfect_c = this.props.personalStats.imperfect_c ? this.props.personalStats.imperfect_c.length : 0;
