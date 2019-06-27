@@ -51,6 +51,13 @@
             font-size: 12px;
         }
     }
+    .mood {
+        line-height: 0;
+        font-weight: bold;
+        color: #686868;
+        user-select: none;
+        cursor: default;
+    }
     form {
         display: flex;
         width: 100%;
@@ -60,8 +67,12 @@
         .pronoun {
             min-width: 64px;
             position: absolute;
-            font-size: 20px;
-            transform: translateX(-188px);
+            color: #2D2D2D;
+            font-size: 18px;
+            transform: translateX(-188px) translateY(1px);
+            user-select: none;
+            cursor: default;
+            vertical-align: center;
 
             text-align: center;
 
