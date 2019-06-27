@@ -4,6 +4,8 @@ const LOGIN_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/login';
 const REGISTRATION_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/register';
 const WORD_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/words';
 const STATS_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/stats';
+const SETTINGS_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/settings';
+const GOAL_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/goal'
 
 // ACTIONS WILL GO HERE
 export const LOGIN_START = 'LOGIN_START';
@@ -25,6 +27,19 @@ export const RECORD_INCORRECT = 'RECORD_INCORRECT';
 export const QUEUE_RECORD_CORRECT = 'QUEUE_RECORD_CORRECT';
 export const QUEUE_RECORD_INCORRECT = 'QUEUE_RECORD_INCORRECT';
 export const CLEAR_QUEUE = 'CLEAR_QUEUE';
+export const GET_SETTINGS_START = 'GET_SETTINGS_START';
+export const GET_SETTINGS_SUCCESS = 'GET_SETTINGS_SUCCESS';
+export const GET_SETTINGS_FAILURE = 'GET_SETTINGS_FAILURE';
+export const SET_FILTER_START = 'SET_FILTER_START';
+export const SET_FILTER_SUCCESS = 'SET_FILTER_SUCCESS';
+export const SET_FILTER_FAILURE = 'SET_FILTER_FAILURE';
+export const GET_GOAL_START = 'GET_GOAL_START';
+export const GET_GOAL_SUCCESS = 'GET_GOAL_SUCCESS';
+export const GET_GOAL_FAILURE = 'GET_GOAL_FAILURE';
+export const POST_GOAL_START = 'POST_GOAL_START';
+export const POST_GOAL_SUCCESS = 'POST_GOAL_SUCCESS';
+export const POST_GOAL_FAILURE = 'POST_GOAL_FAILURE';
+
 
 export const login = (username, password) => dispatch => {
   dispatch({
@@ -44,7 +59,9 @@ export const login = (username, password) => dispatch => {
   })
   .catch ( err => {
     let error = '';
-    if(err.response.status >= 500) {
+    if(!err.response) {
+      error = 'Unable to estabish connection';
+    } else if(err.response.status >= 500) {
       error = err.response.statusText;
     } else {
       error = err.response.data.message;
@@ -101,21 +118,22 @@ export const logout = () => dispatch => {
   })
 }
 
-export const getWord = () => dispatch => {
+export const getWord = token => dispatch => {
   dispatch({
     type: GETWORD_START
   })
   return axios
-    .get(WORD_ENDPOINT)
+  .create({ headers: {
+    token } })  
+  .get(WORD_ENDPOINT)
     .then(res => {
-      console.log(res)
       dispatch({
         type: GETWORD_SUCCESS,
         payload: res.data     
       })
     })
     .catch(err => {
-      console.log(err)
+      console.log(err.message)
       dispatch({
         type: GETWORD_FAILURE,
       })
@@ -130,7 +148,6 @@ export const getStats = token => dispatch => {
   return axios.create({ headers: {
     token } }).get(STATS_ENDPOINT, { token: token })
     .then(res => {
-      console.log(res.data);
       dispatch({
         type: GETSTATS_SUCCESS,
         payload: res.data
@@ -160,10 +177,6 @@ export const recordIncorrect = (word, token) => dispatch => {
   dispatch({
     type: RECORD_INCORRECT
   });
-  console.log({
-    ...word,
-    correct: 0
-  })
   return axios.create({ headers: {
     token } }).post(WORD_ENDPOINT, {
     ...word,
@@ -189,9 +202,82 @@ export const queueRecordIncorrect = (word) => dispatch => {
 }
 
 export const clearQueue = () => dispatch => {
-  console.log('clearing queue');
   dispatch({
     type: CLEAR_QUEUE
   })
   return true;
+}
+
+export const setFilter = (newFilter, token) => dispatch => {
+  dispatch({
+    type: SET_FILTER_START
+  })
+  return axios.create({ headers: { token } })
+  .post(SETTINGS_ENDPOINT, {
+    filter: newFilter
+  })
+  .then (res => {    dispatch ({
+      type: SET_FILTER_SUCCESS,
+      payload: newFilter
+    })
+  })
+  .catch(err => {
+    dispatch({
+      type: SET_FILTER_FAILURE,
+      payload: 'Unable to update settings!'
+    })
+  })
+}
+
+export const getSettings = token => dispatch => {
+  dispatch({
+    type: GET_SETTINGS_START
+  })
+  return axios.create({ headers: { token } })
+  .get(SETTINGS_ENDPOINT)
+  .then(res => {
+    dispatch({
+      type: GET_SETTINGS_SUCCESS,
+      payload: res.data.filter
+    })
+  })
+  .catch(err => {
+    dispatch({
+      type: GET_SETTINGS_FAILURE,
+      payload: err.message
+    })
+  })
+}
+
+export const getGoal = token => dispatch => {
+  dispatch({
+    type: GET_GOAL_START
+  })
+  return axios.create({ headers: { token }})
+  .get(GOAL_ENDPOINT)
+  .then(res => {
+    console.log(res)
+    dispatch({
+      type: GET_GOAL_SUCCESS,
+      payload: res.data
+    })
+  })
+  .catch(err => console.log(err))
+
+}
+
+export const postGoal = (goal, token) => dispatch => {
+  dispatch({
+    type: POST_GOAL_START
+  })
+  return axios.create({ header: { token }})
+  .post(GOAL_ENDPOINT, goal)
+  .then(res => {
+    console.log(res)
+    dispatch({
+      type: POST_GOAL_SUCCESS,
+      payload: res.data
+    })
+  })
+  .catch(err => console.log(err))
 }

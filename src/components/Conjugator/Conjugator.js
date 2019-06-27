@@ -11,13 +11,15 @@ import "./Conjugator.scss";
 const mapConjugator = state => {
   return {
     word: state.word,
+    type: state.word.type,
     infinitive: state.word.infinitive,
     tense: state.word.tense,
     wordInEnglish: state.word.infinitive_english,
     pronoun: state.word.form,
     gettingWord: state.gettingWord,
     answer: state.word.answer,
-    token: state.token
+    token: state.token,
+    filteredSettings: state.filteredSettings
   };
 };
 
@@ -40,7 +42,7 @@ export const Conjugator = connect(
     }
 
     componentWillMount() {
-      this.props.getWord();
+      this.props.getWord(this.props.token);
     }
     componentDidMount() {
       this.updatePredicate();
@@ -116,7 +118,7 @@ export const Conjugator = connect(
       if (this.state.wordInput === this.props.answer) {
         if(!this.state.invalid)
           this.props.queueRecordCorrect(this.props.word);
-        this.props.getWord(this.props.word);
+        this.props.getWord(this.props.token);
         this.setState({invalid: false});
         this.setState({
           wordInput: "",
@@ -141,7 +143,7 @@ export const Conjugator = connect(
     }
 
     skipWord = () => {
-      this.props.getWord();
+      this.props.getWord(this.props.token);
       this.setState({
         wordInput: "",
         collapse: false
@@ -170,8 +172,11 @@ export const Conjugator = connect(
               <p>{this.props.wordInEnglish}</p>
             </div>
           )}
+          { this.props.filteredSettings && (!this.props.filteredSettings.includes('subjunctive') || !this.props.filteredSettings.includes('imperative')) ?
+          <p className='mood'>Mood: {this.props.type}</p> : null
+          }
           <form onSubmit={this.testWord}>
-            <span>
+            <span className='pronoun'>
               <b>{this.props.pronoun} </b>
             </span>
             <input
@@ -192,7 +197,7 @@ export const Conjugator = connect(
             {this.props.answer}
           </Collapse>
           <div className="bottom-sections">
-            <Stats localized summarized row recordCorrectWord={this.recordCorrect} recordIncorrectWord={this.recordIncorrect} />
+            <Stats summarized recordCorrectWord={this.recordCorrect} recordIncorrectWord={this.recordIncorrect} />
             <img
               src={
                 this.state.isDesktop

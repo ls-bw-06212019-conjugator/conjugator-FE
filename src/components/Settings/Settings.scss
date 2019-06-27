@@ -1,15 +1,35 @@
 .settings-container {
-    margin: auto;
-    max-width: 50%;
-    // border: 1px dashed red;
     display: flex;
     flex-direction: column;
-    margin-top: 3rem;
-    .tenses {
-        display: grid;
-        grid-template-columns: repeat(3, 33%);
-        @media (max-width: 790px) {
-            grid-template-columns: repeat(2, 50%);
+    align-items: center;
+    h2 {
+        margin: 2rem 0;
+    }
+    .settings-box {
+        margin: auto;
+        margin-top: 1rem;
+        max-width: 880px;
+        width: 65%;
+        min-width: 380px;
+        box-shadow: 0 0 12px -4px gray;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        border-radius: 8px;
+        // margin-top: 3rem;
+        .tenses {
+            display: grid;
+            grid-template-columns: repeat(3, 33%);
+            @media (max-width: 790px) {
+                grid-template-columns: repeat(2, 50%);
+            }
+        }
+        input {
+            margin-right: 0.25rem;
+        }
+        label, Button {
+            margin-right: 0.75rem;
+            align-self: flex-end;
         }
     }
 }

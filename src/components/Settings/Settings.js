@@ -1,84 +1,242 @@
-import React from 'react';
+import React from "react";
 
-import { withAuth } from '../';
+import { withAuth } from "../";
 
-import { connect } from 'react-redux';
-import { Button } from 'reactstrap';
-import './Settings.scss';
+import { setFilter, getSettings } from "../../actions";
+
+import { connect } from "react-redux";
+import { Button, Alert } from "reactstrap";
+import "./Settings.scss";
 
 const mapSettings = state => ({
   // Get state here
+  token: state.token,
+  filteredSettings: state.filteredSettings,
+  gettingSettings: state.gettingSettings,
+  getSettingsError: state.getSettingsError
 });
 
-export const Settings = connect(mapSettings, {  })(withAuth(props => {
-  return (
-    <div className="settings-container">
-      <h3>Select your settings</h3>
-      <form>
-        <h5>Latin Spanish or Spain Spanish</h5>
-        <label for="include-vosotros"><input type="checkbox" id="include-vosotros" />Include "Vosotros"</label>
-        <h5>Difficulty</h5>
-        <div className="difficulty">
-          <label for="common-regular"><input type="checkbox" id="common-regular" checked />Common regular verbs</label>
-          <label for="common-irregular"><input type="checkbox" id="common-irregular" />Common irregular verbs</label>
-          <label for="all"><input type="checkbox" id="all" />All Verbs</label>
-        </div>
-        <h5>Tenses</h5>
-        <div className="tenses">
-          <label for="present">
-            <input type="checkbox" id="present" checked />
-            Present
-          </label>
-          <label for="preterite">
-            <input type="checkbox" id="preterite" />
-            Preterite
-          </label>
-          <label for="imperfect">
-            <input type="checkbox" id="imperfect" />
-            Imperfect
-          </label>
-          <label for="future">
-            <input type="checkbox" id="future" />
-            Future
-          </label>
-          <label for="conditional">
-            <input type="checkbox" id="conditional" />
-            Conditional
-          </label>
-          <label for="present-perfect">
-            <input type="checkbox" id="present-perfect" />
-            Present Perfect
-          </label>
-          <label for="future-perfect">
-            <input type="checkbox" id="future-perfect" />
-            Future Perfect
-          </label>
-          <label for="past-perfect">
-            <input type="checkbox" id="past-perfect" />
-            Past Perfect
-          </label>
-          <label for="conditional-perfect">
-            <input type="checkbox" id="conditional-perfect" />
-            Conditional Perfect
-          </label>
-          <label for="subjunctive-present">
-            <input type="checkbox" id="subjunctive-present" />
-            Subjunctive Present
-          </label>
-          <label for="subjunctive-imperfect">
-            <input type="checkbox" id="subjunctive-imperfect" />
-            Subjunctive Imperfect
-          </label>
-          <label for="subjunctive-present-perfect">
-            <input type="checkbox" id="subjunctive-present-perfect" />
-            Subjunctive Present Perfect
-          </label>
-        </div>
-        <Button color="primary">Update Settings</Button>
-        <Button>Cancel</Button>
-        <Button>Default</Button>
+export const Settings = connect(
+  mapSettings,
+  { setFilter, getSettings }
+)(
+  withAuth(
+    class extends React.Component {
+      componentWillMount() {
+        this.props.getSettings(this.props.token);
+      }
 
-      </form>
-    </div>
-  );
-}));
+      updateFilter = e => {
+        if (e.target.checked) {
+          const newFilter = Array.from(this.props.filteredSettings);
+          newFilter.splice(
+            this.props.filteredSettings.findIndex(
+              filter => filter === e.target.id
+            ),
+            1
+          );
+
+          this.props.filteredSettings.includes(e.target.id) &&
+            this.props.setFilter(newFilter, this.props.token);
+        } else {
+          const defaultFilter = [
+            "imperative",
+            "subjunctive",
+            "future",
+            "imperfect",
+            "conditional",
+            "present_perfect",
+            "future_perfect",
+            "past_perfect",
+            "preterite_archaic",
+            "conditional_perfect"
+          ];
+          const newFilter = e.target.id
+            ? [...this.props.filteredSettings, e.target.id]
+            : defaultFilter;
+          this.props.setFilter(newFilter, this.props.token);
+        }
+      };
+
+      render() {
+        const disabled = this.props.gettingSettings;
+
+        return (
+          <div className="settings-container">
+            <h2>Select your settings</h2>
+            <div className="settings-box">
+              {this.props.getSettingsError ? (
+                <Alert color="danger">
+                  Unable to load settings.{" "}
+                  <Button color="link">Try again</Button>
+                </Alert>
+              ) : (
+                <form>
+                  <h5>Difficulty</h5>
+                  <div className="difficulty">
+                    <label htmlFor="indicative">
+                      <input
+                        disabled={disabled}
+                        checked={disabled ? false :
+                          !this.props.filteredSettings.includes("indicative")
+                        }
+                        onChange={this.updateFilter}
+                        type="checkbox"
+                        id="indicative"
+                      />
+                      Indicative
+                    </label>
+                    <label htmlFor="imperative">
+                      <input
+                        disabled={disabled}
+                        checked={disabled ? false :
+                          !this.props.filteredSettings.includes("imperative")
+                        }
+                        onChange={this.updateFilter}
+                        type="checkbox"
+                        id="imperative"
+                      />
+                      Imperative
+                    </label>
+                    <label htmlFor="subjunctive">
+                      <input
+                        disabled={disabled}
+                        checked={disabled ? false :
+                          !this.props.filteredSettings.includes("subjunctive")
+                        }
+                        onChange={this.updateFilter}
+                        type="checkbox"
+                        id="subjunctive"
+                      />
+                      Subjunctive
+                    </label>
+                  </div>
+                  <h5>Tenses</h5>
+                  <div className="tenses">
+                    <label htmlFor="present">
+                      <input
+                        disabled={disabled}
+                        checked={disabled ? false :
+                          !this.props.filteredSettings.includes("present")
+                        }
+                        onChange={this.updateFilter}
+                        type="checkbox"
+                        id="present"
+                      />
+                      Present
+                    </label>
+                    <label htmlFor="preterite">
+                      <input
+                        disabled={disabled}
+                        checked={disabled ? false :
+                          !this.props.filteredSettings.includes("preterite")
+                        }
+                        onChange={this.updateFilter}
+                        type="checkbox"
+                        id="preterite"
+                      />
+                      Preterite
+                    </label>
+                    <label htmlFor="imperfect">
+                      <input
+                        disabled={disabled}
+                        checked={disabled ? false :
+                          !this.props.filteredSettings.includes("imperfect")
+                        }
+                        onChange={this.updateFilter}
+                        type="checkbox"
+                        id="imperfect"
+                      />
+                      Imperfect
+                    </label>
+                    <label htmlFor="future">
+                      <input
+                        disabled={disabled}
+                        checked={disabled ? false :
+                          !this.props.filteredSettings.includes("future")
+                        }
+                        onChange={this.updateFilter}
+                        type="checkbox"
+                        id="future"
+                      />
+                      Future
+                    </label>
+                    <label htmlFor="conditional">
+                      <input
+                        disabled={disabled}
+                        checked={disabled ? false :
+                          !this.props.filteredSettings.includes("conditional")
+                        }
+                        onChange={this.updateFilter}
+                        type="checkbox"
+                        id="conditional"
+                      />
+                      Conditional
+                    </label>
+                    <label htmlFor="present-perfect">
+                      <input
+                        disabled={disabled}
+                        checked={disabled ? false :
+                          !this.props.filteredSettings.includes(
+                            "present_perfect"
+                          )
+                        }
+                        onChange={this.updateFilter}
+                        type="checkbox"
+                        id="present_perfect"
+                      />
+                      Present Perfect
+                    </label>
+                    <label htmlFor="future-perfect">
+                      <input
+                        disabled={disabled}
+                        checked={disabled ? false :
+                          !this.props.filteredSettings.includes(
+                            "future_perfect"
+                          )
+                        }
+                        onChange={this.updateFilter}
+                        type="checkbox"
+                        id="future_perfect"
+                      />
+                      Future Perfect
+                    </label>
+                    <label htmlFor="past-perfect">
+                      <input
+                        disabled={disabled}
+                        checked={disabled ? false :
+                          !this.props.filteredSettings.includes("past_perfect")
+                        }
+                        onChange={this.updateFilter}
+                        type="checkbox"
+                        id="past_perfect"
+                      />
+                      Past Perfect
+                    </label>
+                    <label htmlFor="conditional-perfect">
+                      <input
+                        disabled={disabled}
+                        checked={disabled ? false :
+                          !this.props.filteredSettings.includes(
+                            "conditional_perfect"
+                          )
+                        }
+                        onChange={this.updateFilter}
+                        type="checkbox"
+                        id="conditional_perfect"
+                      />
+                      Conditional Perfect
+                    </label>
+                  </div>
+                  <Button color="primary" onClick={this.updateFilter}>
+                    Set Default Settings
+                  </Button>
+                </form>
+              )}
+            </div>
+          </div>
+        );
+      }
+    }
+  )
+);
