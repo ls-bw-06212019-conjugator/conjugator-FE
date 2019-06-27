@@ -5,6 +5,7 @@ const REGISTRATION_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/register'
 const WORD_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/words';
 const STATS_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/stats';
 const SETTINGS_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/settings';
+const GOAL_ENDPOINT = 'https://bw-conjugator.herokuapp.com/api/goal'
 
 // ACTIONS WILL GO HERE
 export const LOGIN_START = 'LOGIN_START';
@@ -32,6 +33,13 @@ export const GET_SETTINGS_FAILURE = 'GET_SETTINGS_FAILURE';
 export const SET_FILTER_START = 'SET_FILTER_START';
 export const SET_FILTER_SUCCESS = 'SET_FILTER_SUCCESS';
 export const SET_FILTER_FAILURE = 'SET_FILTER_FAILURE';
+export const GET_GOAL_START = 'GET_GOAL_START';
+export const GET_GOAL_SUCCESS = 'GET_GOAL_SUCCESS';
+export const GET_GOAL_FAILURE = 'GET_GOAL_FAILURE';
+export const POST_GOAL_START = 'POST_GOAL_START';
+export const POST_GOAL_SUCCESS = 'POST_GOAL_SUCCESS';
+export const POST_GOAL_FAILURE = 'POST_GOAL_FAILURE';
+
 
 export const login = (username, password) => dispatch => {
   dispatch({
@@ -239,4 +247,37 @@ export const getSettings = token => dispatch => {
       payload: err.message
     })
   })
+}
+
+export const getGoal = token => dispatch => {
+  dispatch({
+    type: GET_GOAL_START
+  })
+  return axios.create({ headers: { token }})
+  .get(GOAL_ENDPOINT)
+  .then(res => {
+    console.log(res)
+    dispatch({
+      type: GET_GOAL_SUCCESS,
+      payload: res.data
+    })
+  })
+  .catch(err => console.log(err))
+
+}
+
+export const postGoal = (goal, token) => dispatch => {
+  dispatch({
+    type: POST_GOAL_START
+  })
+  return axios.create({ header: { token }})
+  .post(GOAL_ENDPOINT, goal)
+  .then(res => {
+    console.log(res)
+    dispatch({
+      type: POST_GOAL_SUCCESS,
+      payload: res.data
+    })
+  })
+  .catch(err => console.log(err))
 }

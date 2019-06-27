@@ -4,8 +4,8 @@ const initialState = {
   token: localStorage.getItem("token"),
   username: localStorage.getItem("username"),
   loggingIn: false,
-  authError: "",
-  getWordError: "",
+  authError: '',
+  getWordError: '',
   gettingWord: false,
   word: {},
   globalStats: localStorage.getItem('globalStats'),
@@ -15,7 +15,13 @@ const initialState = {
   attemptsToGetStats: 0,
   filteredSettings: localStorage.getItem('filteredSettings'),
   gettingSettings: true,
-  getSettingsError: ''
+  getSettingsError: '',
+  gettingGoal: false,
+  getGoalError: '',
+  dailyGoal: 0,
+  dailyProgress: 0,
+  settingGoal: false,
+  setGoalError: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -177,6 +183,43 @@ const reducer = (state = initialState, action) => {
         gettingSettings: false,
         getSettingsError: action.payload
       }
+    case actions.GET_GOAL_START: 
+      return {
+        ...state,
+        gettingGoal: true,
+        getGoalError: ''
+      }
+    case actions.GET_GOAL_SUCCESS:
+      return {
+        ...state,
+        gettingGoal: false,
+        dailyGoal: action.payload.daily_goal,
+        dailyProgress: action.payload.daily_progress
+      }
+    case actions.GET_GOAL_FAILURE:
+      return {
+        ...state,
+        gettingGoal: false,
+        getGoalError: action.payload
+      }
+    case actions.POST_GOAL_START:
+      return {
+        ...state,
+        settingGoal: true,
+        setGoalError: ''
+      }
+    case actions.POST_GOAL_SUCCESS:
+      return {
+        ...state,
+        settingGoal: false,
+        dailyGoal: action.payload
+      }
+    case actions.POST_GOAL_FAILURE:
+      return {
+        ...state,
+        settingGoal: false,
+        setGoalError: action.payload
+      }  
     default:
       return state;
   }
