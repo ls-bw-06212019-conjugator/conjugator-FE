@@ -28,6 +28,7 @@ export const Navbar = connect(mapNavbar, { logout })(
     }
 
     render(){
+      const isMobile = false;
       return !isMobile ? (
         <div className='navbar'>
           <Link to="/"><h1>Conjugator</h1></Link>
@@ -60,10 +61,10 @@ export const Navbar = connect(mapNavbar, { logout })(
       <NavLink activeClassName="active" className="navlink" to="/settings">
         Settings
       </NavLink>
-      {props.username ? (
+      {this.props.username ? (
         <div className="user">
-          <h4>{props.username}</h4>
-          <Button color="danger" onClick={props.logout}>
+          <h4>{this.props.username}</h4>
+          <Button color="danger" onClick={this.props.logout}>
             Log Out
           </Button>
         </div>

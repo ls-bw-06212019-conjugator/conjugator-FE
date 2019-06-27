@@ -4,7 +4,7 @@ import { Navbar } from './components/Navbar/Navbar';
 
 import { Route } from 'react-router-dom';
 
-import { Auth, Conjugator, Dashboard, Settings, Profile } from './components';
+import { Auth, Conjugator, Dashboard, Settings } from './components';
 
 function App() {
   return (
