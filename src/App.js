@@ -14,7 +14,7 @@ function App() {
       <Route path='/dashboard' component={Dashboard} />
       <Route path='/settings' component={Settings} />
       <Route path='/auth' component={Auth} />
-      <Route path='/profile' component={Profile} />
+      {/* <Route path='/profile' component={Profile} /> */}
     </div>
   );
 }

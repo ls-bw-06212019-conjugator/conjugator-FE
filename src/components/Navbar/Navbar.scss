@@ -1,3 +1,47 @@
+.mobile-nav {
+    position: fixed;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    width: 70%;
+    right: 0;
+    top: 0;
+    background: white;
+    box-shadow: 0 0 15px 0px gray;
+    align-items: space-between;
+
+    h3 {
+        margin-top: 24px;
+        color: #63BAFF;
+        padding: 24px;
+    }
+
+    .navlink {
+        background: #63BAFF;
+        width: 100%;
+        margin: 5px 0;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        padding: 48px 16px;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .navlink:hover{
+        text-decoration: none!important;
+    }
+
+    .user {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 24px;
+    }
+}
+
 .navbar {
     color: #63BAFF!important;
     // color: $blue;
@@ -48,7 +92,11 @@
 
     .menu {
         display: none;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
     }
+
     @media (max-width: 790px) {
         .menu {
             display: block;

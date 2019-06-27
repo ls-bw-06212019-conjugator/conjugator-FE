@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { connect } from "react-redux";
 
@@ -19,8 +19,6 @@ export const Profile = withAuth(
     mapProfile,
     { logout }
   )(props => {
-
-    const [email, setEmail] = useState('default@conjugator.io');
 
     const logout = () => {
       props.logout();

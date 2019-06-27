@@ -51,6 +51,9 @@
       justify-content: center;
       min-width: 164px;
       margin: 1rem;
+
+      
+
       .box {
         padding: 1rem;
         width: 100%;
@@ -67,6 +70,13 @@
         p {
           line-height: 1;
           margin-bottom: 3px;
+        }
+        .set-daily-goal {
+          .input {
+            border: none;
+            border-bottom: 1px solid #686868;
+            border-radius: 4px;
+          }
         }
       }
     }
