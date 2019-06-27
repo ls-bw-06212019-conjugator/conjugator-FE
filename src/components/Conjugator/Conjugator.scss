@@ -99,14 +99,14 @@
         }
 
         input:focus {
-            border: 1px solid #05FFB8;
+            border: 1px solid #2ead4c;
         }
         input.wrong {
             border: 1px solid crimson;
         }
 
         button {
-            background-color: #05FFB8;
+            background-color: #2ead4c;
             border-radius: 5px;
             border: none;
             padding: 4px 8px;
@@ -152,9 +152,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        max-width: 800px;
+        max-width: 1024px;
         img {
-            width: 100%;
+            width: 80%;
             margin: 3rem;
         }
     }
