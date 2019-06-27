@@ -81,8 +81,12 @@ export const Stats = connect(
     }
 
     update() {
+      if(!this.props.token && this.state.currentAttempts === 5) {
+        this.props.pingSignup();
+      }
+
       if (this.props.personalStats) {
-        console.log(this.props.globalStats);
+        console.log(this.props.personalStats);
         if (
           this.props.personalStats.best_streak &&
           this.props.personalStats.best_streak > this.state.bestStreak
@@ -235,7 +239,7 @@ export const Stats = connect(
               <div className="box">
                 <h2>{this.state.bestStreak}</h2>
                 <p>better than</p>
-                <h4>82%</h4>
+                <h4>{this.props.personalStats.streak_position}%</h4>
                 <p>of all other users</p>
               </div>
             </div>
@@ -251,7 +255,7 @@ export const Stats = connect(
                   %
                 </h2>
                 <p>better than</p>
-                <h4>82%</h4>
+                <h4>{this.props.personalStats.percent_position}%</h4>
                 <p>of all other users</p>
               </div>
             </div>
