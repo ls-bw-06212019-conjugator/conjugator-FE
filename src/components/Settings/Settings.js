@@ -23,6 +23,10 @@ export const Settings = connect(
   withAuth(
     class extends React.Component {
       componentWillMount() {
+        this.getSettings();
+      }
+
+      getSettings = () => {
         this.props.getSettings(this.props.token);
       }
 
@@ -68,7 +72,7 @@ export const Settings = connect(
               {this.props.getSettingsError ? (
                 <Alert color="danger">
                   Unable to load settings.{" "}
-                  <Button color="link">Try again</Button>
+                  <Button onClick={this.getSettings} color="link">Try again</Button>
                 </Alert>
               ) : (
                 <form>
