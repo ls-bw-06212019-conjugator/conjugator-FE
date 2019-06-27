@@ -99,6 +99,7 @@ export const Conjugator = connect(
             break;
           case "n":
             value[index - 1] = "ñ";
+            break;
           default:
             break;
         }
