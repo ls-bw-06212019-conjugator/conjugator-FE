@@ -50,6 +50,7 @@ const BigStat = props => {
         <Progress multi>
           <Progress
             bar
+            color='success'
             value={(getCorrectAttempts() / getTenseTotalAttempts()) * 100}
           >
             {getCorrectAttempts()}

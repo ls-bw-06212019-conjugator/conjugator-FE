@@ -39,6 +39,7 @@ export const Stats = connect(
   class extends Component {
     // Localized & Personalized Stats
     state = {
+      userBuggedAlready: false,
       currentAttempts: 0,
       correct: 0,
       incorrect: 0,
@@ -91,8 +92,9 @@ export const Stats = connect(
     }
 
     update() {
-      if (!this.props.token && this.state.currentAttempts === 5) {
+      if (!this.props.token && this.state.currentAttempts === 5 && !this.state.userBuggedAlready) {
         this.props.pingSignup();
+        this.setState({userBuggedAlready: true});
       }
 
       if (this.props.personalStats) {
