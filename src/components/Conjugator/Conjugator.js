@@ -210,7 +210,7 @@ export const Conjugator = connect(
               <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
                 <ModalHeader toggle={this.toggleModal}>Sign Up!</ModalHeader>
                 <ModalBody>
-                  By creating an account, you can have all of your personal stats and progress tracked for you!
+                  By creating an account, you can have all of your personal stats and progress tracked for you! Also, you can customize your settings of which verbs you would like to practice!
                 </ModalBody>
                 <ModalFooter>
                 <Link to="/auth"><Button color="primary">Sign up for free</Button></Link>
