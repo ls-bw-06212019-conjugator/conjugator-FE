@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 
-import { getStats, clearQueue, logout } from "../../actions";
+import { getStats, clearQueue, logout, getGoal, postGoal } from "../../actions";
 
 import BigStat from './BigStat';
 
@@ -19,12 +19,14 @@ const mapStateToStats = state => ({
   recordCorrect: state.queueRecordCorrect,
   recordIncorrect: state.queueRecordIncorrect,
   gettingStats: state.gettingStats,
-  attemptsToGetStats: state.attemptsToGetStats
+  attemptsToGetStats: state.attemptsToGetStats,
+  dailyGoal: state.dailyGoal,
+  dailyProgress: state.dailyProgress
 });
 
 export const Stats = connect(
   mapStateToStats,
-  { getStats, clearQueue, logout }
+  { getStats, clearQueue, logout, getGoal, postGoal }
 )(
   class extends Component {
     // Localized & Personalized Stats
@@ -34,7 +36,8 @@ export const Stats = connect(
       incorrect: 0,
       streak: 0,
       bestStreak: 0,
-      modal: false
+      modal: false,
+      goal: ''
     };
 
     recordCorrect = word => {
@@ -70,6 +73,7 @@ export const Stats = connect(
 
     componentDidMount() {
       this.props.getStats(this.props.token);
+      this.props.getGoal(this.props.token);
     }
 
     componentDidUpdate() {
@@ -112,8 +116,9 @@ export const Stats = connect(
       }));
     }
 
-    saveGoal = () => {
+    saveGoal = goal => {
       this.toggleModal();
+      this.props.postGoal(parseInt(goal) ,this.props.token);
     }
 
     getTotalCorrect = () => {
@@ -253,18 +258,25 @@ export const Stats = connect(
             <div className="stat-box">
               <h3>Today's Goal</h3>
               <div className="box">
-                <h2>10/50</h2>
+                <h2>{this.props.dailyProgress}/{this.props.dailyGoal}</h2>
                 <p>correct conjugations</p>
                 <Button color="link" onClick={this.toggleModal}>Edit daily goal</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
                   <ModalHeader toggle={this.toggleModal}>Edit daily goal</ModalHeader>
                   <ModalBody>
                     <form>
-                      <input type="text" placeholder=" daily goal" />
+                      <input 
+                        type="number" 
+                        placeholder=" daily goal" 
+                        onChange={e => this.setState({
+                          goal: e.target.value
+                        })} 
+                        value={this.state.goal}
+                      />
                     </form>
                   </ModalBody>
                   <ModalFooter>
-                    <Button color="primary" onClick={this.saveGoal}>Save new goal</Button>
+                    <Button color="primary" onClick={() => this.saveGoal(this.state.goal)}>Save new goal</Button>
                     <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
                   </ModalFooter>
                 </Modal>
