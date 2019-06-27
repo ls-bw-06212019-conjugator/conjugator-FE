@@ -118,114 +118,51 @@ export const Stats = connect(
 
     getTotalCorrect = () => {
       let sum = 0;
-      sum += this.state.present_c ? this.state.present_c.length : 0;
-      sum += this.state.future_c ? this.state.future_c.length : 0;
-      sum += this.state.imperfect_c ? this.state.imperfect_c.length : 0;
-      sum += this.state.preterite_c ? this.state.preterite_c.length : 0;
-      sum += this.state.conditional_c ? this.state.conditional_c.length : 0;
-      sum += this.state.present_perfect_c
-        ? this.state.present_perfect_c.length
+      sum += this.props.personalStats.present_c ? this.props.personalStats.present_c.length : 0;
+      sum += this.props.personalStats.future_c ? this.props.personalStats.future_c.length : 0;
+      sum += this.props.personalStats.imperfect_c ? this.props.personalStats.imperfect_c.length : 0;
+      sum += this.props.personalStats.preterite_c ? this.props.personalStats.preterite_c.length : 0;
+      sum += this.props.personalStats.conditional_c ? this.props.personalStats.conditional_c.length : 0;
+      sum += this.props.personalStats.present_perfect_c
+        ? this.props.personalStats.present_perfect_c.length
         : 0;
-      sum += this.state.future_perfect_c
-        ? this.state.future_perfect_c.length
+      sum += this.props.personalStats.future_perfect_c
+        ? this.props.personalStats.future_perfect_c.length
         : 0;
-      sum += this.state.past_perfect_c ? this.state.past_perfect_c.length : 0;
-      sum += this.state.preterite_archaic_c
-        ? this.state.preterite_archaic_c.length
+      sum += this.props.personalStats.past_perfect_c ? this.props.personalStats.past_perfect_c.length : 0;
+      sum += this.props.personalStats.preterite_archaic_c
+        ? this.props.personalStats.preterite_archaic_c.length
         : 0;
-      sum += this.state.conditional_perfect_c
-        ? this.state.conditional_perfect_c.length
+      sum += this.props.personalStats.conditional_perfect_c
+        ? this.props.personalStats.conditional_perfect_c.length
         : 0;
       return sum;
     };
 
     getTotalIncorrect = () => {
       let sum = 0;
-      sum += this.state.present_i ? this.state.present_i.length : 0;
-      sum += this.state.future_i ? this.state.future_i.length : 0;
-      sum += this.state.imperfect_i ? this.state.imperfect_i.length : 0;
-      sum += this.state.preterite_i ? this.state.preterite_i.length : 0;
-      sum += this.state.conditional_i ? this.state.conditional_i.length : 0;
-      sum += this.state.present_perfect_i
-        ? this.state.present_perfect_i.length
+      sum += this.props.personalStats.present_i ? this.props.personalStats.present_i.length : 0;
+      sum += this.props.personalStats.future_i ? this.props.personalStats.future_i.length : 0;
+      sum += this.props.personalStats.imperfect_i ? this.props.personalStats.imperfect_i.length : 0;
+      sum += this.props.personalStats.preterite_i ? this.props.personalStats.preterite_i.length : 0;
+      sum += this.props.personalStats.conditional_i ? this.props.personalStats.conditional_i.length : 0;
+      sum += this.props.personalStats.present_perfect_i
+        ? this.props.personalStats.present_perfect_i.length
         : 0;
-      sum += this.state.future_perfect_i
-        ? this.state.future_perfect_i.length
+      sum += this.props.personalStats.future_perfect_i
+        ? this.props.personalStats.future_perfect_i.length
         : 0;
-      sum += this.state.past_perfect_i ? this.state.past_perfect_i.length : 0;
-      sum += this.state.preterite_archaic_i
-        ? this.state.preterite_archaic_i.length
+      sum += this.props.personalStats.past_perfect_i ? this.props.personalStats.past_perfect_i.length : 0;
+      sum += this.props.personalStats.preterite_archaic_i
+        ? this.props.personalStats.preterite_archaic_i.length
         : 0;
-      sum += this.state.conditional_perfect_i
-        ? this.state.conditional_perfect_i.length
+      sum += this.props.personalStats.conditional_perfect_i
+        ? this.props.personalStats.conditional_perfect_i.length
         : 0;
       return sum;
     };
 
     render() {
-      let present_c = 0;
-      let present_total = 0;
-      let future_c = 0;
-      let future_total = 0;
-      let imperfect_c = 0;
-      let imperfect_total = 0;
-      let preterite_c = 0;
-      let preterite_total = 0;
-      let conditional_c = 0;
-      let conditional_total = 0;
-      let present_perfect_c = 0;
-      let present_perfect_total = 0;
-      let future_perfect_c = 0;
-      let future_perfect_total = 0;
-      let past_perfect_c = 0;
-      let past_perfect_total = 0;
-      let preterite_archaic_c = 0;
-      let preterite_archaic_total = 0;
-      let conditional_perfect_c = 0;
-      let conditional_perfect_total = 0;
-      let present_i = 0;
-      let future_i = 0;
-      let imperfect_i = 0;
-      let preterite_i = 0;
-      let conditional_i = 0;
-      let present_perfect_i = 0;
-      let future_perfect_i = 0;
-      let past_perfect_i = 0;
-      let preterite_archaic_i = 0;
-      let conditional_perfect_i = 0;
-
-      if(this.props.personalStats !== null) {
-        present_c = this.props.personalStats.present_c ? this.props.personalStats.present_c.length : 0;
-        future_c = this.props.personalStats.future_c ? this.props.personalStats.future_c.length : 0;
-        imperfect_c = this.props.personalStats.imperfect_c ? this.props.personalStats.imperfect_c.length : 0;
-        preterite_c = this.props.personalStats.preterite_c ? this.props.personalStats.preterite_c.length : 0;
-        conditional_c = this.props.personalStats.conditional_c ? this.props.personalStats.conditional_c.length : 0;
-        present_perfect_c = this.props.personalStats.present_perfect_c ? this.props.personalStats.present_perfect_c.length : 0;
-        future_perfect_c = this.props.personalStats.future_perfect_c ? this.props.personalStats.future_perfect_c.length : 0;
-        past_perfect_c = this.props.personalStats.past_perfect_c ? this.props.personalStats.past_perfect_c.length : 0;
-        preterite_archaic_c = this.props.personalStats.preterite_archaic_c ? this.props.personalStats.preterite_archaic_c.length : 0;
-        conditional_perfect_c = this.props.personalStats.conditional_perfect_c ? this.props.personalStats.conditional_perfect_c.length : 0;
-        present_i = this.props.personalStats.present_i ? this.props.personalStats.present_i.length : 0;
-        future_i = this.props.personalStats.future_i ? this.props.personalStats.future_i.length : 0;
-        imperfect_i = this.props.personalStats.imperfect_i ? this.props.personalStats.imperfect_i.length : 0;
-        preterite_i = this.props.personalStats.preterite_i ? this.props.personalStats.preterite_i.length : 0;
-        conditional_i = this.props.personalStats.conditional_i ? this.props.personalStats.conditional_i.length : 0;
-        present_perfect_i = this.props.personalStats.present_perfect_i ? this.props.personalStats.present_perfect_i.length : 0;
-        future_perfect_i = this.props.personalStats.future_perfect_i ? this.props.personalStats.future_perfect_i.length : 0;
-        past_perfect_i = this.props.personalStats.past_perfect_i ? this.props.personalStats.past_perfect_i.length : 0;
-        preterite_archaic_i = this.props.personalStats.preterite_archaic_i ? this.props.personalStats.preterite_archaic_i.length : 0;
-        conditional_perfect_i = this.props.personalStats.conditional_perfect_i ? this.props.personalStats.conditional_perfect_i.length : 0;
-        present_total = present_i + present_c;
-        future_total = future_i + future_c;
-        imperfect_total = imperfect_i + imperfect_c;
-        preterite_total = preterite_i + preterite_c;
-        conditional_total = conditional_i + conditional_c;
-        present_perfect_total = present_perfect_i + present_perfect_c;
-        future_perfect_total = future_perfect_i + future_perfect_c;
-        past_perfect_total = past_perfect_i + past_perfect_c;
-        preterite_archaic_total = preterite_archaic_i + preterite_archaic_c;
-        conditional_perfect_total = conditional_perfect_i + conditional_perfect_c;
-      }
 
       const tenses = ['present', 'future', 'imperfect', 'preterite', 'conditional', 'present_perfect', 'future_perfect', 'past_perfect', 'preterite_archaic', 'conditional_perfect'];
 
@@ -336,7 +273,8 @@ export const Stats = connect(
           </div>
           <div className="bottom">
             <h3>Performance by tense</h3>
-            {
+            { this.props.gettingStats ?
+              <Spinner color='info' /> :
               tenses.map(tense => <BigStat key={tense} valueName={tense} stats={this.props.personalStats}/>)
             }
           </div>

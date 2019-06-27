@@ -4,43 +4,48 @@ import { Progress, Alert } from "reactstrap";
 
 const BigStat = props => {
   const getTenseName = name => {
-    return name.replace("_", " ")
+    return name
+      .replace("_", " ")
       .split(" ")
       .map(s => s.charAt(0).toUpperCase() + s.substring(1))
       .join(" ");
   };
 
   const getTenseTotalAttempts = () => {
-    return (
-      getCorrectAttempts() +
-      getIncorrectAttempts()
-    );
+    return getCorrectAttempts() + getIncorrectAttempts();
   };
 
   const getCorrectAttempts = () => {
-    if(props.personalStats) {
-      return props.personalStats[`${props.valueName}_c`];
+    if (props.stats) {
+      return props.stats[`${props.valueName}_c`]
+        ? props.stats[`${props.valueName}_c`].length
+        : 0;
     } else return 0;
-  }
+  };
 
   const getIncorrectAttempts = () => {
-    if(props.personalStats) {
-      return props.personalStats[`${props.valueName}_i`];
+    if (props.stats) {
+      console.log(props.stats);
+      return props.stats[`${props.valueName}_i`]
+        ? props.stats[`${props.valueName}_i`].length
+        : 0;
     }
-  }
+  };
 
-  console.log(props.valueName);
+  console.log(props.personalStats);
 
   return (
     <div className="stat-big">
       <div className="info">
         <div className="tense">{getTenseName(props.valueName)}</div>
         <div className="performance">
-          {Math.floor(
-            100 *
-              (getCorrectAttempts() /
-                getTenseTotalAttempts())
-          )}
+          {Number.isNaN(
+            Math.floor(100 * (getCorrectAttempts() / getTenseTotalAttempts()))
+          )
+            ? 0
+            : Math.floor(
+                100 * (getCorrectAttempts() / getTenseTotalAttempts())
+              )}
           %
         </div>
       </div>
@@ -48,11 +53,7 @@ const BigStat = props => {
         <Progress multi>
           <Progress
             bar
-            value={
-              (getCorrectAttempts() /
-                getTenseTotalAttempts()) *
-              100
-            }
+            value={(getCorrectAttempts() / getTenseTotalAttempts()) * 100}
           >
             {getCorrectAttempts()}
           </Progress>
