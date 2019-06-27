@@ -207,7 +207,6 @@ export const Conjugator = connect(
           </Collapse>
           {!this.props.token ?
             <div className="signup-modal">
-              <button onClick={this.toggleModal}>test modal</button>
               <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
                 <ModalHeader toggle={this.toggleModal}>Sign Up!</ModalHeader>
                 <ModalBody>
@@ -222,7 +221,7 @@ export const Conjugator = connect(
             null
           }
           <div className="bottom-sections">
-            <Stats summarized recordCorrectWord={this.recordCorrect} recordIncorrectWord={this.recordIncorrect} />
+            <Stats pingSignup={this.toggleModal} summarized recordCorrectWord={this.recordCorrect} recordIncorrectWord={this.recordIncorrect} />
             <img
               src={
                 this.state.isDesktop

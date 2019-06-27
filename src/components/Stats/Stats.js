@@ -81,8 +81,12 @@ export const Stats = connect(
     }
 
     update() {
+      if(!this.props.token && this.state.currentAttempts === 5) {
+        this.props.pingSignup();
+      }
+
       if (this.props.personalStats) {
-        console.log(this.props.globalStats);
+        console.log(this.props.personalStats);
         if (
           this.props.personalStats.best_streak &&
           this.props.personalStats.best_streak > this.state.bestStreak

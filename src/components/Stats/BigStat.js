@@ -25,14 +25,11 @@ const BigStat = props => {
 
   const getIncorrectAttempts = () => {
     if (props.stats) {
-      console.log(props.stats);
       return props.stats[`${props.valueName}_i`]
         ? props.stats[`${props.valueName}_i`].length
         : 0;
     }
   };
-
-  console.log(props.personalStats);
 
   return (
     <div className="stat-big">

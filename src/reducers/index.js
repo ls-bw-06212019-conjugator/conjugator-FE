@@ -52,6 +52,7 @@ const reducer = (state = initialState, action) => {
       localStorage.setItem('username', '');
       localStorage.setItem('globalStats', null);
       localStorage.setItem('personalStats', null);
+      localStorage.setItem('filteredSettings', null);
       return {
         ...state,
         loggingIn: false,
