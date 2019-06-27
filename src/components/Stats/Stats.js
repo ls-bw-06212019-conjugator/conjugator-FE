@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Alert, Button, Spinner, Progress } from "reactstrap";
+import { Alert, Button, Spinner, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 import { Link } from "react-router-dom";
 
@@ -33,7 +33,8 @@ export const Stats = connect(
       correct: 0,
       incorrect: 0,
       streak: 0,
-      bestStreak: 0
+      bestStreak: 0,
+      modal: false
     };
 
     recordCorrect = word => {
@@ -103,6 +104,16 @@ export const Stats = connect(
       } else if (this.props.attemptsToGetStats >= 50) {
         this.props.logout();
       }
+    }
+
+    toggleModal = () => {
+      this.setState(prevState => ({
+        modal: !prevState.modal
+      }));
+    }
+
+    saveGoal = () => {
+      this.toggleModal();
     }
 
     getTotalCorrect = () => {
@@ -307,7 +318,19 @@ export const Stats = connect(
               <div className="box">
                 <h2>10/50</h2>
                 <p>correct conjugations</p>
-                <Button color="link">Edit daily goal</Button>
+                <Button color="link" onClick={this.toggleModal}>Edit daily goal</Button>
+                <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
+                  <ModalHeader toggle={this.toggleModal}>Edit daily goal</ModalHeader>
+                  <ModalBody>
+                    <form>
+                      <input type="text" placeholder=" daily goal" />
+                    </form>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="primary" onClick={this.saveGoal}>Save new goal</Button>
+                    <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+                  </ModalFooter>
+                </Modal>
               </div>
             </div>
           </div>
