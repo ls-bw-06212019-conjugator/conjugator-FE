@@ -76,7 +76,22 @@ export const Settings = connect(
                 </Alert>
               ) : (
                 <form>
-                  <h5>Difficulty</h5>
+                  <h5>Localized Conjugations</h5>
+                  <div className='localized'>
+                    <label htmlFor='vosotros'>
+                      <input 
+                        disabled={disabled}
+                        checked={disabled ? false : 
+                          !this.props.filteredSettings.includes('vosotros')
+                        }
+                        onChange={this.updateFilter}
+                        type='checkbox'
+                        id='vosotros'
+                      />
+                      Include vosotros
+                    </label>
+                  </div>
+                  <h5>Difficulty (Moods)</h5>
                   <div className="difficulty">
                     <label htmlFor="indicative">
                       <input
