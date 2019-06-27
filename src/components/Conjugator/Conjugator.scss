@@ -51,18 +51,41 @@
             font-size: 12px;
         }
     }
+    .mood {
+        line-height: 0;
+        font-weight: bold;
+        color: #686868;
+        user-select: none;
+        cursor: default;
+    }
     form {
         display: flex;
         width: 100%;
         justify-content: center;
         align-items: center;
 
-        span {
+        .pronoun {
             min-width: 64px;
+            position: absolute;
+            color: #2D2D2D;
+            font-size: 18px;
+            transform: translateX(-188px) translateY(1px);
+            user-select: none;
+            cursor: default;
+            vertical-align: center;
+
+            text-align: center;
+
+            transition: transform 0.2s;
+
+            @media (max-width: 572px) {
+                transform: translateX(-164px);
+            }
         }
 
         input {
             padding: 6px;
+            padding-left: 96px;
             font-size: 24px;
             outline: none;
             font-weight: bold;
@@ -70,7 +93,7 @@
             border: 1px solid #686868;
             border-radius: 4px;
 
-            width: 375px;
+            width: 480px;
 
             transition: border 0.3s;
         }
@@ -90,7 +113,7 @@
             color: white;
             font-weight: bold;
             position: absolute;
-            transform: translateX(168px);
+            transform: translateX(196px);
 
             transition: transform 0.3s, background-color 0.3s;
 

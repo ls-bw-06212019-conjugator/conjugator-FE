@@ -11,13 +11,15 @@ import "./Conjugator.scss";
 const mapConjugator = state => {
   return {
     word: state.word,
+    type: state.word.type,
     infinitive: state.word.infinitive,
     tense: state.word.tense,
     wordInEnglish: state.word.infinitive_english,
     pronoun: state.word.form,
     gettingWord: state.gettingWord,
     answer: state.word.answer,
-    token: state.token
+    token: state.token,
+    filteredSettings: state.filteredSettings
   };
 };
 
@@ -170,8 +172,11 @@ export const Conjugator = connect(
               <p>{this.props.wordInEnglish}</p>
             </div>
           )}
+          { this.props.filteredSettings && (!this.props.filteredSettings.includes('subjunctive') || !this.props.filteredSettings.includes('imperative')) ?
+          <p className='mood'>Mood: {this.props.type}</p> : null
+          }
           <form onSubmit={this.testWord}>
-            <span>
+            <span className='pronoun'>
               <b>{this.props.pronoun} </b>
             </span>
             <input
