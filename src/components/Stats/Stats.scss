@@ -1,6 +1,6 @@
 .summarized {
   display: flex;
-  flex-flow: row wrap!important;
+  flex-flow: row wrap !important;
 }
 .stats {
   text-align: center;
@@ -68,6 +68,33 @@
           line-height: 1;
           margin-bottom: 3px;
         }
+      }
+    }
+  }
+
+  .bottom {
+    h3 {
+      margin: 24px;
+    }
+
+    .stat-big {
+      margin-bottom: 9px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      .info {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        margin-bottom: 7px;
+        font-size: 24px;
+        .tense {
+          font-weight: bold;
+        }
+      }
+      .progress {
+        width: 100%;
       }
     }
   }
