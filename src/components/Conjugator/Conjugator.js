@@ -171,7 +171,7 @@ export const Conjugator = connect(
             </div>
           )}
           <form onSubmit={this.testWord}>
-            <span>
+            <span className='pronoun'>
               <b>{this.props.pronoun} </b>
             </span>
             <input
