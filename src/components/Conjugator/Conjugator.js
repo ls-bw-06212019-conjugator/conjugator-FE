@@ -118,7 +118,7 @@ export const Conjugator = connect(
 
     testWord = e => {
       e.preventDefault();
-      if (this.state.wordInput === this.props.answer) {
+      if (this.state.wordInput.toLowerCase() === this.props.answer) {
         if(!this.state.invalid)
           this.props.queueRecordCorrect(this.props.word);
         this.props.getWord(this.props.token);
