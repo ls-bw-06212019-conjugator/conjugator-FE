@@ -82,7 +82,7 @@ export const Settings = connect(
                       <input 
                         disabled={disabled}
                         checked={disabled ? false : 
-                          !this.props.filteredSettings.includes('vosotros')
+                          this.props.filteredSettings.includes('vosotros')
                         }
                         onChange={this.updateFilter}
                         type='checkbox'
