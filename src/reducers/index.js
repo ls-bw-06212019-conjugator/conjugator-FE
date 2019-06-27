@@ -139,7 +139,6 @@ const reducer = (state = initialState, action) => {
         attemptsToGetStats: 0
       }
     case actions.CLEAR_QUEUE:
-      console.log('clearing...');
       return {
         ...state,
         queueRecordIncorrect: null,
@@ -211,7 +210,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         settingGoal: false,
-        dailyGoal: action.payload
+        dailyGoal: action.payload.daily_goal,
+        dailyProgress: action.payload.daily_progress
       }
     case actions.POST_GOAL_FAILURE:
       return {

@@ -82,10 +82,10 @@ export const Stats = connect(
 
     update() {
       if (this.props.personalStats) {
-        console.log(this.props);
+        console.log(this.props.globalStats);
         if (
           this.props.personalStats.best_streak &&
-          this.state.bestStreak !== this.props.personalStats.best_streak
+          this.props.personalStats.best_streak > this.state.bestStreak
         ) {
           console.log(this.props.personalStats.best_streak);
           this.setState({
@@ -281,6 +281,7 @@ export const Stats = connect(
                     <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
                   </ModalFooter>
                 </Modal>
+                
               </div>
             </div>
           </div>

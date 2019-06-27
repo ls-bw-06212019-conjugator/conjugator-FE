@@ -144,7 +144,6 @@ export const getStats = token => dispatch => {
   dispatch({
     type: GETSTATS_START
   })
-  console.log(token);
   return axios.create({ headers: {
     token } }).get(STATS_ENDPOINT, { token: token })
     .then(res => {
@@ -208,20 +207,23 @@ export const clearQueue = () => dispatch => {
   return true;
 }
 
-export const setFilter = (newFilter, token) => dispatch => {
+export const setFilter = (filter, token) => dispatch => {
   dispatch({
     type: SET_FILTER_START
   })
   return axios.create({ headers: { token } })
   .post(SETTINGS_ENDPOINT, {
-    filter: newFilter
+    filter
   })
-  .then (res => {    dispatch ({
+  .then (res => {
+    console.log(res.data);
+    dispatch ({
       type: SET_FILTER_SUCCESS,
-      payload: newFilter
+      payload: filter
     })
   })
   .catch(err => {
+    console.log(err.response);
     dispatch({
       type: SET_FILTER_FAILURE,
       payload: 'Unable to update settings!'
@@ -236,6 +238,7 @@ export const getSettings = token => dispatch => {
   return axios.create({ headers: { token } })
   .get(SETTINGS_ENDPOINT)
   .then(res => {
+    
     dispatch({
       type: GET_SETTINGS_SUCCESS,
       payload: res.data.filter
@@ -270,8 +273,9 @@ export const postGoal = (goal, token) => dispatch => {
   dispatch({
     type: POST_GOAL_START
   })
-  return axios.create({ header: { token }})
-  .post(GOAL_ENDPOINT, goal)
+  console.log(goal);
+  return axios.create({ headers: { token }})
+  .post(GOAL_ENDPOINT, { goal })
   .then(res => {
     console.log(res)
     dispatch({
