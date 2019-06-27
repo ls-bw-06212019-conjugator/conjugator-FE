@@ -20,7 +20,7 @@ export const Auth = connect(
 )(props => {
   // Call setIsSignup(bool) to set whether or not
   // we are signing up or logging in in state
-  const [isSignup, setIsSignup] = useState(false);
+  const [isSignup, setIsSignup] = useState(props.signup ? props.signup : false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
