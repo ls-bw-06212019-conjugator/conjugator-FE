@@ -51,7 +51,9 @@ export const login = (username, password) => dispatch => {
   })
   .catch ( err => {
     let error = '';
-    if(err.response.status >= 500) {
+    if(!err.response) {
+      error = 'Unable to estabish connection';
+    } else if(err.response.status >= 500) {
       error = err.response.statusText;
     } else {
       error = err.response.data.message;
