@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, Collapse, Spinner } from "reactstrap";
+import { Link } from "react-router-dom";
+import { Button, Collapse, Modal, ModalHeader, ModalBody, ModalFooter, Spinner } from "reactstrap";
 import { desktopHelp } from "../../img/desktop-accent-instructions.jpg";
 import { mobileHelp } from "../../img/mobile-accent-instructions.png";
 import { getWord, queueRecordCorrect, queueRecordIncorrect, recordCorrect, recordIncorrect } from "../../actions";
@@ -35,7 +36,8 @@ export const Conjugator = connect(
         wordInput: "",
         isWrong: false,
         collapse: false,
-        invalid: false
+        invalid: false,
+        modal: false
       };
 
       this.updatePredicate = this.updatePredicate.bind(this);
@@ -116,7 +118,7 @@ export const Conjugator = connect(
 
     testWord = e => {
       e.preventDefault();
-      if (this.state.wordInput === this.props.answer) {
+      if (this.state.wordInput.toLowerCase() === this.props.answer) {
         if(!this.state.invalid)
           this.props.queueRecordCorrect(this.props.word);
         this.props.getWord(this.props.token);
@@ -141,6 +143,12 @@ export const Conjugator = connect(
       this.setState({
         collapse: !this.state.collapse
       })
+    }
+
+    toggleModal = () => {
+      this.setState(prevState => ({
+        modal: !prevState.modal
+      }));
     }
 
     skipWord = () => {
@@ -197,8 +205,23 @@ export const Conjugator = connect(
           <Collapse className={this.state.isWrong || this.state.collapse ? "small-bot-marg" : "small-bot-marg hidden"} isOpen={this.state.collapse}>
             {this.props.answer}
           </Collapse>
+          {!this.props.token ?
+            <div className="signup-modal">
+              <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
+                <ModalHeader toggle={this.toggleModal}>Sign Up!</ModalHeader>
+                <ModalBody>
+                  By creating an account, you can have all of your personal stats and progress tracked for you! Also, you can customize your settings of which verbs you would like to practice!
+                </ModalBody>
+                <ModalFooter>
+                <Link to="/auth"><Button color="primary">Sign up for free</Button></Link>
+                  <Button color="secondary" size="sm" onClick={this.toggleModal}>I don't like free stuff</Button>
+                </ModalFooter>
+              </Modal>
+            </div> :
+            null
+          }
           <div className="bottom-sections">
-            <Stats summarized recordCorrectWord={this.recordCorrect} recordIncorrectWord={this.recordIncorrect} />
+            <Stats pingSignup={this.toggleModal} summarized recordCorrectWord={this.recordCorrect} recordIncorrectWord={this.recordIncorrect} />
             <img
               src={
                 this.state.isDesktop

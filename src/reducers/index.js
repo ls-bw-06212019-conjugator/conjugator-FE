@@ -8,8 +8,8 @@ const initialState = {
   getWordError: '',
   gettingWord: false,
   word: {},
-  globalStats: localStorage.getItem('globalStats'),
-  personalStats: localStorage.getItem('personalStats'),
+  globalStats: true,
+  personalStats: true,
   queueRecordCorrect: null,
   queueRecordIncorrect: null,
   attemptsToGetStats: 0,
@@ -50,8 +50,7 @@ const reducer = (state = initialState, action) => {
     case actions.LOGOUT:
       localStorage.setItem('token', '');
       localStorage.setItem('username', '');
-      localStorage.setItem('globalStats', null);
-      localStorage.setItem('personalStats', null);
+      localStorage.setItem('filteredSettings', null);
       return {
         ...state,
         loggingIn: false,
@@ -113,8 +112,6 @@ const reducer = (state = initialState, action) => {
         attemptsToGetStats: state.attemptsToGetStats + 1
       }
     case actions.GETSTATS_SUCCESS:
-      localStorage.setItem('globalStats', action.payload.globals);
-      localStorage.setItem('personalStats', action.payload.personal);
       return {
         ...state,
         gettingStats: false,

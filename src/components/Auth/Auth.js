@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 import "./Auth.scss";
 
-import { login, signup, setAuthError } from "../../actions";
+import { login, signup as doSignup, setAuthError } from "../../actions";
 
 const mapAuth = state => ({
   token: state.token,
@@ -16,11 +16,11 @@ const mapAuth = state => ({
 
 export const Auth = connect(
   mapAuth,
-  { login, signup, setAuthError }
+  { login, doSignup, setAuthError }
 )(props => {
   // Call setIsSignup(bool) to set whether or not
   // we are signing up or logging in in state
-  const [isSignup, setIsSignup] = useState(false);
+  const [isSignup, setIsSignup] = useState(props.signup ? true : false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -36,7 +36,7 @@ export const Auth = connect(
     if (isSignup) {
       if (password !== confirmPassword) {
         props.setAuthError("Passwords do not match!");
-      } else props.signup(username, password);
+      } else props.doSignup(username, password);
     } else {
       props.login(username, password);
     }
