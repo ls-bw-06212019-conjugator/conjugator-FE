@@ -41,6 +41,7 @@ export const Stats = connect(
       goal: "",
       flashCorrect: false,
       flashIncorrect: false
+    }
 
     recordCorrect = word => {
       console.log("correct");
