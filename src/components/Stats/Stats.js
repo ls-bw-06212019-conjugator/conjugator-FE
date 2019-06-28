@@ -1,14 +1,6 @@
 import React, { Component } from "react";
 
-import {
-  Alert,
-  Button,
-  Spinner,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter
-} from "reactstrap";
+import { Alert, Button, Spinner, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 import { Link } from "react-router-dom";
 
@@ -16,7 +8,7 @@ import { connect } from "react-redux";
 
 import { getStats, clearQueue, logout, getGoal, postGoal } from "../../actions";
 
-import BigStat from "./BigStat";
+import BigStat from './BigStat';
 
 import "./Stats.scss";
 
@@ -49,7 +41,6 @@ export const Stats = connect(
       goal: "",
       flashCorrect: false,
       flashIncorrect: false
-    };
 
     recordCorrect = word => {
       console.log("correct");
@@ -102,10 +93,8 @@ export const Stats = connect(
     };
 
     componentDidMount() {
-      if (this.props.token) {
-        this.props.getStats(this.props.token);
-        this.props.getGoal(this.props.token);
-      }
+      this.props.getStats(this.props.token);
+      this.props.getGoal(this.props.token);
     }
 
     componentDidUpdate() {
@@ -154,39 +143,27 @@ export const Stats = connect(
       this.setState(prevState => ({
         modal: !prevState.modal
       }));
-    };
+    }
 
     saveGoal = goal => {
       this.toggleModal();
-      this.props.postGoal(parseInt(goal), this.props.token);
-    };
+      this.props.postGoal(parseInt(goal) ,this.props.token);
+    }
 
     getTotalCorrect = () => {
       let sum = 0;
-      sum += this.props.personalStats.present_c
-        ? this.props.personalStats.present_c.length
-        : 0;
-      sum += this.props.personalStats.future_c
-        ? this.props.personalStats.future_c.length
-        : 0;
-      sum += this.props.personalStats.imperfect_c
-        ? this.props.personalStats.imperfect_c.length
-        : 0;
-      sum += this.props.personalStats.preterite_c
-        ? this.props.personalStats.preterite_c.length
-        : 0;
-      sum += this.props.personalStats.conditional_c
-        ? this.props.personalStats.conditional_c.length
-        : 0;
+      sum += this.props.personalStats.present_c ? this.props.personalStats.present_c.length : 0;
+      sum += this.props.personalStats.future_c ? this.props.personalStats.future_c.length : 0;
+      sum += this.props.personalStats.imperfect_c ? this.props.personalStats.imperfect_c.length : 0;
+      sum += this.props.personalStats.preterite_c ? this.props.personalStats.preterite_c.length : 0;
+      sum += this.props.personalStats.conditional_c ? this.props.personalStats.conditional_c.length : 0;
       sum += this.props.personalStats.present_perfect_c
         ? this.props.personalStats.present_perfect_c.length
         : 0;
       sum += this.props.personalStats.future_perfect_c
         ? this.props.personalStats.future_perfect_c.length
         : 0;
-      sum += this.props.personalStats.past_perfect_c
-        ? this.props.personalStats.past_perfect_c.length
-        : 0;
+      sum += this.props.personalStats.past_perfect_c ? this.props.personalStats.past_perfect_c.length : 0;
       sum += this.props.personalStats.preterite_archaic_c
         ? this.props.personalStats.preterite_archaic_c.length
         : 0;
@@ -198,30 +175,18 @@ export const Stats = connect(
 
     getTotalIncorrect = () => {
       let sum = 0;
-      sum += this.props.personalStats.present_i
-        ? this.props.personalStats.present_i.length
-        : 0;
-      sum += this.props.personalStats.future_i
-        ? this.props.personalStats.future_i.length
-        : 0;
-      sum += this.props.personalStats.imperfect_i
-        ? this.props.personalStats.imperfect_i.length
-        : 0;
-      sum += this.props.personalStats.preterite_i
-        ? this.props.personalStats.preterite_i.length
-        : 0;
-      sum += this.props.personalStats.conditional_i
-        ? this.props.personalStats.conditional_i.length
-        : 0;
+      sum += this.props.personalStats.present_i ? this.props.personalStats.present_i.length : 0;
+      sum += this.props.personalStats.future_i ? this.props.personalStats.future_i.length : 0;
+      sum += this.props.personalStats.imperfect_i ? this.props.personalStats.imperfect_i.length : 0;
+      sum += this.props.personalStats.preterite_i ? this.props.personalStats.preterite_i.length : 0;
+      sum += this.props.personalStats.conditional_i ? this.props.personalStats.conditional_i.length : 0;
       sum += this.props.personalStats.present_perfect_i
         ? this.props.personalStats.present_perfect_i.length
         : 0;
       sum += this.props.personalStats.future_perfect_i
         ? this.props.personalStats.future_perfect_i.length
         : 0;
-      sum += this.props.personalStats.past_perfect_i
-        ? this.props.personalStats.past_perfect_i.length
-        : 0;
+      sum += this.props.personalStats.past_perfect_i ? this.props.personalStats.past_perfect_i.length : 0;
       sum += this.props.personalStats.preterite_archaic_i
         ? this.props.personalStats.preterite_archaic_i.length
         : 0;
@@ -239,8 +204,6 @@ export const Stats = connect(
         : this.state.flashIncorrect
         ? "incorrect"
         : null;
-
-      console.log(this.state);
 
       const tenses = [
         "present",
@@ -307,7 +270,7 @@ export const Stats = connect(
       ) : (
         <div className="stats">
           <div className="top">
-            <div className="stat-box">
+          <div className="stat-box">
               <h3>Total Attempts</h3>
               <div className="box">
                 <h2>{this.getTotalCorrect() + this.getTotalIncorrect()}</h2>
@@ -319,7 +282,7 @@ export const Stats = connect(
               <div className="box">
                 <h2>{this.state.bestStreak}</h2>
                 <p>better than</p>
-                <h4>{this.props.personalStats.streak_position}%</h4>
+                <h4>82%</h4>
                 <p>of all other users</p>
               </div>
             </div>
@@ -335,67 +298,46 @@ export const Stats = connect(
                   %
                 </h2>
                 <p>better than</p>
-                <h4>{this.props.personalStats.percent_position}%</h4>
+                <h4>82%</h4>
                 <p>of all other users</p>
               </div>
             </div>
             <div className="stat-box">
               <h3>Today's Goal</h3>
               <div className="box">
-                <h2>
-                  {this.props.dailyProgress}/{this.props.dailyGoal}
-                </h2>
+                <h2>{this.props.dailyProgress}/{this.props.dailyGoal}</h2>
                 <p>correct conjugations</p>
-                <Button color="link" onClick={this.toggleModal}>
-                  Edit daily goal
-                </Button>
+                <Button color="link" onClick={this.toggleModal}>Edit daily goal</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
-                  <ModalHeader toggle={this.toggleModal}>
-                    Edit daily goal
-                  </ModalHeader>
+                  <ModalHeader toggle={this.toggleModal}>Edit daily goal</ModalHeader>
                   <ModalBody>
-                    <form className="set-daily-goal">
-                      <input
-                        type="number"
-                        className="input"
-                        placeholder=" daily goal"
-                        onChange={e =>
-                          this.setState({
-                            goal: e.target.value
-                          })
-                        }
+                    <form className='set-daily-goal'>
+                      <input 
+                        type="number" 
+                        className='input'
+                        placeholder=" daily goal" 
+                        onChange={e => this.setState({
+                          goal: e.target.value
+                        })} 
                         value={this.state.goal}
                       />
                     </form>
                   </ModalBody>
                   <ModalFooter>
-                    <Button
-                      color="primary"
-                      onClick={() => this.saveGoal(this.state.goal)}
-                    >
-                      Save new goal
-                    </Button>
-                    <Button color="secondary" onClick={this.toggleModal}>
-                      Cancel
-                    </Button>
+                    <Button color="primary" onClick={() => this.saveGoal(this.state.goal)}>Save new goal</Button>
+                    <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
                   </ModalFooter>
                 </Modal>
+                
               </div>
             </div>
           </div>
           <div className="bottom">
             <h3>Performance by tense</h3>
-            {this.props.gettingStats ? (
-              <Spinner color="info" />
-            ) : (
-              tenses.map(tense => (
-                <BigStat
-                  key={tense}
-                  valueName={tense}
-                  stats={this.props.personalStats}
-                />
-              ))
-            )}
+            { this.props.gettingStats ?
+              <Spinner color='info' /> :
+              tenses.map(tense => <BigStat key={tense} valueName={tense} stats={this.props.personalStats}/>)
+            }
           </div>
         </div>
       );
