@@ -31,12 +31,16 @@
         word-wrap: 0;
         margin: 20px 0;
         font-size: 26px;
+        h2 {
+            font-size: 32px;
+            transition: font-size 0.3s;
+        }
         width: 100%;
         height: 56px;
         justify-content: center;
         align-items: center;
 
-        transition: font-size 0.3s;
+        
 
         @media (max-width: 520px) {
             h2 {
@@ -65,7 +69,7 @@
         align-items: center;
 
         .pronoun {
-            min-width: 64px;
+            min-width: 62px;
             position: absolute;
             color: #2D2D2D;
             font-size: 18px;
@@ -76,10 +80,15 @@
 
             text-align: center;
 
-            transition: transform 0.2s;
+            transition: transform 0.2s, font-size 0.2s;
 
             @media (max-width: 572px) {
                 transform: translateX(-164px);
+                font-size: 16px;
+            }
+
+            @media (max-width: 516px){
+                transform: translateX(-154px);
             }
         }
 
@@ -95,7 +104,11 @@
 
             width: 480px;
 
-            transition: border 0.3s;
+            transition: border 0.3s, font-size 0.2s;
+
+            @media (max-width: 520px){
+                font-size: 22px;
+            }
         }
 
         input:focus {
@@ -119,6 +132,10 @@
 
             &:hover {
                 background-color: #03FF76;
+            }
+
+            @media (max-width: 577px) {
+                transform: translateX(180px);
             }
 
             @media (max-width: 524px) {
