@@ -139,7 +139,7 @@ export const Conjugator = connect(
 
     toggleCollapse = e => {
       this.setState({invalid: true});
-      // e.preventDefault();
+      e.preventDefault();
       this.setState({
         collapse: !this.state.collapse
       })

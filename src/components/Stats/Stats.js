@@ -44,7 +44,7 @@ export const Stats = connect(
     }
 
     recordCorrect = word => {
-      console.log("correct");
+      // console.log("correct");
       const newStats = {
         currentAttempts: this.state.currentAttempts + 1,
         flashCorrect: true,
@@ -117,7 +117,7 @@ export const Stats = connect(
           this.props.personalStats.best_streak &&
           this.props.personalStats.best_streak > this.state.bestStreak
         ) {
-          console.log(this.props.personalStats.best_streak);
+          // console.log(this.props.personalStats.best_streak);
           this.setState({
             bestStreak: this.props.personalStats.best_streak
           });
