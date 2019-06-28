@@ -314,7 +314,7 @@ export const Stats = connect(
               <div className="box">
                 <h2>{this.state.bestStreak}</h2>
                 <p>better than</p>
-                <h4>82%</h4>
+                <h4>{this.props.personalStats.streak_position}%</h4>
                 <p>of all other users</p>
               </div>
             </div>
@@ -330,7 +330,7 @@ export const Stats = connect(
                   %
                 </h2>
                 <p>better than</p>
-                <h4>82%</h4>
+                <h4>{this.props.personalStats.percent_position}%</h4>
                 <p>of all other users</p>
               </div>
             </div>
