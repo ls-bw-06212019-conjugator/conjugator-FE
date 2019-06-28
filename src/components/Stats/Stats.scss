@@ -9,6 +9,8 @@
   flex-flow: column nowrap;
   justify-content: space-evenly;
   max-width: 1024px;
+  border: 2px solid white;
+  transition: border 1s;
   cursor: default;
   user-select: none;
   .stat {
@@ -37,6 +39,38 @@
     height: 128px;
     margin: 6px;
   }
+  
+  @keyframes incorrect {
+    from {
+      border: 3px solid crimson;
+    }
+  
+    to {
+      border: 3px solid white;
+    }
+  }
+
+  @keyframes correct {
+    from {
+      border: 3px solid #2ead4c;
+    }
+  
+    to {
+      border: 3px solid white;
+    }
+  }
+
+  .stat.correct {
+    animation: correct 0.8s ease-out;
+    // border: 1px solid #2ead4c;
+  }
+
+  .stat.incorrect {
+    animation: incorrect 0.8s ease-out;
+    // border: 1px solid crimson;
+  }
+
+
   .top {
     display: flex;
     justify-content: space-between;

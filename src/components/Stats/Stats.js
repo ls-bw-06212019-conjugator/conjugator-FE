@@ -38,13 +38,15 @@ export const Stats = connect(
       streak: 0,
       bestStreak: 0,
       modal: false,
-      goal: ''
-    };
+      goal: "",
+      flashCorrect: false,
+      flashIncorrect: false
 
     recordCorrect = word => {
       console.log("correct");
       const newStats = {
         currentAttempts: this.state.currentAttempts + 1,
+        flashCorrect: true,
         correct: this.state.correct + 1,
         streak: this.state.streak + 1,
         bestStreak:
@@ -52,7 +54,13 @@ export const Stats = connect(
             ? this.state.streak + 1
             : this.state.bestStreak
       };
+      if (!this.state.flashCorrect)
+        setTimeout(() => this.resetFlash(true), 1000);
+      else {
+        this.resetFlash(true);
+      }
       this.setState(newStats);
+
       this.props.clearQueue();
       this.props.recordCorrectWord(word, this.props.token);
       return true;
@@ -61,15 +69,27 @@ export const Stats = connect(
     recordIncorrect = word => {
       const newStats = {
         currentAttempts: this.state.currentAttempts + 1,
+        flashIncorrect: true,
         incorrect: this.state.incorrect + 1,
         streak: 0
       };
+      if (!this.state.flashIncorrect)
+        setTimeout(() => this.resetFlash(false), 1000);
+      else {
+        this.resetFlash(true);
+      }
       this.setState(newStats);
-
       this.props.clearQueue();
 
       this.props.recordIncorrectWord(word, this.props.token);
       return true;
+    };
+
+    resetFlash = correct => {
+      this.setState({
+        flashCorrect: correct ? false : this.state.flashCorrect,
+        flashIncorrect: correct ? this.state.flashIncorrect : false
+      });
     };
 
     componentDidMount() {
@@ -82,13 +102,16 @@ export const Stats = connect(
     }
 
     update() {
-      if (!this.props.token && this.state.currentAttempts === 5 && !this.state.userBuggedAlready) {
+      if (
+        !this.props.token &&
+        this.state.currentAttempts === 5 &&
+        !this.state.userBuggedAlready
+      ) {
         this.props.pingSignup();
-        this.setState({userBuggedAlready: true});
+        this.setState({ userBuggedAlready: true });
       }
 
       if (this.props.personalStats) {
-        console.log(this.props.globalStats);
         if (
           this.props.personalStats.best_streak &&
           this.props.personalStats.best_streak > this.state.bestStreak
@@ -174,8 +197,26 @@ export const Stats = connect(
     };
 
     render() {
+      const statFlashCorrect = this.state.flashCorrect ? "correct" : null;
+      const statFlashIncorrect = this.state.flashIncorrect ? "incorrect" : null;
+      const statFlashBoth = this.state.flashCorrect
+        ? "correct"
+        : this.state.flashIncorrect
+        ? "incorrect"
+        : null;
 
-      const tenses = ['present', 'future', 'imperfect', 'preterite', 'conditional', 'present_perfect', 'future_perfect', 'past_perfect', 'preterite_archaic', 'conditional_perfect'];
+      const tenses = [
+        "present",
+        "future",
+        "imperfect",
+        "preterite",
+        "conditional",
+        "present_perfect",
+        "future_perfect",
+        "past_perfect",
+        "preterite_archaic",
+        "conditional_perfect"
+      ];
 
       const percentCorrect = Math.floor(
         (this.state.correct / this.state.currentAttempts) * 100
@@ -188,19 +229,19 @@ export const Stats = connect(
         </Alert>
       ) : this.props.summarized ? (
         <div className={`stats ${this.props.summarized ? "summarized" : null}`}>
-          <div className="stat">
+          <div className={`stat ${statFlashBoth}`}>
             <h4>Total Attempts</h4>
             <p>{this.state.currentAttempts}</p>
           </div>
-          <div className="stat">
+          <div className={`stat ${statFlashCorrect}`}>
             <h4>Correct</h4>
             <p>{this.state.correct}</p>
           </div>
-          <div className="stat">
+          <div className={`stat ${statFlashIncorrect}`}>
             <h4>Incorrect</h4>
             <p>{this.state.incorrect}</p>
           </div>
-          <div className="stat">
+          <div className={`stat ${statFlashBoth}`}>
             <h4>% correct</h4>
             <p>
               {!Number.isNaN(percentCorrect)
