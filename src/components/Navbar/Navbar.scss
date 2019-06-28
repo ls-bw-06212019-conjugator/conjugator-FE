@@ -7,7 +7,7 @@
   width: 100%;
   top: 0;
   right: 0;
-  
+
   align-items: space-between;
 
   transition: width 0.2s;
@@ -21,10 +21,23 @@
     width: 70vw;
     display: flex;
     flex-direction: column;
-    h3 {
-      margin-top: 24px;
-      color: #63baff;
-      padding: 24px;
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+      h3 {
+        margin-top: 24px;
+        color: #63baff;
+        padding: 24px;
+      }
+      h4 {
+        color: rgb(219, 85, 112);
+        padding: 24px;
+        margin-top: 24px;
+        user-select: none;
+        cursor: pointer;
+        margin-right: 24px;
+      }
     }
     box-shadow: 0 0 15px 0px gray;
     .navlink {

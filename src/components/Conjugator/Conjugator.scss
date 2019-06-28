@@ -104,10 +104,11 @@
 
             width: 480px;
 
-            transition: border 0.3s, font-size 0.2s;
+            transition: border 0.3s, font-size 0.2s, width 0.2s;
 
             @media (max-width: 520px){
                 font-size: 22px;
+                width: 500px;
             }
         }
 

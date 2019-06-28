@@ -125,7 +125,10 @@ export const Navbar = connect(
           <nav className={`mobile-nav ${mobileNavClassName}`}>
             <div className="empty-space" onClick={this.toggleMobileNav} />
             <div className="nav-contents">
-              <h3>Conjugator</h3>
+              <div className='title'>
+                <h3>Conjugator</h3>
+                <h4 onClick={this.toggleMobileNav}>x</h4>
+              </div>
               <NavLink
                 onClick={this.toggleMobileNav}
                 activeClassName="active"
