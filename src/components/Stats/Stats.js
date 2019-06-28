@@ -102,8 +102,10 @@ export const Stats = connect(
     };
 
     componentDidMount() {
-      this.props.getStats(this.props.token);
-      this.props.getGoal(this.props.token);
+      if (this.props.token) {
+        this.props.getStats(this.props.token);
+        this.props.getGoal(this.props.token);
+      }
     }
 
     componentDidUpdate() {
@@ -338,7 +340,9 @@ export const Stats = connect(
               <h3>Today's Goal</h3>
               <div className="box">
                 <h2>
-                  {this.props.dailyProgress}/{this.props.dailyGoal}
+                  {this.props.token
+                    ? `${this.props.dailyProgress}/${this.props.dailyGoal}`
+                    : `0/0`}
                 </h2>
                 <p>correct conjugations</p>
                 <Button color="link" onClick={this.toggleModal}>

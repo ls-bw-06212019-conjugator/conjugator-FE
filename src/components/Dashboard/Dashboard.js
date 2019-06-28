@@ -7,16 +7,11 @@ import { withAuth } from '../';
 import './Dashboard.scss';
 
 const mapDashboard = state => ({
-  // Figure out what state we need to pull
   username: state.username
 });
 
 export const Dashboard = connect(mapDashboard)(withAuth(
   class extends React.Component {
-    state = {
-
-    }
-
     render() {
       return (
         <div className='dashboard'>
