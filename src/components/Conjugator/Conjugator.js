@@ -161,6 +161,7 @@ export const Conjugator = connect(mapConjugator, {
     toggleCollapse = e => {
       this.setState({ invalid: true });
       e.preventDefault();
+      this.inputRef.current.focus();
       this.setState({
         collapse: !this.state.collapse
       });
@@ -174,6 +175,7 @@ export const Conjugator = connect(mapConjugator, {
 
     skipWord = () => {
       this.props.getWord(this.props.token);
+      this.inputRef.current.focus();
       this.setState({
         wordInput: "",
         collapse: false
@@ -255,7 +257,7 @@ export const Conjugator = connect(mapConjugator, {
             }
             onClick={this.toggleCollapse}
           >
-            Incorrect Answer! Click to Show Answer
+            Incorrect answer! Click to show answer
           </Button>
           <Collapse
             className={
