@@ -6,12 +6,14 @@
     max-width: 960px;
     margin: 2rem auto;
     user-select: none;
+    height: 80vh;
     cursor: default;
     header {
         display: flex;
 
         @media (max-width: 780px) {
             flex-direction: column;
+            margin: 0 1rem;
         }
 
         justify-content: space-between;

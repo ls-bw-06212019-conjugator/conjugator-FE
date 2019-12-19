@@ -32,10 +32,13 @@ const mapStateToStats = state => ({
   dailyProgress: state.dailyProgress
 });
 
-export const Stats = connect(
-  mapStateToStats,
-  { getStats, clearQueue, logout, getGoal, postGoal }
-)(
+export const Stats = connect(mapStateToStats, {
+  getStats,
+  clearQueue,
+  logout,
+  getGoal,
+  postGoal
+})(
   class extends Component {
     // Localized & Personalized Stats
     state = {
@@ -256,7 +259,9 @@ export const Stats = connect(
         (this.state.correct / this.state.currentAttempts) * 100
       );
       return this.props.gettingStats ? (
-        <Spinner color="info" />
+        <div className="loading">
+          <Spinner color="info" />
+        </div>
       ) : this.props.attemptsToGetStats >= 50 ? (
         <Alert color="danger">
           Timed out, unable to get stats! Signing out...
