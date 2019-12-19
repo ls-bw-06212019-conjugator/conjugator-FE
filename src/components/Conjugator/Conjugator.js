@@ -60,6 +60,8 @@ export const Conjugator = connect(mapConjugator, {
       };
 
       this.updatePredicate = this.updatePredicate.bind(this);
+
+      this.inputRef = React.createRef();
     }
 
     componentWillMount() {
@@ -137,6 +139,7 @@ export const Conjugator = connect(mapConjugator, {
 
     testWord = e => {
       e.preventDefault();
+      this.inputRef.current.focus();
       if (this.state.wordInput.toLowerCase() === this.props.answer) {
         if (!this.state.invalid) this.props.queueRecordCorrect(this.props.word);
         this.props.getWord(this.props.token);
@@ -221,11 +224,13 @@ export const Conjugator = connect(mapConjugator, {
               autocorrect="off"
               autocapitalize="off"
               spellcheck="false"
+              autoFocus
               value={this.state.wordInput}
               onChange={this.handleUpdateWord}
               maxLength={25}
               type="text"
               placeholder=" type answer here"
+              ref={this.inputRef}
             />
             <button
               action="submit"
