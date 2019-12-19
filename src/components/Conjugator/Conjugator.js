@@ -1,10 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Button, Collapse, Modal, ModalHeader, ModalBody, ModalFooter, Spinner } from "reactstrap";
+import {
+  Button,
+  Collapse,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Spinner
+} from "reactstrap";
 import { desktopHelp } from "../../img/desktop-accent-instructions.jpg";
 import { mobileHelp } from "../../img/mobile-accent-instructions.png";
-import { getWord, queueRecordCorrect, queueRecordIncorrect, recordCorrect, recordIncorrect } from "../../actions";
+import {
+  getWord,
+  queueRecordCorrect,
+  queueRecordIncorrect,
+  recordCorrect,
+  recordIncorrect
+} from "../../actions";
 
 import { Stats } from "../Stats/Stats";
 import "./Conjugator.scss";
@@ -24,10 +38,15 @@ const mapConjugator = state => {
   };
 };
 
-export const Conjugator = connect(
-  mapConjugator,
-  { desktopHelp, mobileHelp, getWord, queueRecordCorrect, queueRecordIncorrect, recordCorrect, recordIncorrect }
-)(
+export const Conjugator = connect(mapConjugator, {
+  desktopHelp,
+  mobileHelp,
+  getWord,
+  queueRecordCorrect,
+  queueRecordIncorrect,
+  recordCorrect,
+  recordIncorrect
+})(
   class extends React.Component {
     constructor(props) {
       super(props);
@@ -119,18 +138,17 @@ export const Conjugator = connect(
     testWord = e => {
       e.preventDefault();
       if (this.state.wordInput.toLowerCase() === this.props.answer) {
-        if(!this.state.invalid)
-          this.props.queueRecordCorrect(this.props.word);
+        if (!this.state.invalid) this.props.queueRecordCorrect(this.props.word);
         this.props.getWord(this.props.token);
-        this.setState({invalid: false});
+        this.setState({ invalid: false });
         this.setState({
           wordInput: "",
           collapse: false
         });
       } else {
-        if(!this.state.invalid)
+        if (!this.state.invalid)
           this.props.queueRecordIncorrect(this.props.word);
-        this.setState({invalid: false});
+        this.setState({ invalid: false });
         this.setState({
           isWrong: true
         });
@@ -138,39 +156,43 @@ export const Conjugator = connect(
     };
 
     toggleCollapse = e => {
-      this.setState({invalid: true});
+      this.setState({ invalid: true });
       e.preventDefault();
       this.setState({
         collapse: !this.state.collapse
-      })
-    }
+      });
+    };
 
     toggleModal = () => {
       this.setState(prevState => ({
         modal: !prevState.modal
       }));
-    }
+    };
 
     skipWord = () => {
       this.props.getWord(this.props.token);
       this.setState({
         wordInput: "",
         collapse: false
-      })
-    }
+      });
+    };
 
     recordCorrect = (word, token) => {
       this.props.recordCorrect(word, token);
-    }
+    };
 
     recordIncorrect = (word, token) => {
       this.props.recordIncorrect(word, token);
-    }
+    };
 
     render() {
       return (
         <div className="conjugator">
-          {this.props.gettingWord ? <div className='tense' /> : <h4 className="tense">{this.props.tense}</h4>}
+          {this.props.gettingWord ? (
+            <div className="tense" />
+          ) : (
+            <h4 className="tense">{this.props.tense}</h4>
+          )}
           {this.props.gettingWord ? (
             <div className="verb-container">
               <Spinner color="info" />
@@ -181,13 +203,18 @@ export const Conjugator = connect(
               <p>{this.props.wordInEnglish}</p>
             </div>
           )}
-          { this.props.filteredSettings && (!this.props.filteredSettings.includes('subjunctive') || !this.props.filteredSettings.includes('imperative')) ?
-          <p className='mood'>Mood: {this.props.type}</p> : null
-          }
-          <form onSubmit={this.testWord}>
-            <span className='pronoun'>
-              <b>{this.props.pronoun} </b>
-            </span>
+          {this.props.filteredSettings &&
+          (!this.props.filteredSettings.includes("subjunctive") ||
+            !this.props.filteredSettings.includes("imperative")) ? (
+            <p className="mood">Mood: {this.props.type}</p>
+          ) : null}
+          <form
+            className={this.state.isWrong ? "wrong" : null}
+            onSubmit={this.testWord}
+          >
+            <div className="pronoun">
+              {this.props.pronoun}
+            </div>
             <input
               // Disable any autocorrect/autofill if any
               autocomplete="off"
@@ -200,32 +227,72 @@ export const Conjugator = connect(
               type="text"
               placeholder=" type answer here"
             />
-            <button action="submit" className={this.state.isWrong ? 'wrong' : null}>Submit</button>
+            <button
+              action="submit"
+              className={this.state.isWrong ? "wrong" : null}
+            >
+              Submit
+            </button>
           </form>
-          <Button color="link" className="skip small-bot-marg" onClick={this.skipWord}>Skip this Word</Button>
-          <Button color="danger" className={this.state.isWrong || this.state.collapse ? "small-bot-marg" : "small-bot-marg hidden"} onClick={this.toggleCollapse}>
+          <Button
+            color="link"
+            className="skip small-bot-marg"
+            onClick={this.skipWord}
+          >
+            Skip this Word
+          </Button>
+          <Button
+            color="danger"
+            className={
+              this.state.isWrong || this.state.collapse
+                ? "small-bot-marg"
+                : "small-bot-marg hidden"
+            }
+            onClick={this.toggleCollapse}
+          >
             Incorrect Answer! Click to Show Answer
-          </Button>          
-          <Collapse className={this.state.isWrong || this.state.collapse ? "small-bot-marg" : "small-bot-marg hidden"} isOpen={this.state.collapse}>
+          </Button>
+          <Collapse
+            className={
+              this.state.isWrong || this.state.collapse
+                ? "small-bot-marg"
+                : "small-bot-marg hidden"
+            }
+            isOpen={this.state.collapse}
+          >
             {this.props.answer}
           </Collapse>
-          {!this.props.token ?
+          {!this.props.token ? (
             <div className="signup-modal">
               <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
                 <ModalHeader toggle={this.toggleModal}>Sign Up!</ModalHeader>
                 <ModalBody>
-                  By creating an account, you can have all of your personal stats and progress tracked for you! Also, you can customize your settings of which verbs you would like to practice!
+                  By creating an account, you can have all of your personal
+                  stats and progress tracked for you! Also, you can customize
+                  your settings of which verbs you would like to practice!
                 </ModalBody>
                 <ModalFooter>
-                <Link to="/auth"><Button color="primary">Sign up for free</Button></Link>
-                  <Button color="secondary" size="sm" onClick={this.toggleModal}>I don't like free stuff</Button>
+                  <Link to="/auth">
+                    <Button color="primary">Sign up for free</Button>
+                  </Link>
+                  <Button
+                    color="secondary"
+                    size="sm"
+                    onClick={this.toggleModal}
+                  >
+                    I don't like free stuff
+                  </Button>
                 </ModalFooter>
               </Modal>
-            </div> :
-            null
-          }
+            </div>
+          ) : null}
           <div className="bottom-sections">
-            <Stats pingSignup={this.toggleModal} summarized recordCorrectWord={this.recordCorrect} recordIncorrectWord={this.recordIncorrect} />
+            <Stats
+              pingSignup={this.toggleModal}
+              summarized
+              recordCorrectWord={this.recordCorrect}
+              recordIncorrectWord={this.recordIncorrect}
+            />
             <img
               src={
                 this.state.isDesktop

@@ -64,83 +64,69 @@
     }
     form {
         display: flex;
+        max-width: 480px;
         width: 100%;
-        justify-content: center;
+        height: 48px;
+        justify-content: space-between;
         align-items: center;
+        overflow: hidden;
+
+        border: 1px solid #686868;
+        border-radius: 4px;
+
+        transition: border 0.3s;
 
         .pronoun {
-            min-width: 62px;
-            position: absolute;
+            padding: 8px 16px;
+            width: 100%;
+            flex-shrink: 500;
+            font-weight: bolder;
             color: #2D2D2D;
             font-size: 18px;
-            transform: translateX(-188px) translateY(1px);
             user-select: none;
             cursor: default;
             vertical-align: center;
 
             text-align: center;
 
-            transition: transform 0.2s, font-size 0.2s;
+            transition: font-size 0.2s;
 
             @media (max-width: 572px) {
-                transform: translateX(-164px);
                 font-size: 16px;
-            }
-
-            @media (max-width: 516px){
-                transform: translateX(-154px);
             }
         }
 
         input {
             padding: 6px;
-            padding-left: 96px;
             font-size: 24px;
             outline: none;
             font-weight: bold;
             margin: 0.5rem;
-            border: 1px solid #686868;
-            border-radius: 4px;
+            border: none;
+            width: 100%;
+            height: 100%;
 
-            width: 480px;
-
-            transition: border 0.3s, font-size 0.2s, width 0.2s;
+            transition: width 0.2s;
 
             @media (max-width: 520px){
                 font-size: 22px;
-                width: 500px;
             }
-        }
-
-        input:focus {
-            border: 1px solid #2ead4c;
-        }
-        input.wrong {
-            border: 1px solid crimson;
         }
 
         button {
             background-color: #2ead4c;
             border-radius: 5px;
             border: none;
+            margin-right: 6px;
             padding: 4px 8px;
             color: white;
             font-weight: bold;
-            position: absolute;
-            transform: translateX(196px);
+            flex-grow: 500;
 
-            transition: transform 0.3s, background-color 0.3s;
+            transition: background-color 0.3s;
 
             &:hover {
                 background-color: #03FF76;
-            }
-
-            @media (max-width: 577px) {
-                transform: translateX(180px);
-            }
-
-            @media (max-width: 524px) {
-                transform: translateX(154px);
             }
         }
 
@@ -148,6 +134,14 @@
             background-color: crimson;
         }
     }
+
+    form:focus-within {
+        border: 1px solid #2ead4c;
+    }
+    form.wrong {
+        border: 1px solid crimson;
+    }
+
     .small-bot-marg {
         margin-bottom: 0.75rem;
     }
