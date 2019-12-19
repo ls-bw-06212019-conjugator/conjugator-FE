@@ -31,7 +31,6 @@ export const Settings = connect(
       }
 
       updateFilter = e => {
-        console.log('ran');
         if (e.target.checked) {
           const newFilter = Array.from(this.props.filteredSettings);
           newFilter.splice(

@@ -55,7 +55,6 @@ export const Stats = connect(mapStateToStats, {
     };
 
     recordCorrect = word => {
-      // console.log("correct");
       const newStats = {
         currentAttempts: this.state.currentAttempts + 1,
         flashCorrect: true,
@@ -134,7 +133,6 @@ export const Stats = connect(mapStateToStats, {
           this.props.personalStats.best_streak &&
           this.props.personalStats.best_streak > this.state.bestStreak
         ) {
-          // console.log(this.props.personalStats.best_streak);
           this.setState({
             bestStreak: this.props.personalStats.best_streak
           });
@@ -145,7 +143,6 @@ export const Stats = connect(mapStateToStats, {
         !this.props.gettingStats &&
         this.props.attemptsToGetStats < 50
       ) {
-        console.log("fetching stats...");
         this.props.getStats(this.props.token);
       } else if (this.props.token && this.props.attemptsToGetStats >= 50) {
         this.props.logout();

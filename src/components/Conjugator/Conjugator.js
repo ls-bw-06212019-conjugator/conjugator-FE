@@ -222,10 +222,10 @@ export const Conjugator = connect(mapConjugator, {
             </div>
             <input
               // Disable any autocorrect/autofill if any
-              autocomplete="off"
-              autocorrect="off"
-              autocapitalize="off"
-              spellcheck="false"
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck="false"
               autoFocus
               value={this.state.wordInput}
               onChange={this.handleUpdateWord}

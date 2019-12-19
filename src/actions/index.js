@@ -147,7 +147,6 @@ export const getStats = token => dispatch => {
   return axios.create({ headers: {
     token } }).get(STATS_ENDPOINT, { token: token })
     .then(res => {
-      console.log(res);
       dispatch({
         type: GETSTATS_SUCCESS,
         payload: res.data
@@ -175,7 +174,6 @@ export const recordCorrect = (word, token) => dispatch => {
 }
 
 export const recordIncorrect = (word, token) => dispatch => {
-  console.log(token);
   dispatch({
     type: RECORD_INCORRECT
   });
@@ -219,7 +217,6 @@ export const setFilter = (filter, token) => dispatch => {
     filter
   })
   .then (res => {
-    console.log(res.data);
     dispatch ({
       type: SET_FILTER_SUCCESS,
       payload: filter
@@ -262,7 +259,6 @@ export const getGoal = token => dispatch => {
   return axios.create({ headers: { token }})
   .get(GOAL_ENDPOINT)
   .then(res => {
-    // console.log(res)
     dispatch({
       type: GET_GOAL_SUCCESS,
       payload: res.data
@@ -276,11 +272,9 @@ export const postGoal = (goal, token) => dispatch => {
   dispatch({
     type: POST_GOAL_START
   })
-  console.log(goal);
   return axios.create({ headers: { token }})
   .post(GOAL_ENDPOINT, { goal })
   .then(res => {
-    console.log(res)
     dispatch({
       type: POST_GOAL_SUCCESS,
       payload: res.data
