@@ -189,7 +189,11 @@ export const Conjugator = connect(
               <b>{this.props.pronoun} </b>
             </span>
             <input
-              className={this.state.isWrong ? "wrong" : null}
+              // Disable any autocorrect/autofill if any
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
               value={this.state.wordInput}
               onChange={this.handleUpdateWord}
               maxLength={25}
