@@ -6,7 +6,6 @@
 
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 ![React](https://img.shields.io/badge/react-v16.8.6-blue)
-![Travis-ci]
 
 ## Contributors
 
@@ -75,4 +74,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Backend Documentation
 
-See [https://github.com/ls-bw-06212019-conjugator/conjugator-BE](here) for details on the backend of our project.
+See [here](https://github.com/ls-bw-06212019-conjugator/conjugator-BE) for details on the backend of our project.
