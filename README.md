@@ -2,7 +2,7 @@
 
 - An educational Spanish conjugation learning app with progress tracking features
 
-- You can find the deployed project [https://bw-conjugator.netlify.com/](here)
+- You can find the deployed project [here](https://bw-conjugator.netlify.com/)
 
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 ![React](https://img.shields.io/badge/react-v16.8.6-blue)
